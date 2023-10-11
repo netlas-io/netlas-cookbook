@@ -98,7 +98,7 @@ Before we get into the technical details, let's see how [Netlas.io](https://app.
 
 
 ## Getting information about IP or domain
-![Domain information gathering](https://github.com/cipher387/netlas-cookbook/blob/main/images/domain_information_gathering.png)
+![Domain information gathering](images/domain_information_gathering.png)
 
 
 Open [Netlas.io IP/Domain info](https://app.netlas.io/host/netlas.io/) and enter the domain name or IP. The following information will be displayed as a result:
@@ -115,7 +115,7 @@ Open [Netlas.io IP/Domain info](https://app.netlas.io/host/netlas.io/) and enter
 
 
 
-![Search by http title](https://github.com/cipher387/netlas-cookbook/blob/main/images/http_title_simple_example.png)
+![Search by http title](images/http_title_simple_example.png)
 
 
 Open [Netlas.io response search](https://app.netlas.io/responses/) and enter:
@@ -156,7 +156,7 @@ You can use this query to find pages which contain the word "netlas" inside thei
 A list of available filters for each search type is displayed on the right side of the page.
 
 
-![Filters Mapping Images](https://github.com/cipher387/netlas-cookbook/blob/main/images/filters.png)
+![Filters Mapping Images](images/filters.png)
 
 
 Filters allow you to search for servers based on many different parameters. For example:
@@ -234,7 +234,7 @@ Asterisk - many symbols, question mark - one symbol.
 
 ## Fuzziness
 
-![Fuzzines](https://github.com/cipher387/netlas-cookbook/blob/main/images/fuziness.png)
+![Fuzzines](images/fuziness.png)
 
 If you need to search not by exact, but by approximate value of a field (for example, pages whose titles contain all names consonant with Joseph), just add ~ to the query:
 
@@ -270,14 +270,14 @@ For more information on using regular expressions, see the examples in the Netla
 
 ### Download results
 
-![Download results](https://github.com/cipher387/netlas-cookbook/blob/main/images/download_results.png)
+![Download results](images/download_results.png)
 
 You can save your results (all or selected fields) in JSON and CSV format to view them in a format you like or automatically analyse them with different tools.
 
 
 ### Group results
 
-![Group results](https://github.com/cipher387/netlas-cookbook/blob/main/images/group_results.png)
+![Group results](images/group_results.png)
 
 
 You can group results by different field values to speed up the search time. For example, by domain name or geolocation.
@@ -285,13 +285,13 @@ You can group results by different field values to speed up the search time. For
 
 ### Share results
 
-![Share results](https://github.com/cipher387/netlas-cookbook/blob/main/images/share_results.png)
+![Share results](images/share_results.png)
 
 You can freely share links to search results (no registration is required to open them, unless the user has exceeded the free limit of 50 requests).
 
 ### Search history
 
-![Request history](https://github.com/cipher387/netlas-cookbook/blob/main/images/request_history.png)
+![Request history](images/request_history.png)
 
 
 Also remember that all the quiries you have made can be viewed on your profile page (link in the top right corner).
@@ -318,11 +318,11 @@ This is the very first place to start with the API. You don't even have to pay f
 
 
 
-![Profile page](https://github.com/cipher387/netlas-cookbook/blob/main/images/profile.png)
+![Profile page](images/profile.png)
 
 ## Tools for debugging API requests
 
-![Netlas shema](https://github.com/cipher387/netlas-cookbook/blob/main/images/netlas_shema.png)
+![Netlas shema](images/netlas_shema.png)
 
 
 You don't have to write scripts or create applications to start using the Netlas API. You can simply test it using our online tool [Netlas schema](https://app.netlas.io/schema).
@@ -344,7 +344,7 @@ Netlas sheme is still under development and you may find its analogs designed fo
 
 ## Structure of Netlas API JSON response 
 
-![JSON API response](https://github.com/cipher387/netlas-cookbook/blob/main/images/json_api_response.png)
+![JSON API response](images/json_api_response.png)
 
 
 Similar to other APIs, the Netlas API response consists of headers and a response body in JSON (JavaScript Object Notation) format. JSON files contain data in key-value format and can be analysed using almost any programming language.
@@ -355,7 +355,7 @@ If you use Netlas Shema, you can copy or download the response body and view it 
 
 ## Tools for working with data in JSON format
 
-![JSON Eveluator](https://github.com/cipher387/netlas-cookbook/blob/main/images/json_evaluator.png)
+![JSON Eveluator](images/json_evaluator.png)
 
 
 A little tip that will come in handy when writing code using the Netlas API. In order to understand the structure of a JSON file faster and find the path to get a certain value, use special tools such as:
@@ -393,7 +393,7 @@ Gitpod is a cloud development environment based on Ubuntu (Linux distribution). 
 [Run Netlas Cookbook in Gitpod](https://gitpod.io#https://github.com/netlas-io/netlas-cookbook)
 
 
-![Netlas Github](https://github.com/cipher387/netlas-cookbook/blob/main/images/netlas_python_example_py.png)
+![Netlas Github](images/netlas_python_example_py.png)
 
 
 Install Netlas Python library using pip (package installer for Python). Enter in the command line:
@@ -445,7 +445,7 @@ pass
 
 ## Netlas CLI Tools
 
-![Netlas cli tools](https://github.com/cipher387/netlas-cookbook/blob/main/images/netlas_cli_tools.png)
+![Netlas cli tools](images/netlas_cli_tools.png)
 
 You can also use the Netlas Python Library directly from the command line. For example:
 
@@ -542,7 +542,7 @@ Here are some examples in different popular programming languages.
 
 ### NodeJS 
 
-![Node JS Netlas](https://github.com/cipher387/netlas-cookbook/blob/main/images/netlas_nodejs.png)
+![Node JS Netlas](images/netlas_nodejs.png)
 
 
 Enter in the command line:
@@ -577,7 +577,7 @@ fetch('https://app.netlas.io/api/domains/?q=ivanov.com&source_type=include&start
 
 ### Ruby 
 
-![Ruby Netlas](https://github.com/cipher387/netlas-cookbook/blob/main/images/netlas_ruby.png)
+![Ruby Netlas](images/netlas_ruby.png)
 
 
 
@@ -619,7 +619,7 @@ puts jsonArray['items'][0]['data']['domain']
 
 ### Bash 
 
-![Bash Netlas](https://github.com/cipher387/netlas-cookbook/blob/main/images/netlas_bash.png)
+![Bash Netlas](images/netlas_bash.png)
 
 
 Enter in the command line:
@@ -691,7 +691,7 @@ You can read more about JQ here (I recommend paying special attention to data fi
 
 ## AI tools for writing code
 
-![You.com](https://github.com/cipher387/netlas-cookbook/blob/main/images/you_com.png)
+![You.com](images/you_com.png)
 
 
 If you encounter any problems when customising the Netlas Cookbook examples, we recommend that you seek help from AI tools for improving and writing code. For example:
@@ -706,7 +706,7 @@ When working with such services, you just need to describe in words the task you
 
 
 ## Code checkers
-![Python code check](https://github.com/cipher387/netlas-cookbook/blob/main/images/python_code_check.png)
+![Python code check](images/python_code_check.png)
 
 When you rework the Netlas Cookbook examples to suit your purposes, you may find that the code will not execute from some errors. Special online tools can help you find and fix them:  
 
@@ -740,7 +740,7 @@ Most often WHOIS data contains only the contact information of the company regis
 
 **Search query example**  
 
-![Whois email search example](https://github.com/cipher387/netlas-cookbook/blob/main/images/osint_email_search.png)
+![Whois email search example](images/osint_email_search.png)
 
 
 
@@ -775,7 +775,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Whois email search example Python](https://github.com/cipher387/netlas-cookbook/blob/main/images/osint_email_search_python.png)
+![Whois email search example Python](images/osint_email_search_python.png)
 
 
 
@@ -828,7 +828,7 @@ Netlas allows you to search for mentions of certain words in headings and in the
 
 **Search query example**  
 
-![Title/body search example](https://github.com/cipher387/netlas-cookbook/blob/main/images/osint_title_body_search.png)
+![Title/body search example](images/osint_title_body_search.png)
 
 
 
@@ -863,7 +863,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Whois email search example Python](https://github.com/cipher387/netlas-cookbook/blob/main/images/osint_title_body_search_python.png)
+![Whois email search example Python](images/osint_title_body_search_python.png)
 
 
 
@@ -912,7 +912,7 @@ We single out this task as a separate example, because searching for a phone num
 
 **Search query example**  
 
-![Phone number search example](https://github.com/cipher387/netlas-cookbook/blob/main/images/osint_phone_number_search.png)
+![Phone number search example](images/osint_phone_number_search.png)
 
 
 
@@ -951,7 +951,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Phone number search example Python](https://github.com/cipher387/netlas-cookbook/blob/main/images/osint_phonenumber_search_python.png)
+![Phone number search example Python](images/osint_phonenumber_search_python.png)
 
 
 
@@ -996,7 +996,7 @@ Let's imagine that you are a musician and you want to find all the sites where y
 
 **Search query example**  
 
-![Title/body search example](https://github.com/cipher387/netlas-cookbook/blob/main/images/osint_file_mentions.png)
+![Title/body search example](images/osint_file_mentions.png)
 
 
 
@@ -1032,7 +1032,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![File mentions search example Python](https://github.com/cipher387/netlas-cookbook/blob/main/images/osint_file_mentions_search_python.png)
+![File mentions search example Python](images/osint_file_mentions_search_python.png)
 
 
 
@@ -1079,7 +1079,7 @@ WHOIS is a worldwide public database that stores information about all registere
 
 **Search query example**  
 
-![Title/body search example](https://github.com/cipher387/netlas-cookbook/blob/main/images/osint_whois.png)
+![Title/body search example](images/osint_whois.png)
 
 Use [WHOIS Domain search](https://app.netlas.io/whois/domains/)
 
@@ -1114,7 +1114,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![WHOIS example Python](https://github.com/cipher387/netlas-cookbook/blob/main/images/osint_whois_search_python.png)
+![WHOIS example Python](images/osint_whois_search_python.png)
 
 
 
@@ -1157,7 +1157,7 @@ By using asterisks in search queries, you can find all subdomains of different l
 
 **Search query example**  
 
-![Subdomain search example](https://github.com/cipher387/netlas-cookbook/blob/main/images/osint_subdomain_search.png)
+![Subdomain search example](images/osint_subdomain_search.png)
 
 
 
@@ -1192,7 +1192,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Subdomain search example Python](https://github.com/cipher387/netlas-cookbook/blob/main/images/osint_subdomain_search_python.png)
+![Subdomain search example Python](images/osint_subdomain_search_python.png)
 
 
 
@@ -1246,7 +1246,7 @@ We single out this task as a separate example, because searching for a phone num
 
 **Search query example**  
 
-![CVE search](https://github.com/cipher387/netlas-cookbook/blob/main/images/pentest_cve_search.png)
+![CVE search](images/pentest_cve_search.png)
 
 
 
@@ -1283,7 +1283,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![CVE search example Python](https://github.com/cipher387/netlas-cookbook/blob/main/images/pentest_cve_search_python.png)
+![CVE search example Python](images/pentest_cve_search_python.png)
 
 
 
