@@ -64,7 +64,7 @@
 # What is Netlas.io?
 
 
-Search engine to find and analyse information about all IP addresses and domains available on the Internet. Netlas has some attack surface management functions, but this guide is focused mostly on Netlas search tools and how to use them in automations.
+Search engine to find and analyse information about all IP addresses and domains available on the Internet. Netlas has some attack surface management features, but this guide is focused mostly on Netlas search tools and how to use them in automations.
 
 Netlas.io includes several search tools:
 
