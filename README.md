@@ -1320,7 +1320,14 @@ pass
 
 ## To be contininued... Stay tuned!
 
-Want to know about Netlas Cookbook updates? Don't forget to subscribe to Netlas.io on social networks:
+Want to know about Netlas Cookbook updates? 
+
+
+👁️ Subscribe for updates
+
+
+⭐️ Give us a star to show your appreciation
+
 
 * [Twitter](https://twitter.com/Netlas_io)
 * [Telegram](https://t.me/netlas)
@@ -1328,7 +1335,7 @@ Want to know about Netlas Cookbook updates? Don't forget to subscribe to Netlas.
 * [Linkedin](https://www.linkedin.com/company/netlas-io/)
 
 
-
+Many thanks [@cyb_detective](https://twitter.com/cyb_detective) for help (https://cybdetective.com)
 
 ## License
 
