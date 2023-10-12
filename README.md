@@ -31,7 +31,7 @@
   - [Filters (Fields)](#filters-fields)
   - [Logical operators](#logical-operators)
   - [Ranges](#ranges)
-  - [Fuzzines](#fuzzine)
+  - [Fuzzines](#fuzziness)
   - [Regular expressions](#regular-expressions)
   - [Other Netlas.io search features](#other-netlasio-search-features) 
 - [API requests](#api-requests)
@@ -39,7 +39,7 @@
   - [Tools for debugging API requests](#tools-for-debugging-api-requests)
   - [Structure of Netlas API JSON response](#structure-of-netlas-api-json-response)
   - [Tools for working with data in JSON format](#tools-for-working-with-data-in-json-format)
-  - [Netlas Python Library](#example-of-using-netlas-python-library)
+  - [Netlas Python Library](#netlas-python-library)
   - [Netlas CLI Tools](#netlas-cli-tools)
   - [Search vs downloads methods](#search-vs-download-methods)
   - [Make requests with Python (without Netlas Python Library](#make-requests-with-python-without-netlas-python-library)
@@ -50,7 +50,7 @@
   - [JQ Utility](#jq-utility)
   - [AI tools for writing code](#ai-tools-for-writing-code)
   - [Code checkers](#code-checkers)
- - [Using Netlas.io for OSINT](#using-netlasio-for-osint)
+ - [Using Netlas.io for OSINT](#using-netlasio-for-osint-open-source-intelligence)
    - [Search person's nickname or email in WHOIS contacts](#search-persons-nickname-or-email-in-whois-contacts)
    - [Search person's nickname or email in title and body of web page](#search-persons-nickname-or-email-in-title-and-body-of-web-page)
    - [Phone number mentions search](#phone-number-mentions-search)
@@ -64,30 +64,29 @@
 # What is Netlas.io?
 
 
-Search engine + several additional services for surface management to find and analyse information about all IP addresses available on the Internet.
+Netlas is the search engine + several additional services for surface management to find and analyse information about all IP addresses available on the Internet.
 
-Netlas.io includes several tools.
+Netlas.io includes several search tools:
 
 
-Search tools:
-
-**IP/Domain info** [→](https://app.netlas.io/host/)   
-**Response search** [→](https://app.netlas.io/responses/)  
-**DNS search** [→](https://app.netlas.io/domains/)   
-**IP WHOIS search** [→](https://app.netlas.io/whois/ip/)   
-**Domain WHOIS search** [→](https://app.netlas.io/whois/domains/)   
-**Certificates search** [→](https://app.netlas.io/certs/)  
+- **IP/Domain info** [→](https://app.netlas.io/host/)   
+- **Response search** [→](https://app.netlas.io/responses/)  
+- **DNS search** [→](https://app.netlas.io/domains/)   
+- **IP WHOIS search** [→](https://app.netlas.io/whois/ip/)   
+- **Domain WHOIS search** [→](https://app.netlas.io/whois/domains/)   
+- **Certificates search** [→](https://app.netlas.io/certs/)  
 
 
 
-Surface management tools:
+Surface management tools are in development:
 
-**Attack Surface Discovery Tool** [→](https://app.netlas.io/asd/)  
+- **Attack Surface Discovery Tool** [→](https://app.netlas.io/asd/)  
 
   
 Some of the databases collected by Netlas.io can be purchased from the **Datastore** [→](https://app.netlas.io/datastore/)  
 
 You can also integrate Netlas.io services into your applications using **API** [→](https://netlas.io/api)  
+
 
 
 
