@@ -57,8 +57,8 @@
    - [Search file mentions (looking for content that may be infringing on copyrights)](#search-file-mentions-looking-for-content-that-may-be-infringing-on-copyrights)
    - [Domain WHOIS information gathering](#domain-whois-information-gathering)
    - [Search subdomains](#search-subdomains)
-   - [Search address in contacts meta tags](#search-address-in-contacts-meta-tags)
-   - [Search author name in web page meta tags](#search-author-name-in-web-page-meta-tags)
+   - [Search address in contacts meta tags](#search-location-in-address-tag)
+   - [Search author name in web page meta tags](#search-author-name-in-meta-tags)
  - [Using Netlas.io for Pentest](#using-neltas-for-pentest)
     - [Search for sites with specific vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
 
@@ -1228,7 +1228,7 @@ pass
 
 ```
 
-## Search address in contacts meta tags
+## Search location in \<address\> tag
 
 \<address\> tag is located inside the \<head\> tag of a web page and may contain physical addresses. With a search using this tag, you can find sites associated with a particular street, and sometimes even a particular building.
 
@@ -1309,7 +1309,7 @@ pass
 
 
 
-## Search author name in web page meta tags
+##  Search author name in meta tags
 
 \<meta\> tags are located inside the \<head\> tag of a web page and contain the most important keywords, description, miscellaneous service information and the author's name. 
 
