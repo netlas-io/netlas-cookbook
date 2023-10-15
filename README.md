@@ -57,8 +57,8 @@
    - [Search file mentions (looking for content that may be infringing on copyrights)](#search-file-mentions-looking-for-content-that-may-be-infringing-on-copyrights)
    - [Domain WHOIS information gathering](#domain-whois-information-gathering)
    - [Search subdomains](#search-subdomains)
-   - [Search address in contacts meta tags](#search-location-in-address-tag)
-   - [Search author name in web page meta tags](#search-author-name-in-meta-tags)
+   - [Search location in \<address\> tag](#search-location-in-address-tag)
+   - [Search author name in meta tags](#search-author-name-in-meta-tags)
  - [Using Netlas.io for Pentest](#using-neltas-for-pentest)
     - [Search for sites with specific vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
 
