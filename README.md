@@ -57,6 +57,8 @@
    - [Search file mentions (looking for content that may be infringing on copyrights)](#search-file-mentions-looking-for-content-that-may-be-infringing-on-copyrights)
    - [Domain WHOIS information gathering](#domain-whois-information-gathering)
    - [Search subdomains](#search-subdomains)
+   - [Search address in contacts meta tags](#search-address-in-contacts-meta-tags)
+   - [Search author name in web page meta tags](#search-author-name-in-web-page-meta-tags)
  - [Using Netlas.io for Pentest](#using-neltas-for-pentest)
     - [Search for sites with specific vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
 
@@ -1225,6 +1227,171 @@ for response in netlas_query['items']:
 pass
 
 ```
+
+## Search address in contacts meta tags
+
+\<address\> tag is located inside the \<head\> tag of a web page and may contain physical addresses. With a search using this tag, you can find sites associated with a particular street, and sometimes even a particular building.
+
+**Search query example**  
+
+![Author meta search](images/osint_contacts_search.png)
+
+
+
+```
+http.contacts.address:kirby
+```
+
+
+You can also use http.contacts.email: for email search.
+
+
+**API request example**
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search "http.contacts.address:kirby" -f json
+```
+
+
+Curl:
+
+
+```
+
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=http.contacts.address%3Akirby&source_type=include&start=0&fields=*' \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.http.contacts
+
+```
+
+
+**Code example (Netlas Python Library)**
+
+![Contacts address search Python](images/osint_contacts_search_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/osint/contacts_search.py
+```
+
+
+Source code of scripts/osint/contacts_search.py:
+
+```python
+
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `http.contacts.address:kirby`
+netlas_query = netlas_connection.query(query="http.contacts.address:kirby")
+
+
+# iterate over data and print: URL, Contacts
+for response in netlas_query['items']:
+    print (response['data']['uri'])
+    print (response['data']['http']['contacts'])
+pass
+
+```
+
+
+
+## Search author name in web page meta tags
+
+\<meta\> tags are located inside the \<head\> tag of a web page and contain the most important keywords, description, miscellaneous service information and the author's name. 
+
+Searching for nickname and name/surname by meta tags (http.meta) allows you to find sites associated with a particular person faster than searching the entire html code (http.body).
+
+
+**Search query example**  
+
+![Author meta search](images/osint_author_search.png)
+
+
+
+```
+http.meta:nazar
+```
+
+
+
+**API request example**
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search "http.meta:nazar" -f json
+```
+
+
+Curl:
+
+
+```
+
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=http.meta%3Anazar&source_type=include&start=0&fields=*' \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.http.meta
+
+```
+
+
+**Code example (Netlas Python Library)**
+
+![Author meta search Python](images/osint_author_meta_search_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/osint/author_meta_search.py
+```
+
+
+Source code of scripts/osint/author_meta_search.py:
+
+```python
+
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `http.meta:nazar`
+netlas_query = netlas_connection.query(query="http.meta:nazar")
+
+
+# iterate over data and print: ip, url
+for response in netlas_query['items']:
+    print (response['data']['uri'])
+    print (response['data']['http']['title'])
+    print (response['data']['http']['meta'])
+    
+pass
+
+```
+
+
 
 
 
