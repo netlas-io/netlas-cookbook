@@ -727,6 +727,9 @@ If you don't want to copy your code to third-party services, you can check it fo
 # Using Netlas.io for OSINT (Open Source Intelligence)
 
 
+![OSINT Flowchart](images/osint_flowchart.png)
+
+
 Netlas.io can help you gather data about a domain or company, as well as find mentions of a person (or anyone) in internet. 
 
 It can also be used to find old versions of web pages (as an analogue of the Wayback Machine).
