@@ -61,6 +61,7 @@
    - [Search author name in meta tags](#search-author-name-in-meta-tags)
  - [Using Netlas.io for Pentest](#using-neltas-for-pentest)
     - [Search for sites with specific vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
+    - [Search for sites with vulnerabilities that contain a certain word in their descriptions](#search-for-sites-with-vulnerabilities-that-contain-a-certain-word-in-their-descriptions)
 
 
 # What is Netlas.io?
@@ -1483,6 +1484,94 @@ for response in netlas_query['items']:
 pass
 
 ```
+
+
+
+## Search for sites with vulnerabilities that contain a certain word in their descriptions
+
+
+If you don't need to investigate servers with a specific type of vulnerability, but just want to see vulnerable servers in a specific group (such as Oracle WebLogic Server or WordPress sites), you can search for them using keywords and the cve.description: filter. 
+
+To filter out sites that have exploits published for vulnerabilities, use cve.has_exploit:true.
+
+
+**Search query example**  
+
+![CVE description search](images/pentest_cve_description_search.png)
+
+
+
+```
+cve.description:weblogic AND cve.has_exploit:true
+```
+
+
+
+**API request example**
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search "cve.description:weblogic AND cve.has_exploit:true" -f json
+```
+
+
+Curl:
+
+
+```
+
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=cve.description%3Aweblogic%20AND%20cve.has_exploit%3Atrue&source_type=include&start=0&fields=*' \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: YOUR_API_KEY | jq .items[].data.uri
+
+```
+
+
+**Code example (Netlas Python Library)**
+
+![CVE description search Python](images/pentest_cve_description_search_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/pentest/cve_description_search.py
+```
+
+
+Source code of scripts/pentest/cve_description_search.py:
+
+```python
+
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `cve.description:weblogic AND cve.has_exploit:true`
+netlas_query = netlas_connection.query(query="cve.description:weblogic AND cve.has_exploit:true")
+
+
+# iterate over data and print:  url, first CVE name first CVE description
+for response in netlas_query['items']:
+    print (response['data']['uri'])
+    print (response['data']['cve'][0]['name'])
+    print (response['data']['cve'][0]['description'])
+    
+pass
+
+```
+
+
+
 
 
 ## To be contininued... Stay tuned!
