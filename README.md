@@ -386,7 +386,7 @@ Let's see how it works with a simple example. All code samples from Netlas Cookb
 
 
 ```shell
-git clone https://github.com/cipher387/netlas-cookbook
+git clone https://github.com/netlas-io/netlas-cookbook
 ```
 
 
