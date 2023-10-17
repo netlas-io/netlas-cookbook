@@ -337,7 +337,7 @@ Firstly, click "Authorize" and enter API key. Secondly, select API method, click
 
 
 
-Netlas sheme is still under development and you may find its analogs designed for testing different APIs more convenient:
+Netlas scheme is still under development and you may find its analogs designed for testing different APIs more convenient:
 
 [Reqbin](https://reqbin.com/)
 
