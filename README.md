@@ -63,6 +63,8 @@
  - [Using Netlas.io for Pentest](#using-neltas-for-pentest)
     - [Search for sites with specific vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
     - [Search for sites with vulnerabilities that contain a certain word in their descriptions](#search-for-sites-with-vulnerabilities-that-contain-a-certain-word-in-their-descriptions)
+- [Common problems](#common-problems)
+     - [Error 429 - Too frequent requests](#error-429---too-frequent-requests)
 
 
 # What is Netlas.io?
@@ -1631,7 +1633,63 @@ pass
 ```
 
 
+# Common problems
 
+
+## Error 429 - Too frequent requests
+
+
+![Request limit](images/request_limit.png)
+
+If your application includes multiple requests to the Netlas API, you may encounter this error:
+
+```python
+{'detail': 'Request was throttled. Expected available in 1 second.'}
+```
+
+One way to solve this problem is to use special Python libraries to configure time limits on query execution, such as [Limiter Package](https://pypi.org/project/ratelimit/). 
+
+
+Here is an example of its use in code (limit of no more than 60 requests per minute). First, install package:
+
+```
+pip install ratelimit
+```
+
+And run rate_limit.py:
+
+```python
+import netlas
+from ratelimit import limits
+
+# One call - one second
+@limits(calls=1, period=1)
+def netlas_query():
+     apikey = "YOUR_API_KEY"
+
+     # create new connection to Netlas
+     netlas_connection = netlas.Netlas(api_key=apikey)
+
+     # retrieve data from responses by query `cve.description:weblogic AND cve.has_exploit:true`
+     netlas_query = netlas_connection.query(query="cve.description:weblogic AND cve.has_exploit:true")
+
+
+     # iterate over data and print:  url, first CVE name first CVE description
+     for response in netlas_query['items']:
+        print (response['data']['uri'])
+        print (response['data']['cve'][0]['name'])
+        print (response['data']['cve'][0]['description'])
+
+pass
+
+netlas_query()
+
+```
+
+Similar packages exist for other popular programming languages, as exceeding the request limit is a very common problem when working with almost most APIs. 
+
+
+If you really need to make more than one enquiry per second, you can write to the sales team to solve your problem on a case-by-case basis - **sales@netlas.io**
 
 
 ## To be contininued... Stay tuned!
