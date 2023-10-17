@@ -40,6 +40,7 @@
   - [Structure of Netlas API JSON response](#structure-of-netlas-api-json-response)
   - [Tools for working with data in JSON format](#tools-for-working-with-data-in-json-format)
   - [Netlas Python Library](#netlas-python-library)
+  - [Examples of response keys for getting useful data](#examples-of-response-keys-for-getting-useful-data)
   - [Netlas CLI Tools](#netlas-cli-tools)
   - [Search vs downloads methods](#search-vs-download-methods)
   - [Make requests with Python (without Netlas Python Library](#make-requests-with-python-without-netlas-python-library)
@@ -442,7 +443,63 @@ pass
 
 ```
 
+## Examples of response keys for getting useful data
 
+
+It's mentioned above that in order to find JSON patches of API response to get the data you need, you can use special online applications (JSON-evaluators). To make your life even better, here is a small list of examples of Python library response keys that are needed most often.
+
+
+```python
+
+
+# Main domain/ip info
+
+response['data']['uri']
+response['data']['ip']
+response['data']['http']['title']
+response['data']['http']['meta']
+response['data']['http']['body']
+
+
+
+# Geo info
+
+
+response['data']['geo']['continent']
+response['data']['geo']['country']
+response['data']['geo']['city']
+response['data']['geo']['location']['lat']
+response['data']['geo']['location']['long']
+
+
+# Whois geo info
+
+response['data']['whois']['net']['country']
+response['data']['whois']['net']['address']
+response['data']['whois']['net']['city']
+response['data']['whois']['net']['contacts']['emails']
+response['data']['whois']['net']['contacts']['phones']
+
+
+
+# Http status and favicon ico info
+
+response['data']['port']
+response['data']['http']['status_code']
+response['data']['http']['status_line']
+response['data']['http']['favicon']['image']
+response['data']['http']['favicon']['path']
+
+
+# Basic CVE info 
+
+response['data']['cve'][0]['name']
+response['data']['cve'][0]['description']
+response['data']['cve'][0]['base_score']
+response['data']['cve'][0]['has_exploit']
+response['data']['cve'][0]['exploit_links']
+
+```
 
 
 ## Netlas CLI Tools
