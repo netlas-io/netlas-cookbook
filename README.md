@@ -65,6 +65,7 @@
     - [Search for sites with vulnerabilities that contain a certain word in their descriptions](#search-for-sites-with-vulnerabilities-that-contain-a-certain-word-in-their-descriptions)
 - [Common problems](#common-problems)
      - [Error 429 - Too frequent requests](#error-429---too-frequent-requests)
+     - [KeyError](#keyerror)
 
 
 # What is Netlas.io?
@@ -1685,11 +1686,27 @@ pass
 netlas_query()
 
 ```
-
 Similar packages exist for other popular programming languages, as exceeding the request limit is a very common problem when working with almost most APIs. 
 
 
 If you really need to make more than one enquiry per second, you can write to the sales team to solve your problem on a case-by-case basis - **sales@netlas.io**
+
+## KeyError
+
+![Key error](images/key_error.png)
+
+
+Another common problem is the lack of a specific key in response for some servers. For example, ['data']['http']['title'] is quite often missing.
+
+If the key is missing, the script stops executing. Standard error handling will help to avoid this. For example:
+
+```python
+try:
+       print (response['data']['http']['title'])
+    except:
+        print ("no title")
+
+```
 
 
 ## To be contininued... Stay tuned!
