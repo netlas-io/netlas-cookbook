@@ -59,7 +59,7 @@
  - [Using Netlas.io for Pentest](#using-neltas-for-pentest)
     - [Search for sites with specific vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
     - [Search for sites with vulnerabilities that contain a certain word in their descriptions](#search-for-sites-with-vulnerabilities-that-contain-a-certain-word-in-their-descriptions)
-    - [Search by server software name](#search-by-server-software-name)
+    - [Search by server http header](#search-by-server-http-header)
 - [Common problems](#common-problems)
      - [Error 429 - Too frequent requests](#error-429---too-frequent-requests)
      - [KeyError](#keyerror)
@@ -1680,7 +1680,7 @@ pass
 
 
 
-## Search by server software name
+## Search by server http header
 
 
 This method allows you to find devices manufactured by a specific company.
