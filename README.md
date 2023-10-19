@@ -56,10 +56,13 @@
    - [Search subdomains](#search-subdomains)
    - [Search location in \<address\> tag](#search-location-in-address-tag)
    - [Search author name in meta tags](#search-author-name-in-meta-tags)
+   - [Search by FTP server's banners text](#search-by-ftp-servers-banners-text)
  - [Using Netlas.io for Pentest](#using-neltas-for-pentest)
     - [Search for sites with specific vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
     - [Search for sites with vulnerabilities that contain a certain word in their descriptions](#search-for-sites-with-vulnerabilities-that-contain-a-certain-word-in-their-descriptions)
     - [Search by server http header](#search-by-server-http-header)
+    - [Search servers with CVEs by favicon hash](#search-servers-with-cves-by-favicon-hash)
+    - [Search servers with CVEs by tag name](#search-servers-with-cves-by-tag-name)
 - [Common problems](#common-problems)
      - [Error 429 - Too frequent requests](#error-429---too-frequent-requests)
      - [KeyError](#keyerror)
@@ -1499,6 +1502,94 @@ pass
 
 
 
+## Search by FTP server's banners text
+
+
+Another important step in finding information about a person or company is to look for its mention in the text of FTP server banners. It is possible that the IP address of the found servers will be the key to finding other sites related to the person or company you are interested in. And in case of very strong luck to find something interesting in the files posted there (if the FTP server is open).
+
+**Search query example**  
+
+
+![Search CVE by tag name](images/ftp_banner_search.png)
+
+
+```
+ftp.banner:"Collado" 
+```
+
+
+If you need to search for FTP servers by some other parameter (such as city or IP address range), then use the prot7:ftp filter.
+
+
+
+[Try in Netlas](https://app.netlas.io/responses/?q=ftp.banner%3A%22Collado%22%20&page=1&indices=)
+
+
+
+**API request example**
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search 'ftp.banner:"Collado"' -f json
+```
+
+Note that when double quotes are used in queries, the query itself is written inside single quotes.
+
+Curl:
+
+
+```
+curl -X 'GET' \
+    'https://app.netlas.io/api/responses/?q=ftp.banner%3A%22Collado%22&source_type=include&start=0&fields=*' \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.uri
+```
+
+
+
+
+**Code example (Netlas Python Library)**
+
+![Favicon hash search Python](images/ftp_banner_search_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/osint/ftp_banner_search.py
+```
+
+
+Source code of scripts/osint/ftp_banner_search.py:
+
+```python
+
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `ftp.banner:"Collado"`
+netlas_query = netlas_connection.query(query='ftp.banner:"Collado"')
+
+
+# iterate over data and print: IP, URL, ftp banner text
+for response in netlas_query['items']:
+    print (response['data']['ip'])
+    print (response['data']['uri'])
+    print (response['data']['ftp']['banner'])
+   
+pass
+
+```
+
 
 
 
@@ -1762,6 +1853,192 @@ for response in netlas_query['items']:
     print (response['data']['ip'])
     print (response['data']['http']['headers']['server'])
   
+   
+pass
+
+```
+
+
+## Search servers with CVEs by favicon hash
+
+
+One way to find web servers exposed to a particular vulnerability is to search for favicon ico of a particular web server software. 
+
+
+**Search query example**  
+
+
+![Search CVE by favicon hash](images/search_favicon_hash.png)
+
+
+```
+http.favicon.hash_sha256:ebaaed8ab7c21856f888117edaf342f6bc10335106ed907f95787b69878d9d9e
+```
+
+This query search SecurePoint favicon (CVE-2023-22620).
+
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.favicon.hash_sha256%3Aebaaed8ab7c21856f888117edaf342f6bc10335106ed907f95787b69878d9d9e&page=1&indices=)
+
+
+
+**API request example**
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search "http.favicon.hash_sha256:ebaaed8ab7c21856f888117edaf342f6bc10335106ed907f95787b69878d9d9e" -f json
+```
+
+
+Curl:
+
+
+```
+curl -X 'GET' \
+   'https://app.netlas.io/api/responses/?q=http.favicon.hash_sha256%3Aebaaed8ab7c21856f888117edaf342f6bc10335106ed907f95787b69878d9d9e&source_type=include&start=0&fields=*' \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.uri
+```
+
+
+
+
+**Code example (Netlas Python Library)**
+
+![Favicon hash search Python](images/search_favicon_hash_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/pentest/favicon_hash_search.py
+```
+
+
+Source code of scripts/pentest/favicon_hash_search.py:
+
+```python
+
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `http.favicon.hash_sha256:ebaaed8ab7c21856f888117edaf342f6bc10335106ed907f95787b69878d9d9e`
+netlas_query = netlas_connection.query(query="http.favicon.hash_sha256:ebaaed8ab7c21856f888117edaf342f6bc10335106ed907f95787b69878d9d9e")
+
+
+# iterate over data and print: IP,URL,web page title
+for response in netlas_query['items']:
+    print (response['data']['ip'])
+    print (response['data']['uri'])
+    print (response['data']['http']['title'])
+pass
+
+```
+
+
+## Search servers with CVEs by tag name
+
+
+To simplify searching across servers running different software, Netlas automatically tags search results with specific tags.
+
+
+Examples of tags:
+
+* Blogs - medium, wordpress, tumblr
+* CDN - google_cloud, cloudflare, keycdn
+* CMS - ucoz, joomla, pyrocms
+* Ecommerce - opencart, magento, wix
+
+
+You can search by tags using the "tag.name:" filter. You can also search by tag category using the "tag.category:" filter. A list of all available tags and categories is displayed when you click on the icon to the right of the search query entry box on the Netlas homepage. 
+
+*Note*: Not all tariff plans support the use of tags, be careful.
+
+
+**Search query example**  
+
+
+![Search CVE by tag name](images/search_tag_name.png)
+
+
+```
+tag.name:"adobe_coldfusion"
+```
+
+This query search Adobe ColdFusion (CVE-2023-26359).
+
+
+[Try in Netlas](https://app.netlas.io/responses/?q=tag.name%3A%22adobe_coldfusion%22&page=1&indices=)
+
+
+
+**API request example**
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search 'tag.name:"adobe_coldfusion"' -f json
+```
+
+Note that when double quotes are used in queries, the query itself is written inside single quotes.
+
+Curl:
+
+
+```
+curl -X 'GET' \
+    'https://app.netlas.io/api/responses/?q=tag.name%3A%22adobe_coldfusion%22&source_type=include&start=0&fields=*'  \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.uri
+```
+
+
+
+
+**Code example (Netlas Python Library)**
+
+![Favicon hash search Python](images/search_tag_name_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/pentest/search_tag_name.py
+```
+
+
+Source code of scripts/pentest/search_tag_name.py:
+
+```python
+
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `tag.name:"adobe_coldfusion"`
+netlas_query = netlas_connection.query(query='tag.name:"adobe_coldfusion"')
+
+
+# iterate over data and print: IP,URL 
+for response in netlas_query['items']:
+    print (response['data']['ip'])
+    print (response['data']['uri'])
    
 pass
 
