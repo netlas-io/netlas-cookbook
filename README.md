@@ -59,6 +59,7 @@
  - [Using Netlas.io for Pentest](#using-neltas-for-pentest)
     - [Search for sites with specific vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
     - [Search for sites with vulnerabilities that contain a certain word in their descriptions](#search-for-sites-with-vulnerabilities-that-contain-a-certain-word-in-their-descriptions)
+    - [Search by server software name](#search-by-server-software-name)
 - [Common problems](#common-problems)
      - [Error 429 - Too frequent requests](#error-429---too-frequent-requests)
      - [KeyError](#keyerror)
@@ -1676,6 +1677,96 @@ for response in netlas_query['items']:
 pass
 
 ```
+
+
+
+## Search by server software name
+
+
+This method allows you to find devices manufactured by a specific company.
+
+**Search query example**  
+
+
+![Search by server software](images/server_name_search.png)
+
+
+```
+http.headers.server:"yawcam"
+```
+
+
+Search YawCam web cams.
+
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.headers.server%3A%22yawcam%22&page=1&indices=)
+
+
+
+**API request example**
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search 'http.headers.server:"yawcam"' -f json
+```
+
+Note that when double quotes are used in queries, the query itself is written inside single quotes.
+
+Curl:
+
+
+```
+curl -X 'GET' \
+     'https://app.netlas.io/api/responses/?q=http.headers.server%3A%22yawcam%22&source_type=include&start=0&fields=*' \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.uri
+```
+
+
+
+
+**Code example (Netlas Python Library)**
+
+![Http headers server search Python](images/server_name_search_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/pentest/server_name_search.py
+```
+
+
+Source code of scripts/pentest/server_name_search.py:
+
+```python
+
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `http.headers.server:"yawcam"`
+netlas_query = netlas_connection.query(query='http.headers.server:"yawcam"')
+
+
+# iterate over data and print: IP, URL, server name
+for response in netlas_query['items']:
+    print (response['data']['ip'])
+    print (response['data']['http']['headers']['server'])
+  
+   
+pass
+
+```
+
 
 
 # Common problems
