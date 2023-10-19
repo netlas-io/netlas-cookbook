@@ -1,9 +1,5 @@
 
 
-
-
-
-
 <div align="center">
       <img align="center" src="https://app.netlas.io/static/media/logo-dark.e3792204ae117bd83067f342f15944f6.svg" width="180px" >
      <h1>Welcome to Netlas CookBook!</h1>
@@ -132,6 +128,9 @@ Open [Netlas.io response search](https://app.netlas.io/responses/) and enter:
 http.title:g*thub
 ```
 
+[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3Ag*thub&page=1&indices=)
+
+
 This will find all servers whose HTTP titles contain the word starts with "g" and ends to "thub". Read more about using asterisks below.
 
 
@@ -155,6 +154,7 @@ Response, DNS, IP and Certificates search allow you to use filters (fields) in s
 http.body:netlas
 ```
 
+[Try in Netlas](https://app.netlas.io/responses/?q=http.body%3Anetlas&page=1&indices=)
 
 You can use this query to find pages which contain the word "netlas" inside their <body> html tag.
 
@@ -188,6 +188,10 @@ You can use multiple filters in a single query and combine them using logical op
 http.title:netlas NOT port:443
 ```
 
+[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3Anetlas%20NOT%20port%3A443&page=1&indices=)
+
+
+
 If you want to combine multiple conditions in your query, use parentheses:
 
 
@@ -195,6 +199,8 @@ If you want to combine multiple conditions in your query, use parentheses:
 ```
 http.title:(netlas OR shodan) NOT port:443
 ```
+
+[Try in Netlas](https://nt.ls/OrFOY)
 
 
 ## Ranges
@@ -207,6 +213,11 @@ If you use a numeric value as the value of a field, you can designate it asa val
 ip:[173.194.222.0 TO 173.194.222.255] 
 ```
 
+
+[Try in Netlas](https://app.netlas.io/responses/?q=ip%3A%5B173.194.222.0%20TO%20173.194.222.255%5D%20&page=1&indices=)
+
+
+
 Or mark only the upper or only the lower limit of the value:
 
 
@@ -214,7 +225,7 @@ Or mark only the upper or only the lower limit of the value:
 host:"1.1.1.1" port:<=1000
 ```
 
-
+[Try in Netlas](https://app.netlas.io/responses/?q=host%3A%221.1.1.1%22%20port%3A%3C%3D1000&page=1&indices=)
 
 
 ## Wildcards
@@ -227,6 +238,10 @@ If you don't know the exact description of a certain character in your query (fo
 domain:google.*
 ```
 
+
+[Try in Netlas](https://app.netlas.io/responses/?q=domain%3Agoogle.*&page=1&indices=)
+
+
 You can also use question mark:
 
 
@@ -234,6 +249,7 @@ You can also use question mark:
 domain:google.?
 ```
 
+[Try in Netlas](https://app.netlas.io/responses/?q=domain%3Agoogle.%3F&page=1&indices=)
 
 Asterisk - many symbols, question mark - one symbol.
 
@@ -249,7 +265,7 @@ If you need to search not by exact, but by approximate value of a field (for exa
 http.title:Joseph~
 ```
 
-
+[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3AJoseph~&page=1&indices=)
 
 ## Regular expressions
 
@@ -811,9 +827,9 @@ Most often WHOIS data contains only the contact information of the company regis
 
 ```
 whois.related_nets.contacts.emails:sweetwater
-
 ```
 
+[Try in Netlas](https://app.netlas.io/responses/?q=whois.related_nets.contacts.emails%3Asweetwater&page=1&indices=)
 
 **API request example**
 
@@ -824,6 +840,7 @@ Netlas CLI Tools:
 ```
 netlas search "whois.related_nets.contacts.emails:sweetwater*" -f json
 ```
+
 
 
 Curl:
@@ -900,6 +917,9 @@ Netlas allows you to search for mentions of certain words in headings and in the
 ```
 http.title:sweetwater OR http.body:sweetwater
 ```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3Asweetwater%20OR%20http.body%3Asweetwater&page=1&indices=)
+
 
 
 **API request example**
@@ -986,6 +1006,11 @@ http.body:1?234?567?89?99 OR http.body:12345678999 OR http.body:1234?5678?999
 ```
 
 
+[Try in Netlas](https://app.netlas.io/responses/?q=http.body%3A1%3F234%3F567%3F89%3F99%20OR%20http.body%3A12345678999%20OR%20http.body%3A1234%3F5678%3F999&page=1&indices=)
+
+
+
+
 When making a request, you should take into account the format of telephone number recording, which is accepted in the country, which owns the phone number you are interested in.
 
 
@@ -1069,6 +1094,10 @@ Let's imagine that you are a musician and you want to find all the sites where y
 (http.title:alla OR http.body:alla) AND http.body:*.mp3
 
 ```
+
+[Try in Netlas](https://nt.ls/HEhJj)
+
+
 
 
 **API request example**
@@ -1231,6 +1260,12 @@ domain:*.github.com OR host:*.github.com
 ```
 
 
+
+[Try in Netlas](https://app.netlas.io/responses/?q=domain%3A*.github.com%20OR%20host%3A*.github.com&page=1&indices=)
+
+
+
+
 **API request example**
 
 
@@ -1305,6 +1340,10 @@ pass
 ```
 http.contacts.address:kirby
 ```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.contacts.address%3Akirby&page=1&indices=)
+
+
 
 
 You can also use http.contacts.email: for email search.
@@ -1389,6 +1428,8 @@ Searching for nickname and name/surname by meta tags (http.meta) allows you to f
 ```
 http.meta:nazar
 ```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.meta%3Anazar&page=1&indices=)
 
 
 
@@ -1484,6 +1525,7 @@ We single out this task as a separate example, because searching for a phone num
 cve.name:CVE-2022-22965
 ```
 
+[Try in Netlas](https://app.netlas.io/responses/?q=cve.name%3ACVE-2022-22965&page=1&indices=)
 
 
 **API request example**
@@ -1567,6 +1609,8 @@ To filter out sites that have exploits published for vulnerabilities, use cve.ha
 ```
 cve.description:weblogic AND cve.has_exploit:true
 ```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=cve.description%3Aweblogic%20AND%20cve.has_exploit%3Atrue&page=1&indices=)
 
 
 
@@ -1733,7 +1777,6 @@ Many thanks [@cyb_detective](https://twitter.com/cyb_detective) for help (https:
 ![cc license](https://i.creativecommons.org/l/zero/1.0/88x31.png)
 
 This work is licensed under a [CC0 1.0 Universal](LICENSE.md) license.
-
 
 
 
