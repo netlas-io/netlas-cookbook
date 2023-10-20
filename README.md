@@ -61,6 +61,7 @@
     - [Search for sites with specific vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
     - [Search for sites with vulnerabilities that contain a certain word in their descriptions](#search-for-sites-with-vulnerabilities-that-contain-a-certain-word-in-their-descriptions)
     - [Search by server http header](#search-by-server-http-header)
+      - [Default logins and passwords](#default-logins-and-passwords)
     - [Search servers with CVEs by favicon hash](#search-servers-with-cves-by-favicon-hash)
     - [Search servers with CVEs by tag name](#search-servers-with-cves-by-tag-name)
 - [Common problems](#common-problems)
@@ -1857,6 +1858,27 @@ for response in netlas_query['items']:
 pass
 
 ```
+
+### Default logins and passwords 
+
+
+One practical application of searching by software name in server headers is to search for devices from a particular vendor. This may be necessary both when searching for devices with specific vulnerabilities and for devices with standard logins and passwords.
+
+
+![Default passwords](images/default_passwords.png)
+
+
+Standard logins and passwords for different device models can be found in special lists. For example:
+
+
+* [Default Router Login Password For Top Router Models (2023 List)](https://www.softwaretestinghelp.com/default-router-username-and-password-list/)
+* [Default Username – Password – IP Address for Security Cameras](https://www.a1securitycameras.com/blog/default-username-passwords-ip-addresses-for-surveillance-cameras/)
+* [The Default Passwords of Nearly Every IP Camera](https://www.hackers-arise.com/post/the-default-passwords-of-nearly-every-ip-camera)
+* [List of default passwords from Datarecovery](https://datarecovery.com/rd/default-passwords/)
+
+
+Remember that using standard logins and passwords to log into other people's systems violates ethics rules and may be illegal in your country.
+
 
 
 ## Search servers with CVEs by favicon hash
