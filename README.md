@@ -1633,6 +1633,22 @@ After that, copy the code into one of the online html promoters, such as [Code b
 # Using Neltas for Pentest
 
 
+Netlas.io allows you to search for sites with many different types of vulnerabilities. This can be done by vulnerability number (CVE-...), the name of the software installed on the server, certain words in page headers, and other parameters.
+
+
+You can track the most recently published CVEs (Common Vulnerabilities and Exposures) on these sites:
+
+* [CVE Details](https://www.cvedetails.com/)
+* [VulDB](https://vuldb.com/)
+* [OpenCVE](https://www.opencve.io/cve)
+
+
+We also regularly post most relevant queries to search vulnerable devices and software on our [Twitter](https://twitter.com/Netlas_io) and [Telegram](https://t.me/netlas) feeds, as well as [Netlas Dorks](https://github.com/netlas-io/netlas-dorks) Github repository.
+
+
+In this section, we will simply cover the general principles of searching for sites and servers with vulnerabilities.
+
+
 ## Search for sites with specific vulnerabilities
 
 
