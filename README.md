@@ -1652,10 +1652,6 @@ In this section, we will simply cover the general principles of searching for si
 ## Search for sites with specific vulnerabilities
 
 
-As with nicknames and emails, you can also look for mentions of a phone number in the code of web pages or WHOIS contact information. 
-
-We single out this task as a separate example, because searching for a phone number is complicated by the fact that it can be written in different formats.
-
 
 
 **Search query example**  
