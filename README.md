@@ -57,6 +57,7 @@
    - [Search location in \<address\> tag](#search-location-in-address-tag)
    - [Search author name in meta tags](#search-author-name-in-meta-tags)
    - [Search by FTP server's banners text](#search-by-ftp-servers-banners-text)
+   - [Using Netlas as an alternative to the WayBack Machine](#using-netlas-as-an-alternative-to-the-wayback-machine)
  - [Using Netlas.io for Pentest](#using-neltas-for-pentest)
     - [Search for sites with specific vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
     - [Search for sites with vulnerabilities that contain a certain word in their descriptions](#search-for-sites-with-vulnerabilities-that-contain-a-certain-word-in-their-descriptions)
@@ -1590,6 +1591,39 @@ for response in netlas_query['items']:
 pass
 
 ```
+
+## Using Netlas as an alternative to the WayBack Machine
+
+
+Archive.org has been used by OSINT specialists to search old versions of websites and social media profiles pages to find now deleted contact and other information.
+
+But, unfortunately, archive.org does not save copies of all sites and does not do it very often (for some sites only a couple of times a year or less).
+
+But Netlas is saving old versions of sites from 2021 too!
+
+
+Following filters are most often used to search for sites:
+
+```
+http.title:"github.com"
+domain:github.com
+host:github.com
+
+```
+
+![Select scan](images/select_scan.png)
+
+
+If you click on the outermost icon on the right next to the field for entering search queries, you will see a menu for selecting a scan date. You can use it to filter the html codes of sites saved on a specific date.
+
+![Copy response body](images/response_body_copy.png)
+
+To see how the site looks, copy the contents of the "body" field (response tab) into any text editor and delete the \t\r\n characters from the html code.
+
+![HTML viewer](images/html_viewer.png)
+
+After that, copy the code into one of the online html promoters, such as [Code beautify](https://codebeautify.org/htmlviewer). Or just save the file in html format and then open it in browser.
+
 
 
 
