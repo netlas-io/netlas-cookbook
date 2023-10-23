@@ -1769,6 +1769,14 @@ a:"163.114.132.0/24"
 [Try in Netlas](https://app.netlas.io/domains/?q=a%3A%22163.114.132.0%2F24%22&page=1&indices=)
 
 
+API request example
+
+Netlas CLI Tools:
+
+```
+netlas search -d domain a:\"163.114.132.0/24\"
+```
+
 Curl:
 
 ```
@@ -1777,6 +1785,37 @@ curl -X 'GET' \
    -H 'accept: application/json' \
    -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.domain
  ```
+
+**Code example (Netlas Python Library)**
+
+
+![Subnet search](images/subnet_search_python.png)
+
+Run in command line:
+
+python scripts/dfir/subnet_search.py
+
+Source code of scripts/dfir/subnet_search.py:
+
+
+```
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `a:"163.114.132.0/24"`
+netlas_query = netlas_connection.query(query='a:"163.114.132.0/24"',datatype="domain")
+
+
+# iterate over data and print: domain
+for response in netlas_query['items']: 
+    print (response['data']['domain'])
+pass
+
+```
 
 
 
