@@ -65,9 +65,9 @@
       - [Default logins and passwords](#default-logins-and-passwords)
     - [Search servers with CVEs by favicon hash](#search-servers-with-cves-by-favicon-hash)
     - [Search servers with CVEs by tag name](#search-servers-with-cves-by-tag-name)
- -[Using Netlas.io for Digital Forensics and Incident Response](#using-netlasio-for-digital-forensics-and-incident-response)
-    -[SMTP servers information gathering](#smtp-servers-information-gathering)
-    - [Search for domains associated with a specific subnet](#search-for-domains-associated-with-a-specific-subnet)
+- [Using Netlas.io for Digital Forensics and Incident Response](#using-netlasio-for-digital-forensics-and-incident-response)         
+    - [SMTP servers information gathering](#smtp-servers-information-gathering)        
+    - [Search for domains associated with a specific subnet](#search-for-domains-associated-with-a-specific-subnet)         
 - [Using Netlas for fun or netstalking](#using-netlasio-for-fun-or-netstalking
 )
 - [Common problems](#common-problems)
