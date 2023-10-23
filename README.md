@@ -39,7 +39,7 @@
   - [Examples of response keys for getting useful data](#examples-of-response-keys-for-getting-useful-data)
   - [Netlas Python response datatypes](#netlas-python-response-datatypes)
   - [Netlas CLI Tools](#netlas-cli-tools)
-  - [Search vs downloads methods](#search-vs-download-methods)
+  - [Search vs Downloads vs Host methods](#search-vs-download-vs-host-methods)
   - [Make requests with Python (without Netlas Python Library](#make-requests-with-python-without-netlas-python-library)
   - [Examples for other programming languages](#examples-for-other-programming-languages)
      - [NodeJS](#nodejs)
@@ -1647,13 +1647,21 @@ We also have a Github repository with a couple of examples of automating various
 [Netlas Scripts](https://github.com/netlas-io/netlas-scripts)
 
 
-## Search vs Download methods
+## Search vs Download vs Host methods
 
 
 The Netlas API has many methods, but the most commonly used methods are search and download. They are very similar to each other, but still have some differences.
 
 
 The search method loads one page of results (20 items) at a time and allows a maximum of 200 pages to be loaded (20*200=4000 items). The download method downloads all results (but requires much more resources to execute).
+
+
+There is also a host method that simply returns the most basic information about a particular domain or IP (datatype (like other methods) does not need to be specified):
+
+
+```
+netlas host "51.159.153.170"
+```
 
 
 ## Make requests with Python (without Netlas Python Library)
