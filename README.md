@@ -37,6 +37,7 @@
   - [Tools for working with data in JSON format](#tools-for-working-with-data-in-json-format)
   - [Netlas Python Library](#netlas-python-library)
   - [Examples of response keys for getting useful data](#examples-of-response-keys-for-getting-useful-data)
+  - [Netlas Python response datatypes](#netlas-python-response-datatypes)
   - [Netlas CLI Tools](#netlas-cli-tools)
   - [Search vs downloads methods](#search-vs-download-methods)
   - [Make requests with Python (without Netlas Python Library](#make-requests-with-python-without-netlas-python-library)
@@ -531,6 +532,1069 @@ response['data']['cve'][0]['has_exploit']
 response['data']['cve'][0]['exploit_links']
 
 ```
+
+
+
+
+
+
+## Netlas Python response datatypes
+
+![Python Netlas datatypes](images/datatypes.png)
+
+When working with the Netlas Python Library, it is very important to correctly specify the type of data you want to retrieve. By default, the response type is returned and many Netlas CookBook examples use it.
+
+But for some tasks, like getting whoois information about a domain or searching for domains in a subnet you need to use a different data type. For example:
+
+
+```
+netlas_query = netlas_connection.query(query='a:"163.114.132.0/24"',datatype="domain")
+```
+
+
+If you think some query is not returning results when it should - just try changing the value of the **datatype** parameter. It is very likely that this will help.
+
+Now let's look at examples of what types of data can be retrieved using the Netlas Python Library.
+
+
+### datatype="response"
+
+
+Corresponds to the results that can be obtained in [Netlas Response Search](https://app.netlas.io/responses/).
+
+
+```
+{
+    "last_updated": "2023-09-23T04:39:09.622Z",
+    "jarm": "29d29d15d29d29d21c29d29d29d29d935576741dfb52d851054f608b751a40",
+    "isp": "Amazon.com",
+    "ip": "15.185.166.67",
+    "certificate": {
+        "issuer_dn": "CN=Amazon RSA 2048 M01, O=Amazon, C=US",
+        "fingerprint_md5": "8f4fd5fc8311e5edf02db7ef94eca174",
+        "chain": [
+            {
+                "issuer_dn": "CN=Amazon Root CA 1, O=Amazon, C=US",
+                "fingerprint_md5": "943b3cc1d311e06f4e4acbf58f289ad2",
+                "redacted": False,
+                "signature": {
+                    "valid": False,
+                    "signature_algorithm": {
+                        "name": "SHA256-RSA",
+                        "oid": "1.2.840.113549.1.1.11",
+                    },
+                    "self_signed": False,
+                    "value": "rQDeAgUjLgYyYrRrsZQW5BFA3iv6WcE17+CqjytBudHzhzkAHfI9tadHDAYGxpHzB1cC1O29F8GQmr9IdaIHTzDdSmpCtQ09FcAP/oRbxjyZzFdSsdhuEtWWkpNLlOUH6ImCCGp6NNSeZOE9h2qSkJpjoUv4j7bqNNMFviDC3gbijJ9zi59NOYXKzhk2nYXJnsn4UD+2foih78qEBotQtApcphxE8f3IYUBg8mElqgf0x8JzdeQMC0KNBOVfREiZW3uJgZaniJ1LDWLoBMTX/rTosm3K7MAcvDhbHd+Fzlt640lLbLmn3fQFskmt4cUUa8LM681/1lhpusMgfn+wuA==",
+                },
+                "subject": {
+                    "country": ["US"],
+                    "organization": ["Amazon"],
+                    "common_name": ["Amazon RSA 2048 M01"],
+                },
+                "serial_number": "166129328851546858514271303855646110030630415",
+                "version": 3,
+                "issuer": {
+                    "country": ["US"],
+                    "organization": ["Amazon"],
+                    "common_name": ["Amazon Root CA 1"],
+                },
+                "tbs_noct_fingerprint": "0706b7e834d90e828da6e11374d1253e9254bd252349fd5cada87040945476b1",
+                "fingerprint_sha256": "5338ebec8fb2ac60996126d3e76aa34fd0f3318ac78ebb7ac8f6f1361f484b33",
+                "extensions": {
+                    "subject_key_id": "81b80e638a891218e5fa3b3b50959fe6e5901385",
+                    "crl_distribution_points": [
+                        "http://crl.rootca1.amazontrust.com/rootca1.crl"
+                    ],
+                    "certificate_policies": [{"id": "2.23.140.1.2.1"}],
+                    "authority_key_id": "8418cc8534ecbc0c94942e08599cc7b2104e0a08",
+                    "key_usage": {
+                        "digital_signature": True,
+                        "certificate_sign": True,
+                        "crl_sign": True,
+                        "value": 97,
+                    },
+                    "authority_info_access": {
+                        "issuer_urls": [
+                            "http://crt.rootca1.amazontrust.com/rootca1.cer"
+                        ],
+                        "ocsp_urls": ["http://ocsp.rootca1.amazontrust.com"],
+                    },
+                    "basic_constraints": {"max_path_len": 0, "is_ca": True},
+                    "extended_key_usage": {"client_auth": True, "server_auth": True},
+                },
+                "tbs_fingerprint": "0706b7e834d90e828da6e11374d1253e9254bd252349fd5cada87040945476b1",
+                "subject_dn": "CN=Amazon RSA 2048 M01, O=Amazon, C=US",
+                "fingerprint_sha1": "2ad974a775f73cbdbbd8f5ac3a49255fa8fb1f8c",
+                "signature_algorithm": {
+                    "name": "SHA256-RSA",
+                    "oid": "1.2.840.113549.1.1.11",
+                },
+                "spki_subject_fingerprint": "84d611e87c488631378a9a9aa87c77cc6b4b34243abf9e46c42113580dac3e27",
+                "validity": {
+                    "start": "2022-08-23T22:21:28Z",
+                    "length": 252460800,
+                    "end": "2030-08-23T22:21:28Z",
+                },
+                "validation_level": "DV",
+            },
+            {
+                "issuer_dn": "CN=Starfield Services Root Certificate Authority - G2, O=Starfield Technologies\\, Inc., L=Scottsdale, ST=Arizona, C=US",
+                "fingerprint_md5": "e865a22aae524d26869af0448d6fd896",
+                "redacted": False,
+                "signature": {
+                    "valid": False,
+                    "signature_algorithm": {
+                        "name": "SHA256-RSA",
+                        "oid": "1.2.840.113549.1.1.11",
+                    },
+                    "self_signed": False,
+                    "value": "YjdCXLwQtT6LLOkMm2xF4gcAevnFWAu5CIw+7bMlPLVvUOTNNWqnkzSWMiGpSESrnO09tKpzbeR/FoCJbM8oAxiDR3mjEH4wW6w7sGDgd9QIpuEdfF7Au/maeyKdpwAJfqxGF4PcnCZXmTA5YpaP7dreqsXMGz7KQ2hsVxa81Q4gLv7/wmpdLqBKbRRYh5TmOTFffHPLkIhqhBGWJ6bt2YFGpn6jcgAKUj6DiAdjd4lpFw85hdKrCEVN0FE6/V1dN2RMfjCyVSRCnTawXZwXgWHxyvkQAiSr6w10kY17RSlQOYiypok1JR4UakcjMS9cmvqtmg5iUaQqqcT5NJ0hGA==",
+                },
+                "subject": {
+                    "country": ["US"],
+                    "organization": ["Amazon"],
+                    "common_name": ["Amazon Root CA 1"],
+                },
+                "serial_number": "144918191876577076464031512351042010504348870",
+                "version": 3,
+                "issuer": {
+                    "country": ["US"],
+                    "province": ["Arizona"],
+                    "organization": ["Starfield Technologies, Inc."],
+                    "locality": ["Scottsdale"],
+                    "common_name": [
+                        "Starfield Services Root Certificate Authority - G2"
+                    ],
+                },
+                "tbs_noct_fingerprint": "c95f7b20f6fcd39fd3a07a2e44252423b634fdbe35e1e045d964deea626115cb",
+                "fingerprint_sha256": "87dcd4dc74640a322cd205552506d1be64f12596258096544986b4850bc72706",
+                "extensions": {
+                    "subject_key_id": "8418cc8534ecbc0c94942e08599cc7b2104e0a08",
+                    "crl_distribution_points": [
+                        "http://crl.rootg2.amazontrust.com/rootg2.crl"
+                    ],
+                    "certificate_policies": [{"id": "2.5.29.32.0"}],
+                    "authority_key_id": "9c5f00dfaa01d7302b3888a2b86d4a9cf2119183",
+                    "key_usage": {
+                        "digital_signature": True,
+                        "certificate_sign": True,
+                        "crl_sign": True,
+                        "value": 97,
+                    },
+                    "authority_info_access": {
+                        "issuer_urls": ["http://crt.rootg2.amazontrust.com/rootg2.cer"],
+                        "ocsp_urls": ["http://ocsp.rootg2.amazontrust.com"],
+                    },
+                    "basic_constraints": {"is_ca": True},
+                },
+                "tbs_fingerprint": "c95f7b20f6fcd39fd3a07a2e44252423b634fdbe35e1e045d964deea626115cb",
+                "subject_dn": "CN=Amazon Root CA 1, O=Amazon, C=US",
+                "fingerprint_sha1": "06b25927c42a721631c1efd9431e648fa62e1e39",
+                "signature_algorithm": {
+                    "name": "SHA256-RSA",
+                    "oid": "1.2.840.113549.1.1.11",
+                },
+                "spki_subject_fingerprint": "064778d61d47af9b3bf3cbd1dabc44c6575ab14d0be5b08461fc6ebeac97db18",
+                "validity": {
+                    "start": "2015-05-25T12:00:00Z",
+                    "length": 713278800,
+                    "end": "2037-12-31T01:00:00Z",
+                },
+                "validation_level": "unknown",
+            },
+            {
+                "issuer_dn": "OU=Starfield Class 2 Certification Authority, O=Starfield Technologies\\, Inc., C=US",
+                "fingerprint_md5": "c6150925cfea5941ddc7ff2a0a506692",
+                "redacted": False,
+                "signature": {
+                    "valid": False,
+                    "signature_algorithm": {
+                        "name": "SHA256-RSA",
+                        "oid": "1.2.840.113549.1.1.11",
+                    },
+                    "self_signed": False,
+                    "value": "Ix3jilfKfekXeUzxHlX9zFNuPkcP38ZV8rIENu2AH1PEXTQoa77HVfxn6ss/f5CyM80bWBCCAvj4L/UTYNQFzvGBCMHdp3WXTxi5bd73k5EIun5ALO3B6rt2njMGdx0NCH9T3Rtkq4In8WnVTV6u9KHDdadYRC3yPHCYrLpptpV3fw8xXiz8oIc6R2nweV/0FFSklV4ReBJgJ86fwnf/I1N3Xbr/6lnn28+vkpbvJJo1EHqckcYOfZn2Pxnf9XJU4RWpB1l7g79SLkaMsgBkdhxI09h56G5WzK4sA5DXGTiZ5MoJGVv/B5awqH80Sd9WqfewX+0z7YxHtzADXfQDjA==",
+                },
+                "subject": {
+                    "country": ["US"],
+                    "province": ["Arizona"],
+                    "organization": ["Starfield Technologies, Inc."],
+                    "locality": ["Scottsdale"],
+                    "common_name": [
+                        "Starfield Services Root Certificate Authority - G2"
+                    ],
+                },
+                "serial_number": "12037640545166866303",
+                "version": 3,
+                "issuer": {
+                    "country": ["US"],
+                    "organization": ["Starfield Technologies, Inc."],
+                    "organizational_unit": [
+                        "Starfield Class 2 Certification Authority"
+                    ],
+                },
+                "tbs_noct_fingerprint": "8408d5e5010ab8da67eb33a7d79ace944dd0ac103ae6ead3ff30dec571066b03",
+                "fingerprint_sha256": "28689b30e4c306aab53b027b29e36ad6dd1dcf4b953994482ca84bdc1ecac996",
+                "extensions": {
+                    "subject_key_id": "9c5f00dfaa01d7302b3888a2b86d4a9cf2119183",
+                    "crl_distribution_points": ["http://s.ss2.us/r.crl"],
+                    "certificate_policies": [{"id": "2.5.29.32.0"}],
+                    "authority_key_id": "bf5fb7d1cedd1f86f45b55acdcd710c20ea988e7",
+                    "key_usage": {
+                        "digital_signature": True,
+                        "certificate_sign": True,
+                        "crl_sign": True,
+                        "value": 97,
+                    },
+                    "authority_info_access": {
+                        "issuer_urls": ["http://x.ss2.us/x.cer"],
+                        "ocsp_urls": ["http://o.ss2.us/"],
+                    },
+                    "basic_constraints": {"is_ca": True},
+                },
+                "tbs_fingerprint": "8408d5e5010ab8da67eb33a7d79ace944dd0ac103ae6ead3ff30dec571066b03",
+                "subject_dn": "CN=Starfield Services Root Certificate Authority - G2, O=Starfield Technologies\\, Inc., L=Scottsdale, ST=Arizona, C=US",
+                "fingerprint_sha1": "9e99a48a9960b14926bb7f3b02e22da2b0ab7280",
+                "signature_algorithm": {
+                    "name": "SHA256-RSA",
+                    "oid": "1.2.840.113549.1.1.11",
+                },
+                "spki_subject_fingerprint": "49d851948bc94134d7b0d7db70db8a471a832fb089a6e2c49c1f41b22d2044b5",
+                "validity": {
+                    "start": "2009-09-02T00:00:00Z",
+                    "length": 783279556,
+                    "end": "2034-06-28T17:39:16Z",
+                },
+                "validation_level": "unknown",
+            },
+        ],
+        "src": "https://15.185.166.67:443/",
+        "redacted": False,
+        "signature": {
+            "valid": False,
+            "signature_algorithm": {
+                "name": "SHA256-RSA",
+                "oid": "1.2.840.113549.1.1.11",
+            },
+            "self_signed": False,
+            "value": "qARBGZAxC9/c0jTpNm8WGjK5ezIuby5bduqHoTNk6qdWVikG0IsL1ccW6AYbljH2rluTo7RCHvsbLhhUc5eWrB3r3fALYEo0denhmIHoMC6KlNfFnq7Ocmo+9WQH1slBdHeYwn/GkDh4Y8TeQRAHxK60kFdGlnIvdqVTRl+FLPdSPmDTXSKBEw3UKFsK4qkKHAz9kzOvYTfh9cPi+1xXvZEoxexKZ797+SkFizaGSMlRZ3vw/H+3u5NEZEci7W7ryUJxcWIEzgEAltiYIehGZgG1vID5yottdqjHLjOUuo1ZWuY4QMa+1dcWAPi4HTnNFwSmuUuurj2MhVF5tUjR7A==",
+        },
+        "subject": {"common_name": ["ecs-t.me-south-1.amazonaws.com"]},
+        "serial_number": "7594487530256147170481808759715185448",
+        "version": 3,
+        "issuer": {
+            "country": ["US"],
+            "organization": ["Amazon"],
+            "common_name": ["Amazon RSA 2048 M01"],
+        },
+        "tbs_noct_fingerprint": "f200e84b762cb204f35c2e584d862d4151f55e9eb5f84bd90788a0ee6d6e9bbd",
+        "fingerprint_sha256": "e508abebeacadee987d3358d2814704c679ebcd288162daec1b00eed5c67ce24",
+        "extensions": {
+            "subject_key_id": "c04875daafea32cea4b445cd519feba2a6c55abd",
+            "crl_distribution_points": ["http://crl.r2m01.amazontrust.com/r2m01.crl"],
+            "certificate_policies": [{"id": "2.23.140.1.2.1"}],
+            "authority_key_id": "81b80e638a891218e5fa3b3b50959fe6e5901385",
+            "key_usage": {
+                "digital_signature": True,
+                "key_encipherment": True,
+                "value": 5,
+            },
+            "subject_alt_name": {
+                "dns_names": [
+                    "ecs-t.me-south-1.amazonaws.com",
+                    "*.ecs-t.me-south-1.vpce.amazonaws.com",
+                ]
+            },
+            "signed_certificate_timestamps": [
+                {
+                    "log_id": "7s3QZNXbGs7FXLedtM0TojKHRny87N7DUUhZRnEftZs=",
+                    "signature": "BAMARjBEAiAOVC948tZX1EOqmn5GZAkWX5bDg+XdAfV1IDGaAn0srAIgLlsYlEa3ASMja81lJ9vdTv51s6rtuxuqGUjaRlS2yBc=",
+                    "version": 0,
+                    "timestamp": 1679003882,
+                },
+                {
+                    "log_id": "c9meiRtMlnigIH1HneayxhzQUV5xGSqMa4AQesF3crU=",
+                    "signature": "BAMASDBGAiEAhozpK/Us5nSLmK8R02khEGty0fs4Om2f7zGb6HZdUI4CIQD52vRjACeRv/R7k8pLmcRv3s/59wFMKBA5bC11746CKA==",
+                    "version": 0,
+                    "timestamp": 1679003882,
+                },
+                {
+                    "log_id": "SLDja9qmRzQP5WoC+p0w6xxSActW3SyB2bu/qznYhHM=",
+                    "signature": "BAMARjBEAiAoDiU/x7FVl+YjFangUrJgJ2GDPH6gr0AIVBU6rPfdmwIgUacvoJQu2yuTniJKRDYBHP16m1N6LwRRiLtkjB8/qho=",
+                    "version": 0,
+                    "timestamp": 1679003882,
+                },
+            ],
+            "authority_info_access": {
+                "issuer_urls": ["http://crt.r2m01.amazontrust.com/r2m01.cer"],
+                "ocsp_urls": ["http://ocsp.r2m01.amazontrust.com"],
+            },
+            "basic_constraints": {"is_ca": False},
+            "extended_key_usage": {"client_auth": True, "server_auth": True},
+        },
+        "tbs_fingerprint": "3e47d1114cea3de3212384410a358d387c7babf9a900138316e43fd8875f7ddf",
+        "subject_dn": "CN=ecs-t.me-south-1.amazonaws.com",
+        "names": [
+            "*.ecs-t.me-south-1.vpce.amazonaws.com",
+            "ecs-t.me-south-1.amazonaws.com",
+        ],
+        "fingerprint_sha1": "aabe018d8f41b00c195ccb10d8c0a0b34ade599c",
+        "signature_algorithm": {"name": "SHA256-RSA", "oid": "1.2.840.113549.1.1.11"},
+        "spki_subject_fingerprint": "39312a7565efe0e3bfa6be02ce4c7e5d6e3b635f4f4c0375dd7f6a62bb3776ec",
+        "validity": {
+            "start": "2023-03-16T00:00:00Z",
+            "length": 29635199,
+            "end": "2024-02-21T23:59:59Z",
+        },
+        "validation_level": "DV",
+    },
+    "uri": "https://15.185.166.67:443/",
+    "host_type": "ip",
+    "prot7": "http",
+    "target": {"ip": "15.185.166.67", "type": "ip"},
+    "ptr": ["ec2-15-185-166-67.me-south-1.compute.amazonaws.com"],
+    "geo": {
+        "continent": "Asia",
+        "country": "BH",
+        "tz": "Asia/Bahrain",
+        "location": {"accuracy": 1000, "lat": 26.0333, "long": 50.55},
+    },
+    "path": "/",
+    "protocol": "https",
+    "prot4": "tcp",
+    "@timestamp": "2023-09-23T04:39:09.622Z",
+    "whois": {
+        "abuse": "abuse@amazonaws.com",
+        "related_nets": [
+            {
+                "country": "BH",
+                "address": "Arcapita Building No. 551, Road 4612, Block 346\nBahrain Bay, Manama Sea Front",
+                "city": "Manama",
+                "created": "2020-04-15",
+                "description": "Amazon Data Services Bahrain",
+                "range": "15.185.0.0 - 15.185.255.255",
+                "handle": "NET-15-185-0-0-2",
+                "organization": "Amazon Data Services Bahrain (AT-9051)",
+                "name": "AMAZON-BAH",
+                "start_ip": "15.185.0.0",
+                "net_size": 65535,
+                "cidr": ["15.185.0.0/16"],
+                "state": "PostalCode:",
+                "postal_code": "Country:        BH",
+                "end_ip": "15.185.255.255",
+                "updated": "2021-02-10",
+                "contacts": {
+                    "emails": ["amzn-noc-contact@amazon.com", "abuse@amazonaws.com"],
+                    "phones": ["+1-206-555-0000"],
+                },
+            }
+        ],
+        "net": {
+            "country": "US",
+            "address": "410 Terry Ave N.",
+            "city": "Seattle",
+            "created": "2021-01-28",
+            "description": "Amazon Technologies Inc.",
+            "range": "15.179.0.0 - 15.188.255.255",
+            "handle": "NET-15-179-0-0-1",
+            "organization": "Amazon Technologies Inc. (AT-88-Z)",
+            "name": "AT-88-Z",
+            "start_ip": "15.179.0.0",
+            "net_size": 655359,
+            "cidr": [
+                "15.179.0.0/16",
+                "15.180.0.0/14",
+                "15.184.0.0/14",
+                "15.188.0.0/16",
+            ],
+            "state": "WA",
+            "postal_code": "98109",
+            "end_ip": "15.188.255.255",
+            "updated": "2021-02-10",
+            "contacts": {
+                "emails": [
+                    "aws-rpki-routing-poc@amazon.com",
+                    "abuse@amazonaws.com",
+                    "aws-routing-poc@amazon.com",
+                    "amzn-noc-contact@amazon.com",
+                ],
+                "phones": ["+1-206-555-0000"],
+            },
+        },
+        "asn": {
+            "registry": "arin",
+            "number": ["16509"],
+            "country": "US",
+            "name": "AMAZON-02",
+            "cidr": "15.185.0.0/16",
+            "updated": "2021-01-28",
+        },
+    },
+    "port": 443,
+    "host": "15.185.166.67",
+    "iteration": "8",
+    "http": {
+        "headers": {
+            "date": ["Sat, 23 Sep 2023 04:39:04 GMT"],
+            "server": ["Server"],
+            "content_type": ["text/html"],
+            "connection": ["keep-alive"],
+            "content_length": ["565"],
+        },
+        "status_code": 403,
+        "body_sha256": "dde8e6ebf3d4b584e943c002257d1882b5fdff8d988dba30479c35cbf3cfe0f9",
+        "http_version": {"major": 1, "minor": 1, "name": "HTTP/1.1"},
+        "title": "403 Forbidden",
+        "status_line": "403 Forbidden",
+        "body": '<html>\r\n<head><title>403 Forbidden</title></head>\r\n<body bgcolor="white">\r\n<center><h1>403 Forbidden</h1></center>\r\n<hr><center>Server</center>\r\n</body>\r\n</html>\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n',
+        "content_length": 565,
+    },
+    "scan_date": "2023-09-22",
+}
+
+```
+
+### datatype="domain"
+
+
+Corresponds to the results that can be obtained in [Netlas DNS search](https://app.netlas.io/domains/).
+
+```
+{
+    "a": [
+        "31.13.66.35",
+        "157.240.26.35",
+        "31.13.72.59",
+        "157.240.221.35",
+        "157.240.212.35",
+        "185.60.219.35",
+        "163.70.128.35",
+        "89.208.50.56",
+        "89.208.50.46",
+        "185.89.218.12",
+        "31.13.72.36",
+        "157.240.238.53",
+        "157.240.28.35",
+        "31.13.84.36",
+        "31.13.66.13",
+        "157.240.252.35",
+        "188.186.146.207",
+        "157.240.0.35",
+        "157.240.234.35",
+        "157.240.210.35",
+        "157.240.214.35",
+    ],
+    "txt": [
+        "google-site-verification=A2WZWCNQHrGV_TWwKh6KHY90tY0SHZo_RnyMJoDaG0s",
+        "google-site-verification=wdH5DTJTc9AYNwVunSVFeK0hYDGUIEOGb-RReU6pJlY",
+        "v=spf1 redirect=_spf.facebook.com",
+        "google-site-verification=sK6uY9x7eaMoEMfn3OILqwTFYgaNp4llmguKI-C3_iA",
+        "zoom-domain-verification=a6c90d61-66ec-485c-9f3d-cce7036f01bb",
+    ],
+    "last_updated": "2023-09-07T16:31:15.683Z",
+    "@timestamp": "2023-09-07T16:31:15.683Z",
+    "level": 2,
+    "zone": "com",
+    "ns": [
+        "d.ns.facebook.com",
+        "a.ns.facebook.com",
+        "c.ns.facebook.com",
+        "b.ns.facebook.com",
+    ],
+    "domain": "facebook.com",
+    "mx": ["smtpin.vvv.facebook.com"],
+}
+```
+
+### datatype="domain-whois"
+
+
+Corresponds to the results that can be obtained in [Netlas Domain Whois Search](https://app.netlas.io/whois/domains/).
+
+```
+{
+    "referer": ["http://id.facebook.org:80/"],
+    "last_updated": "2023-01-06T05:22:51.401Z",
+    "isp": "Facebook",
+    "ip": "157.240.222.35",
+    "certificate": {
+        "issuer_dn": "CN=DigiCert SHA2 High Assurance Server CA, OU=www.digicert.com, O=DigiCert Inc, C=US",
+        "fingerprint_md5": "98ab77aa62edb573f62de255d57eb7a7",
+        "chain": [
+            {
+                "issuer_dn": "CN=DigiCert High Assurance EV Root CA, OU=www.digicert.com, O=DigiCert Inc, C=US",
+                "fingerprint_md5": "aaee5cf8b0d8596d2e0cbe67421cf7db",
+                "redacted": False,
+                "signature": {
+                    "valid": False,
+                    "signature_algorithm": {
+                        "name": "SHA256-RSA",
+                        "oid": "1.2.840.113549.1.1.11",
+                    },
+                    "value": "GIqViQPmbd9c/B1o6kqPg9ZRL41rRBaerGP10m5shJmLqoFxhFvtNE6wt3mSKcwtgGrwjiDheaT+A0cT6vWGyllxffQElmvTWVg9/tMxJVwYOISj5p+C/YxbmDFOzXieGv2Fy0mq8ieLmXL8PqrVQQva1TahvxxuR0l/XtlIfAPZ/YtJoJgmQkDr1pIRpGQKV1TE9R3WAl5rrO7EgJoScvpWk9f/vzCFBjC/C39O/1cFnSTthcMr+6Z1qKwtFu99eSey68KdCwfqqoXTAaMgKEFZQyjSgeOq9ux7O3e2QGKABUFFAe8XBj7ewDObZ9NhLnKH5Gn8EgBXQB5w9R7JtA==",
+                    "self_signed": False,
+                },
+                "subject": {
+                    "country": ["US"],
+                    "organization": ["DigiCert Inc"],
+                    "common_name": ["DigiCert SHA2 High Assurance Server CA"],
+                    "organizational_unit": ["www.digicert.com"],
+                },
+                "serial_number": "6489877074546166222510380951761917343",
+                "version": 3,
+                "issuer": {
+                    "country": ["US"],
+                    "organization": ["DigiCert Inc"],
+                    "common_name": ["DigiCert High Assurance EV Root CA"],
+                    "organizational_unit": ["www.digicert.com"],
+                },
+                "tbs_noct_fingerprint": "ac5d79b4a1e84b9ea1f7f72b022158540f37c8557fc99f0c08b37f670632a177",
+                "fingerprint_sha256": "19400be5b7a31fb733917700789d2f0a2471c0c9d506c0e504c06c16d7cb17c0",
+                "extensions": {
+                    "subject_key_id": "5168ff90af0207753cccd9656462a212b859723b",
+                    "crl_distribution_points": [
+                        "http://crl4.digicert.com/DigiCertHighAssuranceEVRootCA.crl"
+                    ],
+                    "certificate_policies": [
+                        {"cps": ["https://www.digicert.com/CPS"], "id": "2.5.29.32.0"}
+                    ],
+                    "key_usage": {
+                        "digital_signature": True,
+                        "certificate_sign": True,
+                        "crl_sign": True,
+                        "value": 97,
+                    },
+                    "authority_key_id": "b13ec36903f8bf4701d498261a0802ef63642bc3",
+                    "authority_info_access": {
+                        "ocsp_urls": ["http://ocsp.digicert.com"]
+                    },
+                    "basic_constraints": {"max_path_len": 0, "is_ca": True},
+                    "extended_key_usage": {"client_auth": True, "server_auth": True},
+                },
+                "tbs_fingerprint": "ac5d79b4a1e84b9ea1f7f72b022158540f37c8557fc99f0c08b37f670632a177",
+                "subject_dn": "CN=DigiCert SHA2 High Assurance Server CA, OU=www.digicert.com, O=DigiCert Inc, C=US",
+                "fingerprint_sha1": "a031c46782e6e6c662c2c87c76da9aa62ccabd8e",
+                "signature_algorithm": {
+                    "name": "SHA256-RSA",
+                    "oid": "1.2.840.113549.1.1.11",
+                },
+                "spki_subject_fingerprint": "4d8f65901ef8a23b1210242a5dfc786708a0d4008e7cecd03d4145a1c0834095",
+                "validity": {
+                    "start": "2013-10-22T12:00:00Z",
+                    "length": 473385600,
+                    "end": "2028-10-22T12:00:00Z",
+                },
+                "validation_level": "unknown",
+            }
+        ],
+        "redacted": False,
+        "src": "https://id.facebook.org:443/",
+        "signature": {
+            "valid": False,
+            "signature_algorithm": {
+                "name": "SHA256-RSA",
+                "oid": "1.2.840.113549.1.1.11",
+            },
+            "value": "J4KWSqUeBXSNTCAN0TB+tkpGu1GoAszD2KpmS0LXoUWz5ei2qdWQgTx2ev0z8yoDO1cCIM7VO89lazjpyF+XuwyMLnuYs9HfJpnAaeLnfPUY5ZDT+bVmqZY6Kldz5WE3DJHLx8PCpC2doO44NOU6A89HUJ8oOXB3rAXkC9rWaAwsbj0fxyHfv7U4mPMQIcbbK8S1Frj/x2+ti7VgywWZ9YvGY+kFdneSUL1TIrq05yktGmKp0D6lJjHgYUDcP9uOmHlwQcdmQceLjOZsne5F5CLUb5uxDBGvYW6vdyU9ludj5G3q8TxHzT7kA0ZEPXRT2E7zOusOqmk1SFDkqoZKjA==",
+            "self_signed": False,
+        },
+        "subject": {
+            "country": ["US"],
+            "province": ["California"],
+            "organization": ["Facebook, Inc."],
+            "locality": ["Menlo Park"],
+            "common_name": ["*.facebook.com"],
+        },
+        "serial_number": "19893338216669499980325027031545953435",
+        "version": 3,
+        "issuer": {
+            "country": ["US"],
+            "organization": ["DigiCert Inc"],
+            "common_name": ["DigiCert SHA2 High Assurance Server CA"],
+            "organizational_unit": ["www.digicert.com"],
+        },
+        "tbs_noct_fingerprint": "df456e6ceaa34418349216961cc6ecef01376a9e32c33721b1587cbf1c72197e",
+        "fingerprint_sha256": "6d3310857228502a97dd41ed65e60b0010fadaf89dd3751f58afb4e7df1a6ab8",
+        "extensions": {
+            "subject_key_id": "4c15f24cbbc260120e4d70080d1bbb5dabe7c2c8",
+            "crl_distribution_points": [
+                "http://crl3.digicert.com/sha2-ha-server-g6.crl",
+                "http://crl4.digicert.com/sha2-ha-server-g6.crl",
+            ],
+            "certificate_policies": [
+                {"cps": ["http://www.digicert.com/CPS"], "id": "2.23.140.1.2.2"}
+            ],
+            "key_usage": {"digital_signature": True, "value": 1},
+            "authority_key_id": "5168ff90af0207753cccd9656462a212b859723b",
+            "subject_alt_name": {
+                "dns_names": [
+                    "*.facebook.com",
+                    "*.facebook.net",
+                    "*.fbcdn.net",
+                    "*.fbsbx.com",
+                    "*.m.facebook.com",
+                    "*.messenger.com",
+                    "*.xx.fbcdn.net",
+                    "*.xy.fbcdn.net",
+                    "*.xz.fbcdn.net",
+                    "facebook.com",
+                    "messenger.com",
+                ]
+            },
+            "signed_certificate_timestamps": [
+                {
+                    "log_id": "6D7Q2j71BjUy51covIlryQPTy9ERa+zraeF3fW0GvW4=",
+                    "signature": "BAMARzBFAiEAppvmXJDR1evBdQF5iyEXzzrAOcMQW2Fm/i9ViUFXl5MCICZdSiqRejoyhl8uNBBx5v5Cm1Pd85pFJKaDwonWPIZi",
+                    "version": 0,
+                    "timestamp": 1665797310,
+                },
+                {
+                    "log_id": "s3N3B+GEUPhjhtYFqdwRCUp5LbFnDAuH3PADDnk2pZo=",
+                    "signature": "BAMASDBGAiEAwQs698alQANUk0RinrEjZH3TMFrzADwVy0cPTOV/i8UCIQCYAmFDOK3MUylxldqK6AsFmXFYQZUf2Vh6OBf0Hh4eTw==",
+                    "version": 0,
+                    "timestamp": 1665797310,
+                },
+                {
+                    "log_id": "tz77JN+cTbp18jnFulj0bF38Qs96nzXEnh0JgSXttJk=",
+                    "signature": "BAMARzBFAiAlp5VSWNIfuPEqUaJM4KPYDTtV1NKLS9cQCZO+KbwubwIhAOtoFMwjvpXfo0lBEdGLv5Euz/cbvc9Vs0+rxGWKYmyX",
+                    "version": 0,
+                    "timestamp": 1665797310,
+                },
+            ],
+            "authority_info_access": {
+                "issuer_urls": [
+                    "http://cacerts.digicert.com/DigiCertSHA2HighAssuranceServerCA.crt"
+                ],
+                "ocsp_urls": ["http://ocsp.digicert.com"],
+            },
+            "basic_constraints": {"is_ca": False},
+            "extended_key_usage": {"client_auth": True, "server_auth": True},
+        },
+        "tbs_fingerprint": "5fba091ad7823e298babad2664328d4d0ebe959672360389ba19a1407e729073",
+        "subject_dn": "CN=*.facebook.com, O=Facebook\\, Inc., L=Menlo Park, ST=California, C=US",
+        "names": [
+            "*.facebook.com",
+            "*.facebook.net",
+            "*.fbcdn.net",
+            "*.fbsbx.com",
+            "*.m.facebook.com",
+            "*.messenger.com",
+            "*.xx.fbcdn.net",
+            "*.xy.fbcdn.net",
+            "*.xz.fbcdn.net",
+            "facebook.com",
+            "messenger.com",
+        ],
+        "fingerprint_sha1": "78e0341711b4390bb75069707980fe5cdeb94010",
+        "signature_algorithm": {"name": "SHA256-RSA", "oid": "1.2.840.113549.1.1.11"},
+        "spki_subject_fingerprint": "c77933d7cb602adcad550d3bd79edf559062f0db42aa575bbb7f82065ff1b81b",
+        "validity": {
+            "start": "2022-10-15T00:00:00Z",
+            "length": 7862399,
+            "end": "2023-01-13T23:59:59Z",
+        },
+        "validation_level": "OV",
+    },
+    "uri": "https://id.facebook.org:443/",
+    "host_type": "domain",
+    "target": {"domain": "id.facebook.org", "type": "domain"},
+    "prot7": "http",
+    "ptr": ["edge-star-mini-shv-01-gru1.facebook.com"],
+    "geo": {
+        "continent": "South America",
+        "country": "BR",
+        "city": "Barueri",
+        "tz": "America/Sao_Paulo",
+        "location": {"accuracy": 20, "lat": -23.5111, "long": -46.8727},
+        "subdivisions": ["SP"],
+    },
+    "path": "/",
+    "protocol": "https",
+    "prot4": "tcp",
+    "@timestamp": "2023-01-06T05:22:51.401Z",
+    "whois": {
+        "abuse": "noc@fb.com",
+        "related_nets": [],
+        "net": {
+            "country": "US",
+            "address": "1601 Willow Rd.",
+            "city": "Menlo Park",
+            "created": "2015-05-14",
+            "range": "157.240.0.0 - 157.240.255.255",
+            "description": "Facebook, Inc.",
+            "handle": "NET-157-240-0-0-1",
+            "organization": "Facebook, Inc. (THEFA-3)",
+            "start_ip": "157.240.0.0",
+            "name": "THEFA-3",
+            "cidr": ["157.240.0.0/16"],
+            "net_size": 65535,
+            "state": "CA",
+            "postal_code": "94025",
+            "end_ip": "157.240.255.255",
+            "updated": "2021-12-14",
+            "contacts": {"emails": ["noc@fb.com"], "phones": ["+1-650-543-4800"]},
+        },
+        "asn": {
+            "country": "US",
+            "registry": "arin",
+            "number": ["32934"],
+            "name": "FACEBOOK",
+            "cidr": "157.240.0.0/17",
+            "updated": "2015-05-14",
+        },
+    },
+    "port": 443,
+    "domain": [
+        "ns1.facebook.co.za",
+        "viruses.thefacebook.at",
+        "www.dreamscancometruefarms.com",
+        "mongo.facebook.com.br",
+        "exchange.facebook.com.br",
+        "vpn.on.fb.me",
+        "antivirus-free.fquestions.com",
+        "www.freundes-o.de",
+        "postmaster.facebook.com",
+        "yuniskanbur.facebook.de",
+        "server1.on.fb.me",
+        "edge-star-mini-shv-01-gru1.facebook.com",
+        "facebook.com",
+        "m.fb.me",
+        "connect.facebook.it",
+        "wap.facebook.com.br",
+        "go.facebook.com.br",
+        "kosuncovered.thefacebook.at",
+        "hubertperron.facebook.fr",
+        "id.facebook.org",
+    ],
+    "host": "id.facebook.org",
+    "iteration": "116",
+    "http": {
+        "headers": {
+            "date": ["Fri, 06 Jan 2023 05:20:18 GMT"],
+            "content_type": ['text/html; charset="utf-8"'],
+            "location": ["https://www.facebook.com/"],
+            "connection": ["keep-alive"],
+            "alt_svc": ['h3=":443"; ma=86400'],
+            "x_fb_debug": [
+                "RFWHzJvmFz2VmGnEMEGuUrp++5KjvUp54QMRH/LASEF9AsrEWDXjcn5BhwcElETITZI9y8LYi9ogk41tppPD5w=="
+            ],
+            "content_length": ["0"],
+        },
+        "status_code": 302,
+        "http_version": {"major": 1, "minor": 1, "name": "HTTP/1.1"},
+        "status_line": "302 Found",
+    },
+    "scan_date": "2023-01-03",
+}
+
+```
+
+### datatype="ip-whois"
+
+Corresponds to the results that can be obtained in [Netlas IP Whois Search](https://app.netlas.io/whois/ip/).
+
+```
+{
+    "last_updated": "2023-09-29T06:58:14.041Z",
+    "isp": "Scaleway",
+    "ip": "51.159.153.170",
+    "ntp": {
+        "time_response": {
+            "reference_timestamp": {"seconds": 3904958862, "fraction": 2043133245},
+            "root_delay": {"seconds": 0, "fraction": 1426},
+            "reference_id": "CsUDEA==",
+            "root_dispersion": {"seconds": 0, "fraction": 6123},
+            "precision": -24,
+            "leap_indicator": 0,
+            "receive_timestamp": {"seconds": 3904959379, "fraction": 929677788},
+            "poll": 3,
+            "version": 3,
+            "stratum": 5,
+            "mode": 4,
+            "origin_timestamp": {"seconds": 0, "fraction": 0},
+            "transmit_timestamp": {"seconds": 3904959379, "fraction": 929912735},
+        },
+        "banner": "Version: 3\nTime:\nwall: 216457477\next: 63831567379\nTimeResponse:\nVersion: 3\nMode: 4\nStratum: 5\nPoll: 3\nPrecision: -24\nRootDelay:\nFraction: 1426\nRootDispersion:\nFraction: 6123\nReferenceID: [10, 197, 3, 16]\nReferenceTimestamp:\nSeconds: 3904958862\nFraction: 2043133245\nOriginTimestamp:\nReceiveTimestamp:\nSeconds: 3904959379\nFraction: 929677788\nTransmitTimestamp:\nSeconds: 3904959379\nFraction: 929912735\n",
+        "time": "2023-09-29T06:56:19.216457477Z",
+        "version": 3,
+    },
+    "uri": "ntp://51.159.153.170:123",
+    "host_type": "ip",
+    "prot7": "ntp",
+    "target": {"ip": "51.159.153.170", "type": "ip"},
+    "ptr": ["170-153-159-51.instances.scw.cloud"],
+    "geo": {
+        "continent": "Europe",
+        "country": "FR",
+        "city": "Paris",
+        "tz": "Europe/Paris",
+        "location": {"accuracy": 1000, "lat": 48.8323, "long": 2.4075},
+        "postal": "75001",
+        "subdivisions": ["IDF", "75"],
+    },
+    "protocol": "ntp",
+    "prot4": "udp",
+    "@timestamp": "2023-09-29T06:58:14.041Z",
+    "whois": {
+        "abuse": "abuse@online.net",
+        "related_nets": [
+            {
+                "created": "2018-03-28T15:59:36Z",
+                "start_ip": "51.158.0.0",
+                "description": "SCALEWAY\nParis, France",
+                "range": "51.158.0.0 - 51.159.255.255",
+                "net_size": 131071,
+                "cidr": ["51.158.0.0/15"],
+                "updated": "2022-05-03T10:05:58Z",
+                "end_ip": "51.159.255.255",
+            }
+        ],
+        "net": {
+            "country": "FR",
+            "address": "8 rue de la ville l'eveque 75008 PARIS",
+            "created": "2018-02-09T11:38:35Z",
+            "range": "51.159.0.0 - 51.159.255.255",
+            "handle": "MM42047-RIPE",
+            "organization": "Scaleway",
+            "start_ip": "51.159.0.0",
+            "name": "ONLINENET_DEDICATED_SERVERS",
+            "net_size": 65535,
+            "cidr": ["51.159.0.0/16"],
+            "updated": "2018-02-28T16:21:55Z",
+            "end_ip": "51.159.255.255",
+            "contacts": {"persons": ["Mickael Marchand"], "phones": ["+33173502000"]},
+        },
+        "asn": {
+            "number": ["12876"],
+            "country": "FR",
+            "registry": "ripencc",
+            "name": "Online SAS",
+            "cidr": "51.158.0.0/15",
+            "updated": "1993-09-01",
+        },
+    },
+    "port": 123,
+    "host": "51.159.153.170",
+    "iteration": "8",
+    "scan_date": "2023-09-22",
+}
+
+
+```
+
+### datatype="cert"
+
+Corresponds to the results that can be obtained in [Netlas Certificates Search](https://app.netlas.io/certs/).
+
+```
+{
+    "last_updated": "2021-07-24T23:07:33.045Z",
+    "@timestamp": "2021-07-24T23:07:33.045Z",
+    "certificate": {
+        "issuer_dn": "CN=Let's Encrypt Authority X3, O=Let's Encrypt, C=US",
+        "fingerprint_md5": "b1a639dfc20b296dbbfa4d038a25d613",
+        "chain": [
+            {
+                "issuer_dn": "CN=DST Root CA X3, O=Digital Signature Trust Co.",
+                "fingerprint_md5": "b15409274f54ad8f023d3b85a5ecec5d",
+                "redacted": False,
+                "signature": {
+                    "valid": False,
+                    "signature_algorithm": {
+                        "name": "SHA256-RSA",
+                        "oid": "1.2.840.113549.1.1.11",
+                    },
+                    "self_signed": False,
+                    "value": "3TPXEfNjWDjdGBX7CVW+dla5cEilaUcne8IkCJLxWh9KEik3JHRRHGJouM2VcGfl96S8TihRzZvoroed6ti6WqEBmtzw3Wodatg+VyOeph4EYpr/1wXKtx8/wApIvJSwtmVi4MFU5aMqrSDE6ea73Mj2tcMyo5jMd6jmeWUHK8so/joWUoHOUgwuX4Po1QYz+3dszkDqMp4fklxBwXRsW10KXzPMTZ+sOPAveyxindmjkW8lGy+QsRlGPfZ+G6Z6h7mjem0Y+iWlkYcV4PIWL1iwBi8saCbGS5jN2p8M+X+Q7UNKEkROb3N6KOqkqm57TH2H3eDJAkSnh6/DNFu0Qg==",
+                },
+                "subject": {
+                    "country": ["US"],
+                    "organization": ["Let's Encrypt"],
+                    "common_name": ["Let's Encrypt Authority X3"],
+                },
+                "serial_number": "13298795840390663119752826058995181320",
+                "version": 3,
+                "issuer": {
+                    "organization": ["Digital Signature Trust Co."],
+                    "common_name": ["DST Root CA X3"],
+                },
+                "fingerprint_sha256": "25847d668eb4f04fdd40b12b6b0740c567da7d024308eb6c2c96fe41d9de218d",
+                "tbs_noct_fingerprint": "3e1a1a0f6c53f3e97a492d57084b5b9807059ee057ab1505876fd83fda3db838",
+                "tbs_fingerprint": "3e1a1a0f6c53f3e97a492d57084b5b9807059ee057ab1505876fd83fda3db838",
+                "extensions": {
+                    "crl_distribution_points": [
+                        "http://crl.identrust.com/DSTROOTCAX3CRL.crl"
+                    ],
+                    "subject_key_id": "a84a6a63047dddbae6d139b7a64565eff3a8eca1",
+                    "certificate_policies": [
+                        {"id": "2.23.140.1.2.1"},
+                        {
+                            "cps": ["http://cps.root-x1.letsencrypt.org"],
+                            "id": "1.3.6.1.4.1.44947.1.1.1",
+                        },
+                    ],
+                    "key_usage": {
+                        "digital_signature": True,
+                        "certificate_sign": True,
+                        "crl_sign": True,
+                        "value": 97,
+                    },
+                    "authority_key_id": "c4a7b1a47b2c71fadbe14b9075ffc41560858910",
+                    "authority_info_access": {
+                        "issuer_urls": [
+                            "http://apps.identrust.com/roots/dstrootcax3.p7c"
+                        ],
+                        "ocsp_urls": ["http://isrg.trustid.ocsp.identrust.com"],
+                    },
+                    "basic_constraints": {"max_path_len": 0, "is_ca": True},
+                },
+                "subject_dn": "CN=Let's Encrypt Authority X3, O=Let's Encrypt, C=US",
+                "fingerprint_sha1": "e6a3b45b062d509b3382282d196efe97d5956ccb",
+                "signature_algorithm": {
+                    "name": "SHA256-RSA",
+                    "oid": "1.2.840.113549.1.1.11",
+                },
+                "spki_subject_fingerprint": "78d2913356ad04f8f362019df6cb4f4f8b003be0d2aa0d1cb37d2fd326b09c9e",
+                "validity": {
+                    "length": 157766400,
+                    "start": "2016-03-17T16:40:46Z",
+                    "end": "2021-03-17T16:40:46Z",
+                },
+                "validation_level": "DV",
+            },
+            {
+                "issuer_dn": "CN=DST Root CA X3, O=Digital Signature Trust Co.",
+                "fingerprint_md5": "410352dc0ff7501b16f0028eba6f45c5",
+                "redacted": False,
+                "signature": {
+                    "valid": True,
+                    "signature_algorithm": {
+                        "name": "SHA1-RSA",
+                        "oid": "1.2.840.113549.1.1.5",
+                    },
+                    "self_signed": True,
+                    "value": "oxosmxcAXKke7ihmNzq/g8c/S8MJoJUgXePZWUTSPg0+vYpLoHQfzhCCnHQaHX6YGt3LE0uzIETkkenM/H2l22rl/ub94E7dtwA6tXBJr/Ll6wLx0QKLGcuUOl5IxBgeWBlfHgJa8Azxsa2p3FmGi27pkfWGyvq5ZjOqWVvO4qcWc0fLK8yZsDdIz+NWS/XPDwxyMofG8ES7U3JtQ/UmSJpSZ7dYq/5ndnF42w2iVhQTOSQxhaKoAlowR+HdUAe8AgmQAOtkY2CbFryIyRLm0n2Ri/k9Mo1ltOl8sVd26sW2KDm/FWUcyPZ3lmoKjXcL2JELBI4H2ym2Cu6dgjU1EA==",
+                },
+                "subject": {
+                    "organization": ["Digital Signature Trust Co."],
+                    "common_name": ["DST Root CA X3"],
+                },
+                "serial_number": "91299735575339953335919266965803778155",
+                "version": 3,
+                "issuer": {
+                    "organization": ["Digital Signature Trust Co."],
+                    "common_name": ["DST Root CA X3"],
+                },
+                "fingerprint_sha256": "0687260331a72403d909f105e69bcf0d32e1bd2493ffc6d9206d11bcd6770739",
+                "tbs_noct_fingerprint": "d0b243776a6c10e4485b34ea3e3b3a063f3089770e04a78c8087b7c49d4f98d6",
+                "tbs_fingerprint": "d0b243776a6c10e4485b34ea3e3b3a063f3089770e04a78c8087b7c49d4f98d6",
+                "extensions": {
+                    "subject_key_id": "c4a7b1a47b2c71fadbe14b9075ffc41560858910",
+                    "key_usage": {
+                        "certificate_sign": True,
+                        "crl_sign": True,
+                        "value": 96,
+                    },
+                    "basic_constraints": {"is_ca": True},
+                },
+                "subject_dn": "CN=DST Root CA X3, O=Digital Signature Trust Co.",
+                "fingerprint_sha1": "dac9024f54d8f6df94935fb1732638ca6ad77c13",
+                "signature_algorithm": {
+                    "name": "SHA1-RSA",
+                    "oid": "1.2.840.113549.1.1.5",
+                },
+                "spki_subject_fingerprint": "ba285dc8432f62fb8979d84c65660dc04e6219bf716c6dc2e4e49bb2dba68612",
+                "validity": {
+                    "length": 662662136,
+                    "start": "2000-09-30T21:12:19Z",
+                    "end": "2021-09-30T14:01:15Z",
+                },
+                "validation_level": "unknown",
+            },
+        ],
+        "redacted": False,
+        "src": "https://ct.googleapis.com/logs/argon2019/",
+        "signature": {
+            "valid": False,
+            "signature_algorithm": {
+                "name": "SHA256-RSA",
+                "oid": "1.2.840.113549.1.1.11",
+            },
+            "self_signed": False,
+            "value": "IgTWRYQiNa4CEjz9f+MCfnS/n638utteo5ena1WziFXdWasUePWXVM1R5sYIiXUUmt1z/34OSFHpisetgRI683OCEZxZDBiRBsN5lXPs/hMcO14Hs9WhWTrrfUckLHgLOXTiFJ/iCrlKJgUo5QzMFOvwm2iQ9GIMQSS94qRoHBI7U4Upu99ffammpj0Ou4YmBPGXmMngyOx3WtK8eCG7kGEsH01ny8sCUnwtNvlwuKrarw5L0vnnAMzazRzoFDx/vC3R2KewwD8j5eYnF9eI7E7KZSK7Q3eEzboxTO2EZkld40/pdzH+o7B3XOzpJQhglJ3B4iuEZ9Zj9CytNAURCw==",
+        },
+        "subject": {"common_name": ["l-t.me"]},
+        "index": 617433965,
+        "serial_number": "298806317781126933132565598755589171656545",
+        "version": 3,
+        "issuer": {
+            "country": ["US"],
+            "organization": ["Let's Encrypt"],
+            "common_name": ["Let's Encrypt Authority X3"],
+        },
+        "fingerprint_sha256": "ac3e22f1a55d4db5b66ff6df72ee47cf9c550bc97595f26b6f50a38e38628e2b",
+        "tbs_noct_fingerprint": "783f8f2c6844ce3fba97b524e5285b2b4e5f623c18b55d153a0f27087cec67ec",
+        "tbs_fingerprint": "9eb431ee59fcd1ebcaaf574d034236786613782891006ac20dac22cb87bae3aa",
+        "extensions": {
+            "subject_key_id": "53b6643e7203a5e5ffd40b9e9d0a049c3ccab86d",
+            "certificate_policies": [
+                {"id": "2.23.140.1.2.1"},
+                {
+                    "cps": ["http://cps.letsencrypt.org"],
+                    "id": "1.3.6.1.4.1.44947.1.1.1",
+                },
+            ],
+            "key_usage": {
+                "digital_signature": True,
+                "key_encipherment": True,
+                "value": 5,
+            },
+            "authority_key_id": "a84a6a63047dddbae6d139b7a64565eff3a8eca1",
+            "subject_alt_name": {"dns_names": ["l-t.me"]},
+            "signed_certificate_timestamps": [
+                {
+                    "log_id": "b1N2rDHwMRnYmQCkURX/dxUcEdkCwQApBo2yCJo32RM=",
+                    "signature": "BAMARjBEAiBkCDpebkU6+Grogm0B/IG0aEZhaCcfBIiuiofxTyggbgIgJN0bFWWIWyBYDReAlT8x3qKXu1Kh569eCe/YRTUDUbQ=",
+                    "version": 0,
+                    "timestamp": 1563184252,
+                },
+                {
+                    "log_id": "Y/Lbzeg7zCzPC3KEJ1drM6SNYXePvXWmOLHHaFRL2I0=",
+                    "signature": "BAMASDBGAiEArAXCIYXcs3ZhPtge9wVdP2lbGJkCBmoo3wMQkaLmcp0CIQDZHZEuyfO9wy/knwfGaIxVEu/+2+DZS7Irzdx5z8ehoA==",
+                    "version": 0,
+                    "timestamp": 1563184252,
+                },
+            ],
+            "authority_info_access": {
+                "issuer_urls": ["http://cert.int-x3.letsencrypt.org/"],
+                "ocsp_urls": ["http://ocsp.int-x3.letsencrypt.org"],
+            },
+            "basic_constraints": {"is_ca": False},
+            "extended_key_usage": {"client_auth": True, "server_auth": True},
+        },
+        "subject_dn": "CN=l-t.me",
+        "names": ["l-t.me"],
+        "fingerprint_sha1": "8dd1c6bb83834846c3518a50bd2de5425b679647",
+        "signature_algorithm": {"name": "SHA256-RSA", "oid": "1.2.840.113549.1.1.11"},
+        "spki_subject_fingerprint": "8c98ec718b8ec4a008524edee0ba9e90e32ef6da97f2eab732004ae0f70de202",
+        "validity": {
+            "length": 7776000,
+            "start": "2019-07-15T08:50:52Z",
+            "end": "2019-10-13T08:50:52Z",
+        },
+        "validation_level": "DV",
+    },
+}
+
+```
+
+
+
+
+
+
+
+
 
 
 ## Netlas CLI Tools
