@@ -65,6 +65,11 @@
       - [Default logins and passwords](#default-logins-and-passwords)
     - [Search servers with CVEs by favicon hash](#search-servers-with-cves-by-favicon-hash)
     - [Search servers with CVEs by tag name](#search-servers-with-cves-by-tag-name)
+ -[Using Netlas.io for Digital Forensics and Incident Response](#using-netlasio-for-digital-forensics-and-incident-response)
+    -[SMTP servers information gathering](#smtp-servers-information-gathering)
+    - [Search for domains associated with a specific subnet](#search-for-domains-associated-with-a-specific-subnet)
+- [Using Netlas for fun or netstalking](#using-netlasio-for-fun-or-netstalking
+)
 - [Common problems](#common-problems)
      - [Error 429 - Too frequent requests](#error-429---too-frequent-requests)
      - [KeyError](#keyerror)
@@ -1625,6 +1630,153 @@ To see how the site looks, copy the contents of the "body" field (response tab) 
 After that, copy the code into one of the online html promoters, such as [Code beautify](https://codebeautify.org/htmlviewer). Or just save the file in html format and then open it in browser.
 
 
+# Using Netlas.io for Digital Forensics and Incident Response
+
+
+
+This section is very difficult to separate from the Netlas for OSINT section, as the queries listed therein will also be useful to those involved in digital forensics.
+
+In this section, we describe more "technical" queries that can help, for example, gather information about the technical infrastructure of networks or investigate phishing attacks.
+
+
+## SMTP servers information gathering
+
+SMTP (Simple Mail Transfer Protocol) is a communication protocol that enables to send and receive emails. In most email clients, when viewing emails, the "Show Original" function is available, which allows you to view the address of the SMTP server from which the email was sent.
+
+
+Netlas allows you to get information about an SMTP server as well as about any other IP or domain, as well as to search the text of SMPT banners, which allows you to find servers associated with a particular domain, company or hosting provider.
+
+**Search query example**  
+
+![SMTP banner search](images/smtp_banner_search.png)
+
+
+```
+smtp.banner:fornex.cloud
+```
+
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search "smtp.banner:fornex.cloud" -f json
+```
+
+Curl:
+
+
+```
+
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=smtp.banner%3Afornex.cloud&source_type=include&start=0&fields=*' \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.smtp.banner
+
+```
+
+
+**Code example (Netlas Python Library)**
+
+![SMTP banner search Python](images/smtp_banner_search_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/dfir/smtp_banner_search.py
+```
+
+
+Source code of scripts/dfir/smtp_banner_search.py:
+
+```python
+
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `smtp.banner:fornex.cloud`
+netlas_query = netlas_connection.query(query="smtp.banner:fornex.cloud")
+
+
+# iterate over data and print: SMTP banner, URL, ISP
+for response in netlas_query['items']:
+    print (response['data']['smtp']['banner'])
+    print (response['data']['uri'])
+    print (response['data']['isp'])
+pass
+
+```
+
+
+
+## Search for domains that could potentially be used for phishing
+
+
+One of the popular methods of scammers is to use domains that are very similar in spelling to the domains of well-known companies.
+
+You can find such domains for a certain company using Netlas and fuzzy search.
+
+![Domain fuzzy search](images/domain_fuzzy_search.png)
+
+
+Open Whois domain search and enter company domain name + ~. For example:
+
+```
+domain:facebook.com~
+``` 
+
+[Try in Netlas](https://app.netlas.io/whois/domains/?q=domain%3Afacebook.com~&page=1&indices=)
+
+
+![Domain fuzzy search import](images/domain_fuzzy_search_import.png)
+
+
+After that click on the left icon, select the export file type, file names and the fields you want to save to the file. Click "Download" and wait for a while.
+
+
+![Domain fuzzy search csv](images/domain_fuzzy_search_csv.png)
+
+
+For example, you can select the CSV file format and the domain, expiration_date, status fields. Such a table can be conveniently viewed in Excel, Numbers or Google Docs.
+
+
+
+
+
+## Search for domains associated with a specific subnet
+
+
+![Subnet search](images/subnet_search.png)
+
+
+Netlas domain search allows to get a complete list of domains associated with a specific IP address or range of addresses. Fox example:
+
+
+```
+a:"163.114.132.0/24"
+```
+
+
+[Try in Netlas](https://app.netlas.io/domains/?q=a%3A%22163.114.132.0%2F24%22&page=1&indices=)
+
+
+Curl:
+
+```
+curl -X 'GET' \
+  'https://app.netlas.io/api/domains/?q=a%3A%22163.114.132.0%2F24%22&source_type=include&start=0&fields=*' \
+   -H 'accept: application/json' \
+   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.domain
+ ```
+
 
 
 
@@ -2111,6 +2263,48 @@ for response in netlas_query['items']:
 pass
 
 ```
+
+
+
+# Using Netlas.io for fun or netstalking
+
+
+Netlas, like many other search engines, can be used without any specific purpose, and just explore with its help unexplored corners of the Internet, hoping to find something interesting there.
+
+Here are some examples of search queries that will help you find what Google can't.
+
+
+Search by text of Telnet servers banners (yes, they're still alive!):
+
+
+```
+telnet.banner:library
+```
+
+![Telnet banner](images/telnet_banner.png)
+
+Search by text of FTP servers banners:
+
+```
+ftp.banner:*library*
+```
+
+Search for links to books and documents:
+
+```
+http.body:rowling*.pdf
+```
+
+Search for links to music and video:
+
+```
+http.body:cats*.mp4
+```
+
+
+Keep in mind that Netlas does not censor the content it stores in its database in any way. If you find something illegal or immoral, you should complain to the hosting provider whose contacts are listed in the domain information.
+
+
 
 
 
