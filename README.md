@@ -10,6 +10,10 @@
      <br>
      <br>
   The goal of this guide is very simple - to teach anyone interested in cyber security, regardless of their knowledge level, how to make the most of Netlas.io.
+      <br>
+     <br>
+  ⭐️ Give us a star to show your appreciation <br>
+  👁️ Subscribe for updates<br>
 </div>
 
 
@@ -75,6 +79,8 @@
 - [Common problems](#common-problems)
      - [Error 429 - Too frequent requests](#error-429---too-frequent-requests)
      - [KeyError](#keyerror)
+     - [Automation of work with the list of requests](#automation-of-work-with-the-list-of-requests)
+     - [Working with very large amounts of data](#working-with-very-large-amounts-of-data)
 
 
 # What is Netlas.io?
@@ -3388,7 +3394,6 @@ Here are some examples of search queries that will help you find what Google can
 
 Search by text of Telnet servers banners (yes, they're still alive!):
 
-
 ```
 telnet.banner:library
 ```
@@ -3404,15 +3409,20 @@ ftp.banner:*library*
 Search for links to books and documents:
 
 ```
-http.body:rowling*.pdf
+http.body:*rowling*.pdf
 ```
 
 Search for links to music and video:
 
 ```
-http.body:cats*.mp4
+http.body:*cats*.mp4
 ```
 
+Search for links to torrents file:
+
+```
+http.body:*cats*.mp4
+```
 
 Keep in mind that Netlas does not censor the content it stores in its database in any way. If you find something illegal or immoral, you should complain to the hosting provider whose contacts are listed in the domain information.
 
@@ -3493,6 +3503,74 @@ try:
         print ("no title")
 
 ```
+
+
+## Automation of work with the list of requests
+
+The main advantage of working with Netlas Python or the Netlas API versus just typing queries in the web version of Netlas.io is that you can save a tremendous amount of time typing one-size-fits-all queries. For example, you can quickly gather information about a long list of domains using very simple Python code.
+
+
+
+Run in command line:
+
+
+```
+python scripts/common_problems/domains_list_search.py
+```
+
+
+Source code of scripts/common_problems/domains_list_search.py:
+
+
+```python
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+
+# read file domains.txt line by line
+with open("scripts/common_problems/domains.txt") as f:
+    # save each line to domain variable
+    for domain in f:
+         # retrieve data from responses by query `domain:domainname`
+         netlas_query = netlas_connection.query(query="domain:"+domain,datatype="domain-whois")
+
+
+         # iterate over data and print:  ip, isp
+         for response in netlas_query['items']:
+             print (response['data']['ip'])
+             print (response['data']['isp'])
+        
+         pass
+    pass
+
+```
+
+Similarly, you can work with a list of certificates, IP addresses, emails and whatever else you want.
+
+
+
+## Working with very large amounts of data
+
+![Datastore](images/datastore.png)
+
+If you have a really big challenge ahead of you. For example, you need to collect data on hundreds of thousands of domains, then perhaps a more rational solution in terms of time and financial costs will be to buy a dataset (csv/json) and work with it on your own server.
+
+
+In [Netlas Datastore](https://app.netlas.io/datastore/) you can find:
+
+* Known domain names dataset (1,949,838,161 items)
+* Forward DNS dataset (1,949,838,161 items)
+* Known PTR records (1,135,524,997 items) - FREE
+* Top 1,000,000 most common subdomains
+
+
+and more.
+
+
 
 
 ## To be contininued... Stay tuned!
