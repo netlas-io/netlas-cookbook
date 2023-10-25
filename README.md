@@ -3575,6 +3575,7 @@ Search by text of Telnet servers banners (yes, they're still alive!):
 telnet.banner:library
 ```
 
+
 ![Telnet banner](images/telnet_banner.png)
 
 Search by text of FTP servers banners:
@@ -3586,23 +3587,22 @@ ftp.banner:*library*
 Search for links to books and documents:
 
 ```
-http.body:*rowling*.pdf
+http.body:*rowling*pdf
 ```
 
 Search for links to music and video:
 
 ```
-http.body:*cats*.mp4
+http.body:*cats*mp4
 ```
 
 Search for links to torrents file:
 
 ```
-http.body:*cats*.mp4
+http.body:*cats*mp4
 ```
 
 Keep in mind that Netlas does not censor the content it stores in its database in any way. If you find something illegal or immoral, you should complain to the hosting provider whose contacts are listed in the domain information.
-
 
 
 
