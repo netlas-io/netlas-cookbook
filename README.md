@@ -55,6 +55,7 @@
  - [Using Netlas.io for OSINT](#using-netlasio-for-osint-open-source-intelligence)
    - [Search person's nickname or email in WHOIS contacts](#search-persons-nickname-or-email-in-whois-contacts)
    - [Search person's nickname or email in title and body of web page](#search-persons-nickname-or-email-in-title-and-body-of-web-page)
+   - [Search links to "juicy info files" on subdomains of the company's website](#search-links-to-juicy-info-files-on-subdomains-of-the-companys-website)
    - [Phone number mentions search](#phone-number-mentions-search)
    - [Search file mentions (looking for content that may be infringing on copyrights)](#search-file-mentions-looking-for-content-that-may-be-infringing-on-copyrights)
    - [Domain WHOIS information gathering](#domain-whois-information-gathering)
@@ -70,6 +71,7 @@
       - [Default logins and passwords](#default-logins-and-passwords)
     - [Search servers with CVEs by favicon hash](#search-servers-with-cves-by-favicon-hash)
     - [Search servers with CVEs by tag name](#search-servers-with-cves-by-tag-name)
+    - [Search vulnerable servers and devices near you (or any other location)](#search-vulnerable-servers-and-devices-near-you-or-any-other-location)
 - [Using Netlas.io for Digital Forensics and Incident Response](#using-netlasio-for-digital-forensics-and-incident-response)         
     - [SMTP servers information gathering](#smtp-servers-information-gathering)
     - [Search for domains that could potentially be used for phishing](#search-for-domains-that-could-potentially-be-used-for-phishing)
@@ -2076,6 +2078,100 @@ pass
 
 
 
+
+
+## Search links to "juicy info files" on subdomains of the company's website
+
+![Juicy info files search](images/juicyinfo_search.png)
+
+
+Metagoofil has been a popular tool among OSINT practitioners for many years. It searches Google for document files on a company's website (pdf, xlsx, docx etc) and analyses their metadata.
+
+And what is not indexed by Google can be found with Netlas and then downloaded to your computer and analysed with the [MetaDetective](https://github.com/franckferman/MetaDetective) tool.
+
+
+```
+uri:*lidl.* AND http.body:pdf
+```
+
+
+[Try in Netlas](https://app.netlas.io/responses/?q=uri%3A*lidl.*%20AND%20http.body%3A.pdf&page=1&indices=)
+
+
+You can replace the uri: filter with domain: and host: (I recommend always comparing the results when using these three filters). 
+
+
+You can also search for a wide variety of file extensions, depending on what you want to find. For example:
+
+
+```
+http.body:xls
+http.body:xlsx
+http.body:doc
+http.body:docx
+http.body:ppt
+http.body:pptx
+http.body:mdb
+http.body:csv
+http.body:sql
+http.body:sqlite
+```
+
+
+**API request example**
+
+Netlas CLI Tools:
+
+```
+netlas search "uri:*lidl.* AND http.body:pdf"
+```
+
+Curl:
+
+```
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=uri%3A*lidl.*%20AND%20http.body%3Apdf&source_type=include&start=0&fields=*' \
+   -H 'accept: application/json' \
+   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.domain
+ ```
+
+**Code example (Netlas Python Library)**
+
+
+![Juicy info search](images/juicyinfo_search_python.png)
+
+Run in command line:
+
+python scripts/osint/juicyinfo_search.py
+
+Source code of scripts/osint/juicyinfo_search.py:
+
+
+```
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `uri:*lidl.* AND http.body:pdf`
+netlas_query = netlas_connection.query(query='uri:*lidl.* AND http.body:pdf')
+
+
+# iterate over data and print: uri, body
+for response in netlas_query['items']: 
+    print (response['data']['uri'])
+    print (response['data']['http']['body'])
+pass
+```
+
+In order to automate links to PDF documents from the web page body you can use the Python [Re](https://docs.python.org/3/library/re.html) package.
+
+
+
+
+
 ## Phone number mentions search
 
 
@@ -3381,6 +3477,87 @@ for response in netlas_query['items']:
 pass
 
 ```
+
+
+
+
+## Search vulnerable servers and devices near you (or any other location)
+
+![CVE location search](images/cve_location_search.png)
+
+
+Do you want to know how many vulnerable sites and devices are around you? Simply search for all IP addresses that have the CVE field populated in a specific geolocation.
+
+```
+geo.city:London AND cve:*
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=geo.city%3ALondon%20AND%20cve%3A*&page=1&indices=)
+
+
+You can also use other geolocation filters.
+
+```
+geo.continent:
+geo.country:
+geo.location:
+geo.location.lat:
+geo.location.long:
+```
+
+
+**API request example**
+
+Netlas CLI Tools:
+
+```
+geo.city:London AND cve:*
+```
+
+Curl:
+
+```
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=geo.city%3ALondon%20AND%20cve%3A*&source_type=include&start=0&fields=*' \
+   -H 'accept: application/json' \
+   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.domain
+ ```
+
+**Code example (Netlas Python Library)**
+
+
+![Location CVE search Python](images/cve_location_search_python.png)
+
+Run in command line:
+
+python scripts/pentest/cve_location_search.py
+
+Source code of scripts/pentest/cve_location_search.py:
+
+
+```
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `geo.city:London AND cve:*`
+netlas_query = netlas_connection.query(query='geo.city:London AND cve:*')
+
+
+# iterate over data and print: uri, cve name, location
+for response in netlas_query['items']: 
+    print (response['data']['uri'])
+    print (response['data']['cve'][0]['name'])
+    print (response['data']['geo']['city'])
+pass
+
+```
+
+
+
 
 
 
