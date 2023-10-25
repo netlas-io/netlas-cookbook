@@ -3630,7 +3630,7 @@ Here is an example of its use in code (limit of no more than 60 requests per min
 pip install ratelimit
 ```
 
-And run rate_limit.py:
+And run scripts/common_problems/rate_limit.py:
 
 ```python
 import netlas
