@@ -2967,12 +2967,14 @@ curl -X 'GET' \
 
 Run in command line:
 
+```
 python scripts/dfir/subnet_search.py
+```
 
 Source code of scripts/dfir/subnet_search.py:
 
 
-```
+```python
 import netlas
 
 apikey = "YOUR_API_KEY"
