@@ -9,7 +9,7 @@ netlas_connection = netlas.Netlas(api_key=apikey)
 netlas_query = netlas_connection.query(query="http.title:sweetwater OR http.body:sweetwater*")
 
 
-# iterate over data and print: IP,URL,web page title
+# iterate over data and print: IP
 for response in netlas_query['items']:
     print (response['data']['ip'])
     print (response['data']['uri'])
