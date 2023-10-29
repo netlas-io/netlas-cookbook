@@ -76,8 +76,10 @@
     - [SMTP servers information gathering](#smtp-servers-information-gathering)
     - [Search for domains that could potentially be used for phishing](#search-for-domains-that-could-potentially-be-used-for-phishing)
     - [Search for domains associated with a specific subnet](#search-for-domains-associated-with-a-specific-subnet)         
-- [Using Netlas for fun or netstalking](#using-netlasio-for-fun-or-netstalking
+- [Using Netlas.io for fun or netstalking](#using-netlasio-for-fun-or-netstalking
 )
+- [Using Netlas.io for Crypto Investigations](#using-netlasio-for-crypto-investigations)
+    - [Search mining farms](#search-mining-farms)
 - [Common problems](#common-problems)
      - [Error 429 - Too frequent requests](#error-429---too-frequent-requests)
      - [KeyError](#keyerror)
@@ -3605,6 +3607,90 @@ http.body:*cats*mp4
 ```
 
 Keep in mind that Netlas does not censor the content it stores in its database in any way. If you find something illegal or immoral, you should complain to the hosting provider whose contacts are listed in the domain information.
+
+
+
+# Using Netlas.io for Crypto Investigations
+
+## Search mining farms
+
+![Search mining farms](images/search_mining_farms.png)
+
+Antminer mining farms, which were first released by Bitmain back in 2013, are one of the most popular line of mining farm models in the world. You can find them by the presence of the word "antMiner" in the www_authenticate header.
+
+
+```
+http.headers.www_authenticate:antMiner
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.headers.www_authenticate%3AantMiner&page=1&indices=)
+
+
+You can also search for other types of mining farms. For examples:
+
+
+```
+http.headers.www_authenticate:XMR-Stak-Miner
+```
+
+Experiment by combining different filters, the words "miner/mining" and cryptocurrency names.
+
+
+**API request example**
+
+Netlas CLI Tools:
+
+```
+netlas search "http.headers.www_authenticate:antMiner"
+```
+
+
+Curl:
+
+```
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=http.headers.www_authenticate%3AantMiner&source_type=include&start=0&fields=*' \
+   -H 'accept: application/json' \
+   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.uri
+ ```
+
+**Code example (Netlas Python Library)**
+
+
+![Maining farms search Python](images/maining_farms_search_python.png)
+
+Run in command line:
+
+```
+python scripts/crypto/maining_farms_search.py
+```
+
+Source code of scripts/crypto/maining_farms_search.py:
+
+```python
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `http.headers.www_authenticate:antMiner`
+netlas_query = netlas_connection.query(query='http.headers.www_authenticate:antMiner')
+
+
+# iterate over data and print: uri, http headers
+for response in netlas_query['items']: 
+    print (response['data']['uri'])
+    print (response['data']['http']['headers'])
+
+pass
+```
+
+
+
+
+
 
 
 
