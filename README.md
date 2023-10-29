@@ -172,6 +172,11 @@ Netlas.io based on [Elasticsearch](https://github.com/elastic/elasticsearch), fr
 
 ## Filters (Fields)
 
+
+![Search filters](images/search_filters.png)
+
+
+
 Response, DNS, IP and Certificates search allow you to use filters (fields) in search queries. For example:
 
 
