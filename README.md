@@ -31,6 +31,7 @@
   - [Filters (Fields)](#filters-fields)
   - [Logical operators](#logical-operators)
   - [Ranges](#ranges)
+  - [Wildcards](#wildcards)
   - [Fuzzines](#fuzziness)
   - [Regular expressions](#regular-expressions)
   - [Other Netlas.io search features](#other-netlasio-search-features) 
@@ -282,6 +283,15 @@ domain:google.?
 [Try in Netlas](https://app.netlas.io/responses/?q=domain%3Agoogle.%3F&page=1&indices=)
 
 Asterisk - many symbols, question mark - one symbol.
+
+
+You can also use asterisks in filters. For example:
+
+```
+\*.banner:database
+```
+
+This query do a search on all banner types simultaneously and replaces several filters: amqp.banner:, ftp.banner:, dns.banner:, telnet.banner:, etc.
 
 
 ## Fuzziness
