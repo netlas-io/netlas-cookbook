@@ -80,6 +80,7 @@
 )
 - [Using Netlas.io for Crypto Investigations](#using-netlasio-for-crypto-investigations)
     - [Search mining farms](#search-mining-farms)
+    - [Search for websites infected with cryptominers](#search-for-websites-infected-with-cryptominers)
 - [Common problems](#common-problems)
      - [Error 429 - Too frequent requests](#error-429---too-frequent-requests)
      - [KeyError](#keyerror)
@@ -3690,6 +3691,75 @@ pass
 
 
 
+## Search for websites infected with cryptominers
+
+![Search website injected with miners](images/search_sites_injected_with_miners.png)
+
+
+Coinhive, a service that allows websites (mostly hacked) to use their visitor's computers to mine cryptocurrencies, is shutting down in 2019. But nevertheless, links to it are still embedded in many sites around the world. Let's try to find them:
+
+
+```
+http.body:coinhive.min.js domain:*
+```
+
+
+Note that we use the domain:* filter to find sites specifically, not all devices.
+
+
+Similarly, you can search for sites infected with other cryptominers (as well as other malicious code that executes on the user's side).
+
+
+**API request example**
+
+Netlas CLI Tools:
+
+```
+netlas search "http.body:coinhive.min.js domain:*"
+```
+
+
+Curl:
+
+```
+curl -X 'GET' \
+   'https://app.netlas.io/api/responses/?q=http.body%3Acoinhive.min.js%20domain%3A*&source_type=include&start=0&fields=*' \
+   -H 'accept: application/json' \
+   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.uri
+ ```
+
+**Code example (Netlas Python Library)**
+
+
+![Maining farms search Python](images/search_sites_injected_with_miners_python.png)
+
+Run in command line:
+
+```
+python scripts/crypto/search_sites_injected_with_miners.py
+```
+
+Source code of scripts/crypto/search_sites_injected_with_miners.py:
+
+
+```
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `http.body:coinhive.min.js domain:*`
+netlas_query = netlas_connection.query(query='http.body:coinhive.min.js domain:*')
+
+
+# iterate over data and print: uri
+for response in netlas_query['items']: 
+    print (response['data']['uri'])
+
+pass
+```
 
 
 
