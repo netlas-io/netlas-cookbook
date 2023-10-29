@@ -81,6 +81,7 @@
 - [Using Netlas.io for Crypto Investigations](#using-netlasio-for-crypto-investigations)
     - [Search mining farms](#search-mining-farms)
     - [Search for websites infected with cryptominers](#search-for-websites-infected-with-cryptominers)
+    - [Search vulnerable Bitcoin nodes](#search-vulnerable-bitcoin-nodes)
 - [Common problems](#common-problems)
      - [Error 429 - Too frequent requests](#error-429---too-frequent-requests)
      - [KeyError](#keyerror)
@@ -3613,6 +3614,14 @@ Keep in mind that Netlas does not censor the content it stores in its database i
 
 # Using Netlas.io for Crypto Investigations
 
+
+Netlas provides a great opportunity for researchers who specialise in cryptocurrency crime. 
+
+Firstly, it can be used to search for references to wallet addresses and transaction numbers. 
+
+Second, it can be used to search for vulnerable mining farms, nodes and other servers associated with crypto infrastructure.
+
+
 ## Search mining farms
 
 ![Search mining farms](images/search_mining_farms.png)
@@ -3757,6 +3766,77 @@ netlas_query = netlas_connection.query(query='http.body:coinhive.min.js domain:*
 # iterate over data and print: uri
 for response in netlas_query['items']: 
     print (response['data']['uri'])
+
+pass
+```
+
+
+
+
+
+## Search vulnerable Bitcoin nodes
+![Search bitcoin nodes](images/search_bitcoin_nodes.png)
+
+
+Bitcoin nodes use port 8333 for TCP connection. Therefore, it is easy to find them using the "port:" search filter.
+
+
+```
+port:8333 cve:*
+```
+
+Note that we use the "cve:*" filter to look for servers with vulnerabilities.
+
+
+**API request example**
+
+Netlas CLI Tools:
+
+```
+netlas search "port:8333 cve:*"
+```
+
+
+Curl:
+
+```
+curl -X 'GET' \
+    'https://app.netlas.io/api/responses/?q=port%3A8333%20cve%3A*&source_type=include&start=0&fields=*' \
+   -H 'accept: application/json' \
+   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.uri
+ ```
+
+**Code example (Netlas Python Library)**
+
+
+![Search bitcoin nodes Python](images/search_bitcoin_nodes_python.png)
+
+Run in command line:
+
+```
+python scripts/crypto/search_bitcoin_nodes.py
+```
+
+Source code of scripts/crypto/search_bitcoin_nodes.py:
+
+
+```
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `port:8333 cve:*`
+netlas_query = netlas_connection.query(query='port:8333 cve:*')
+
+
+# iterate over data and print: uri, CVE name and description
+for response in netlas_query['items']: 
+    print (response['data']['uri'])
+    print (response['data']['cve'][0]['name'])
+    print (response['data']['cve'][0]['description'])
 
 pass
 ```
