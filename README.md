@@ -26,6 +26,7 @@
 - [What is Netlas.io?](#what-is-netlasio)
 - [Simple usage examples](#simple-usage-examples) 
   - [Getting information about IP or domain](#getting-information-about-ip-or-domain)
+  - [Search for non-latin domains](#search-for-non-latin-domains)
   - [Looking for websites that contain a certain word in their title](#looking-for-websites-that-contain-a-certain-word-in-their-title)
 - [Search query syntax](#search-query-syntax)
   - [Filters (Fields)](#filters-fields)
@@ -136,6 +137,20 @@ Open [Netlas.io IP/Domain info](https://app.netlas.io/host/netlas.io/) and enter
 * MX and NS records
 * exposed ports & software (sometimes additionally displays information about vulnerabilities)
 
+
+
+
+## Search for non-latin domains
+
+![Punycode convert](images/punycode_convert.png)
+
+If you need to find Chinese or other internationalised domain names, then convert them to Punycode. For example:
+
+```
+domain:*.xn--fiqs8s
+```
+
+You can do this with the help of special online tools. For example - [Charset.org](https://www.charset.org/punycode)
 
 
 
