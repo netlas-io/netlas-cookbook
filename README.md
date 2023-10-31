@@ -74,6 +74,8 @@
     - [Search servers with CVEs by favicon hash](#search-servers-with-cves-by-favicon-hash)
     - [Search servers with CVEs by tag name](#search-servers-with-cves-by-tag-name)
     - [Search vulnerable servers and devices near you (or any other location)](#search-vulnerable-servers-and-devices-near-you-or-any-other-location)
+    - [Search for login/admin panels](#search-for-loginadmin-panels)
+    - [Search for vulnerable database admin panels](#search-for-vulnerable-database-admin-panels)
 - [Files, backups and logs directories search](#files-backups-and-logs-directories-search)
 - [Using Netlas.io for Digital Forensics and Incident Response](#using-netlasio-for-digital-forensics-and-incident-response)         
     - [SMTP servers information gathering](#smtp-servers-information-gathering)
@@ -3676,6 +3678,83 @@ for response in netlas_query['items']:
 pass
 
 ```
+
+
+
+## Search for login/admin panels
+![Admin panels search](images/admin_panels_search.png)
+
+
+Many sites and servers have login and password web pages that can be used to gain access to full control of the site or server (through the use of default passwords, bruteforce, or vulnerability exploitation).
+
+You can find them by using the **uri:** or/and **http.title** filter:
+
+```
+uri:*login.php*
+uri:*login.aspx*
+uri:*user* http.title:login
+uri:*admin* http.title:login
+http.title:admin http.title:panel
+```
+
+There are so many combinations. To find only panels of vulnerable servers use filter cve:*.
+
+
+Also, don't forget that you can filter servers by installed software using tags. For example:
+
+
+```
+tag.1c_bitrix:*
+tag.Cisco:
+tag.amazon_s3:*
+tag.drupal:*
+tag.wordpress:*
+```
+
+
+
+
+## Search for vulnerable database admin panels
+![Database admin panels search](images/database_admin_panels_search.png)
+
+Let's try to search vulnerable [phpMyAdmin](https://www.phpmyadmin.net/) admin panel (the one of most popular software for administering MySQL databases):
+
+```
+http.title:phpMyAdmin cve:*
+```
+
+And here are some examples for other popular database administration tools:
+
+
+[Adminer](https://www.adminer.org/):
+
+```
+http.title:adminer http.title:login cve:*
+```
+
+[PostgreSQL](https://www.postgresql.org/)
+
+```
+http.title:(phpPgAdmin OR pgadmin) cve:*
+```
+
+
+You can also search for servers that have installed software for different databases by using the tags or special filters:
+
+
+```
+tag.adminer:*
+tag.phpMyAdmin:*
+tag.elastic:*
+mongodb:*
+mssql:*
+mysql:*
+django:*
+```
+
+Searching for admin panels for servers found in this way may not be the easiest thing to do, as site administrators often change standard links to more secure ones. 
+
+
 
 
 
