@@ -61,12 +61,12 @@
    - [Phone number mentions search](#phone-number-mentions-search)
    - [Search file mentions (looking for content that may be infringing on copyrights)](#search-file-mentions-looking-for-content-that-may-be-infringing-on-copyrights)
    - [Domain WHOIS information gathering](#domain-whois-information-gathering)
-   - [Search subdomains](#search-subdomains)
    - [Search location in \<address\> tag](#search-location-in-address-tag)
    - [Search author name in meta tags](#search-author-name-in-meta-tags)
    - [Search by FTP server's banners text](#search-by-ftp-servers-banners-text)
    - [Using Netlas as an alternative to the WayBack Machine](#using-netlas-as-an-alternative-to-the-wayback-machine)
  - [Using Netlas.io for Pentest](#using-neltas-for-pentest)
+    - [Search subdomains](#search-subdomains)
     - [Search for sites with specific vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
     - [Search for sites with vulnerabilities that contain a certain word in their descriptions](#search-for-sites-with-vulnerabilities-that-contain-a-certain-word-in-their-descriptions)
     - [Search by server http header](#search-by-server-http-header)
@@ -2468,88 +2468,6 @@ pass
 ```
 
 
-## Search subdomains
-
-
-By using asterisks in search queries, you can find all subdomains of different levels (whose name ends with the name of a particular first-level domain (.com) or second-level domain (google.com).
-
-**Search query example**  
-
-![Subdomain search example](images/osint_subdomain_search.png)
-
-
-
-```
-domain:*.github.com OR host:*.github.com
-```
-
-
-
-[Try in Netlas](https://app.netlas.io/responses/?q=domain%3A*.github.com%20OR%20host%3A*.github.com&page=1&indices=)
-
-
-
-
-**API request example**
-
-
-Netlas CLI Tools:
-
-
-```
-netlas search "domain:*.github.com OR host:*.github.com" -f json
-```
-
-
-Curl:
-
-
-```
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=domain%3A*.github.com%20OR%20host%3A*.github.com&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.uri
-```
-
-
-
-
-**Code example (Netlas Python Library)**
-
-![Subdomain search example Python](images/osint_subdomain_search_python.png)
-
-
-
-Run in command line:
-
-
-```
-python scripts/osint/subdomain_search.py
-```
-
-
-Source code of scripts/osint/subdomain_search.py:
-
-```python
-
-import netlas
-
-apikey = "YOUR_API_KEY"
-
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `domain:*.github.com OR host:*.github.com`
-netlas_query = netlas_connection.query(query="domain:*.github.com OR host:*.github.com")
-
-
-# iterate over data and print: ip, url
-for response in netlas_query['items']:
-    print (response['data']['ip'])
-    print (response['data']['uri'])
-pass
-
-```
 
 ## Search location in \<address\> tag
 
@@ -3136,6 +3054,94 @@ We also regularly post most relevant queries to search vulnerable devices and so
 
 
 In this section, we will simply cover the general principles of searching for sites and servers with vulnerabilities.
+
+
+
+## Search subdomains
+
+
+By using asterisks in search queries, you can find all subdomains of different levels (whose name ends with the name of a particular first-level domain (.com) or second-level domain (google.com).
+
+**Search query example**  
+
+![Subdomain search example](images/osint_subdomain_search.png)
+
+
+
+```
+domain:*.github.com OR host:*.github.com
+```
+
+
+
+[Try in Netlas](https://app.netlas.io/responses/?q=domain%3A*.github.com%20OR%20host%3A*.github.com&page=1&indices=)
+
+
+
+
+**API request example**
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search "domain:*.github.com OR host:*.github.com" -f json
+```
+
+
+Curl:
+
+
+```
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=domain%3A*.github.com%20OR%20host%3A*.github.com&source_type=include&start=0&fields=*' \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.uri
+```
+
+
+
+
+**Code example (Netlas Python Library)**
+
+![Subdomain search example Python](images/osint_subdomain_search_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/pentest/subdomain_search.py
+```
+
+
+Source code of scripts/pentest/subdomain_search.py:
+
+```python
+
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `domain:*.github.com OR host:*.github.com`
+netlas_query = netlas_connection.query(query="domain:*.github.com OR host:*.github.com")
+
+
+# iterate over data and print: ip, url
+for response in netlas_query['items']:
+    print (response['data']['ip'])
+    print (response['data']['uri'])
+pass
+
+```
+
+
+
 
 
 ## Search for sites with specific vulnerabilities
