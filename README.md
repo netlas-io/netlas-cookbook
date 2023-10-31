@@ -74,6 +74,7 @@
     - [Search servers with CVEs by favicon hash](#search-servers-with-cves-by-favicon-hash)
     - [Search servers with CVEs by tag name](#search-servers-with-cves-by-tag-name)
     - [Search vulnerable servers and devices near you (or any other location)](#search-vulnerable-servers-and-devices-near-you-or-any-other-location)
+- [Files, backups and logs directories search](#files-backups-and-logs-directories-search)
 - [Using Netlas.io for Digital Forensics and Incident Response](#using-netlasio-for-digital-forensics-and-incident-response)         
     - [SMTP servers information gathering](#smtp-servers-information-gathering)
     - [Search for domains that could potentially be used for phishing](#search-for-domains-that-could-potentially-be-used-for-phishing)
@@ -3675,6 +3676,71 @@ for response in netlas_query['items']:
 pass
 
 ```
+
+
+
+
+
+
+
+# Files, backups and logs directories search
+
+![Directory search](images/directory_search.png)
+
+
+There are a huge number of sites and servers that leave their file directories open due to a configuration error (and sometimes deliberately). Here are some examples of queries that will help you find them.
+
+
+Search for any files directories:
+
+```
+http.title:Index http.title:of
+```
+
+Search for directories with log files:
+
+```
+http.title:Index http.title:of http.body:logs
+```
+
+Search for directories with database dumps:
+
+```
+http.title:Index http.title:of http.body:sql
+```
+
+Search for directories with archived backups:
+
+```
+http.title:Index http.title:of http.body:backup?zip
+```
+
+Search for directories with SSH access info:
+
+```
+http.title:Index http.title:of http.body:("ssh_config" OR "ssh_known_hosts" OR "authorized_keys" OR "id_rsa" OR "id_dsa")
+```
+
+Search for directories with files with other authorisation information:
+
+```
+http.title:Index http.title:of http.body:("pass" OR "logins" OR "config" OR "password")
+```
+
+Search for directories with files downloaded by users:
+
+```
+http.title:index http.title:of http.body:downloads
+```
+
+Search for directories with Docker configuration files:
+
+```
+http.title:index http.title:of http.body:docker-compose
+```
+
+
+You can think of hundreds of other such requests. Experiment with different file names and extensions.
 
 
 
