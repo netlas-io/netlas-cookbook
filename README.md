@@ -77,7 +77,8 @@
 - [Using Netlas.io for Digital Forensics and Incident Response](#using-netlasio-for-digital-forensics-and-incident-response)         
     - [SMTP servers information gathering](#smtp-servers-information-gathering)
     - [Search for domains that could potentially be used for phishing](#search-for-domains-that-could-potentially-be-used-for-phishing)
-    - [Search for domains associated with a specific subnet](#search-for-domains-associated-with-a-specific-subnet)         
+    - [Search for domains associated with a specific subnet](#search-for-domains-associated-with-a-specific-subnet)
+    - [Search for servers with malicious software](#search-for-servers-with-malicious-software)
 - [Using Netlas.io for fun or netstalking](#using-netlasio-for-fun-or-netstalking
 )
 - [Using Netlas.io for Crypto Investigations](#using-netlasio-for-crypto-investigations)
@@ -3029,6 +3030,89 @@ pass
 
 
 
+## Search for servers with malicious software
+
+![Malware search](images/malware_search.png)
+
+
+Netlas allows you to find servers that have various malware installed on them. You can find it by the presence of certain words in http.title or http.body, favicon hash, ssl and other parameters.
+
+Here is an example of a query that will find servers that have GoFish (Open Source Phishing Framework) installed:
+
+
+```
+http.title:Gophish http.title:Login
+```
+
+Note that the technique of using the same operator twice (instead of an asterisk between two words) is used here. Sometimes this helps you get more search results.
+
+
+Here are some more examples of similar requests:
+
+```
+http.title:CALDERA http.title:login
+http.title:Deimos  http.title:C2  
+```
+
+**API request example**
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search "http.title:Gophish http.title:Login" -f json
+```
+
+
+Curl:
+
+
+```
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=http.title%3AGophish%20http.title%3ALogin&source_type=include&start=0&fields=*' \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: YOUR_API_KEY' jq .items[].data.uri
+```
+
+**Code example (Netlas Python Library)**
+
+![Malware search Python](images/malware_search_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/dfif/malware_search.py
+```
+
+
+Source code of scripts/dfir/malware_search.py:
+
+
+```python
+
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from whois for "http.title:Gophish http.title:Login"
+netlas_query = netlas_connection.query(query="http.title:Gophish http.title:Login")
+
+
+# iterate over data and print: uri, title, country
+for response in netlas_query['items']:
+    print (response['data']['uri'])  
+    print (response['data']['http']['title'])  
+    print (response['data']['geo']['country'])  
+pass
+
+```
 
 
 
