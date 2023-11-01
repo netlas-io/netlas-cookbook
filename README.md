@@ -2762,283 +2762,6 @@ To see how the site looks, copy the contents of the "body" field (response tab) 
 
 After that, copy the code into one of the online html promoters, such as [Code beautify](https://codebeautify.org/htmlviewer). Or just save the file in html format and then open it in browser.
 
-
-# Using Netlas.io for Digital Forensics and Incident Response
-
-
-
-This section is very difficult to separate from the Netlas for OSINT section, as the queries listed therein will also be useful to those involved in digital forensics.
-
-In this section, we describe more "technical" queries that can help, for example, gather information about the technical infrastructure of networks or investigate phishing attacks.
-
-
-## SMTP servers information gathering
-
-SMTP (Simple Mail Transfer Protocol) is a communication protocol that enables to send and receive emails. In most email clients, when viewing emails, the "Show Original" function is available, which allows you to view the address of the SMTP server from which the email was sent.
-
-
-Netlas allows you to get information about an SMTP server as well as about any other IP or domain, as well as to search the text of SMPT banners, which allows you to find servers associated with a particular domain, company or hosting provider.
-
-**Search query example**  
-
-![SMTP banner search](images/smtp_banner_search.png)
-
-
-```
-smtp.banner:fornex.cloud
-```
-
-
-
-Netlas CLI Tools:
-
-
-```
-netlas search "smtp.banner:fornex.cloud" -f json
-```
-
-Curl:
-
-
-```
-
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=smtp.banner%3Afornex.cloud&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.smtp.banner
-
-```
-
-
-**Code example (Netlas Python Library)**
-
-![SMTP banner search Python](images/smtp_banner_search_python.png)
-
-
-
-Run in command line:
-
-
-```
-python scripts/dfir/smtp_banner_search.py
-```
-
-
-Source code of scripts/dfir/smtp_banner_search.py:
-
-```python
-
-import netlas
-
-apikey = "YOUR_API_KEY"
-
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `smtp.banner:fornex.cloud`
-netlas_query = netlas_connection.query(query="smtp.banner:fornex.cloud")
-
-
-# iterate over data and print: SMTP banner, URL, ISP
-for response in netlas_query['items']:
-    print (response['data']['smtp']['banner'])
-    print (response['data']['uri'])
-    print (response['data']['isp'])
-pass
-
-```
-
-
-
-## Search for domains that could potentially be used for phishing
-
-
-One of the popular methods of scammers is to use domains that are very similar in spelling to the domains of well-known companies.
-
-You can find such domains for a certain company using Netlas and fuzzy search.
-
-![Domain fuzzy search](images/domain_fuzzy_search.png)
-
-
-Open Whois domain search and enter company domain name + ~. For example:
-
-```
-domain:facebook.com~
-``` 
-
-[Try in Netlas](https://app.netlas.io/whois/domains/?q=domain%3Afacebook.com~&page=1&indices=)
-
-
-![Domain fuzzy search import](images/domain_fuzzy_search_import.png)
-
-
-After that click on the left icon, select the export file type, file names and the fields you want to save to the file. Click "Download" and wait for a while.
-
-
-![Domain fuzzy search csv](images/domain_fuzzy_search_csv.png)
-
-
-For example, you can select the CSV file format and the domain, expiration_date, status fields. Such a table can be conveniently viewed in Excel, Numbers or Google Docs.
-
-
-
-
-
-## Search for domains associated with a specific subnet
-
-
-![Subnet search](images/subnet_search.png)
-
-
-Netlas domain search allows to get a complete list of domains associated with a specific IP address or range of addresses. Fox example:
-
-
-```
-a:"163.114.132.0/24"
-```
-
-
-[Try in Netlas](https://app.netlas.io/domains/?q=a%3A%22163.114.132.0%2F24%22&page=1&indices=)
-
-
-API request example
-
-Netlas CLI Tools:
-
-```
-netlas search -d domain a:\"163.114.132.0/24\"
-```
-
-Curl:
-
-```
-curl -X 'GET' \
-  'https://app.netlas.io/api/domains/?q=a%3A%22163.114.132.0%2F24%22&source_type=include&start=0&fields=*' \
-   -H 'accept: application/json' \
-   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.domain
- ```
-
-**Code example (Netlas Python Library)**
-
-
-![Subnet search](images/subnet_search_python.png)
-
-Run in command line:
-
-```
-python scripts/dfir/subnet_search.py
-```
-
-Source code of scripts/dfir/subnet_search.py:
-
-
-```python
-import netlas
-
-apikey = "YOUR_API_KEY"
-
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `a:"163.114.132.0/24"`
-netlas_query = netlas_connection.query(query='a:"163.114.132.0/24"',datatype="domain")
-
-
-# iterate over data and print: domain
-for response in netlas_query['items']: 
-    print (response['data']['domain'])
-pass
-
-```
-
-
-
-## Search for servers with malicious software
-
-![Malware search](images/malware_search.png)
-
-
-Netlas allows you to find servers that have various malware installed on them. You can find it by the presence of certain words in http.title or http.body, favicon hash, ssl and other parameters.
-
-Here is an example of a query that will find servers that have GoFish (Open Source Phishing Framework) installed:
-
-
-```
-http.title:Gophish http.title:Login
-```
-
-Note that the technique of using the same operator twice (instead of an asterisk between two words) is used here. Sometimes this helps you get more search results.
-
-
-Here are some more examples of similar requests:
-
-```
-http.title:CALDERA http.title:login
-http.title:Deimos  http.title:C2  
-```
-
-**API request example**
-
-
-Netlas CLI Tools:
-
-
-```
-netlas search "http.title:Gophish http.title:Login" -f json
-```
-
-
-Curl:
-
-
-```
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=http.title%3AGophish%20http.title%3ALogin&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' jq .items[].data.uri
-```
-
-**Code example (Netlas Python Library)**
-
-![Malware search Python](images/malware_search_python.png)
-
-
-
-Run in command line:
-
-
-```
-python scripts/dfif/malware_search.py
-```
-
-
-Source code of scripts/dfir/malware_search.py:
-
-
-```python
-
-import netlas
-
-apikey = "YOUR_API_KEY"
-
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from whois for "http.title:Gophish http.title:Login"
-netlas_query = netlas_connection.query(query="http.title:Gophish http.title:Login")
-
-
-# iterate over data and print: uri, title, country
-for response in netlas_query['items']:
-    print (response['data']['uri'])  
-    print (response['data']['http']['title'])  
-    print (response['data']['geo']['country'])  
-pass
-
-```
-
-
-
 ## Search related websites
 ![Search related websites](images/search_related_websites.png)
 
@@ -4108,6 +3831,283 @@ http.title:index http.title:of http.body:docker-compose
 
 You can think of hundreds of other such requests. Experiment with different file names and extensions.
 
+
+
+
+
+# Using Netlas.io for Digital Forensics and Incident Response
+
+
+
+This section is very difficult to separate from the Netlas for OSINT section, as the queries listed therein will also be useful to those involved in digital forensics.
+
+In this section, we describe more "technical" queries that can help, for example, gather information about the technical infrastructure of networks or investigate phishing attacks.
+
+
+## SMTP servers information gathering
+
+SMTP (Simple Mail Transfer Protocol) is a communication protocol that enables to send and receive emails. In most email clients, when viewing emails, the "Show Original" function is available, which allows you to view the address of the SMTP server from which the email was sent.
+
+
+Netlas allows you to get information about an SMTP server as well as about any other IP or domain, as well as to search the text of SMPT banners, which allows you to find servers associated with a particular domain, company or hosting provider.
+
+**Search query example**  
+
+![SMTP banner search](images/smtp_banner_search.png)
+
+
+```
+smtp.banner:fornex.cloud
+```
+
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search "smtp.banner:fornex.cloud" -f json
+```
+
+Curl:
+
+
+```
+
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=smtp.banner%3Afornex.cloud&source_type=include&start=0&fields=*' \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.smtp.banner
+
+```
+
+
+**Code example (Netlas Python Library)**
+
+![SMTP banner search Python](images/smtp_banner_search_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/dfir/smtp_banner_search.py
+```
+
+
+Source code of scripts/dfir/smtp_banner_search.py:
+
+```python
+
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `smtp.banner:fornex.cloud`
+netlas_query = netlas_connection.query(query="smtp.banner:fornex.cloud")
+
+
+# iterate over data and print: SMTP banner, URL, ISP
+for response in netlas_query['items']:
+    print (response['data']['smtp']['banner'])
+    print (response['data']['uri'])
+    print (response['data']['isp'])
+pass
+
+```
+
+
+
+## Search for domains that could potentially be used for phishing
+
+
+One of the popular methods of scammers is to use domains that are very similar in spelling to the domains of well-known companies.
+
+You can find such domains for a certain company using Netlas and fuzzy search.
+
+![Domain fuzzy search](images/domain_fuzzy_search.png)
+
+
+Open Whois domain search and enter company domain name + ~. For example:
+
+```
+domain:facebook.com~
+``` 
+
+[Try in Netlas](https://app.netlas.io/whois/domains/?q=domain%3Afacebook.com~&page=1&indices=)
+
+
+![Domain fuzzy search import](images/domain_fuzzy_search_import.png)
+
+
+After that click on the left icon, select the export file type, file names and the fields you want to save to the file. Click "Download" and wait for a while.
+
+
+![Domain fuzzy search csv](images/domain_fuzzy_search_csv.png)
+
+
+For example, you can select the CSV file format and the domain, expiration_date, status fields. Such a table can be conveniently viewed in Excel, Numbers or Google Docs.
+
+
+
+
+
+## Search for domains associated with a specific subnet
+
+
+![Subnet search](images/subnet_search.png)
+
+
+Netlas domain search allows to get a complete list of domains associated with a specific IP address or range of addresses. Fox example:
+
+
+```
+a:"163.114.132.0/24"
+```
+
+
+[Try in Netlas](https://app.netlas.io/domains/?q=a%3A%22163.114.132.0%2F24%22&page=1&indices=)
+
+
+API request example
+
+Netlas CLI Tools:
+
+```
+netlas search -d domain a:\"163.114.132.0/24\"
+```
+
+Curl:
+
+```
+curl -X 'GET' \
+  'https://app.netlas.io/api/domains/?q=a%3A%22163.114.132.0%2F24%22&source_type=include&start=0&fields=*' \
+   -H 'accept: application/json' \
+   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.domain
+ ```
+
+**Code example (Netlas Python Library)**
+
+
+![Subnet search](images/subnet_search_python.png)
+
+Run in command line:
+
+```
+python scripts/dfir/subnet_search.py
+```
+
+Source code of scripts/dfir/subnet_search.py:
+
+
+```python
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `a:"163.114.132.0/24"`
+netlas_query = netlas_connection.query(query='a:"163.114.132.0/24"',datatype="domain")
+
+
+# iterate over data and print: domain
+for response in netlas_query['items']: 
+    print (response['data']['domain'])
+pass
+
+```
+
+
+
+## Search for servers with malicious software
+
+![Malware search](images/malware_search.png)
+
+
+Netlas allows you to find servers that have various malware installed on them. You can find it by the presence of certain words in http.title or http.body, favicon hash, ssl and other parameters.
+
+Here is an example of a query that will find servers that have GoFish (Open Source Phishing Framework) installed:
+
+
+```
+http.title:Gophish http.title:Login
+```
+
+Note that the technique of using the same operator twice (instead of an asterisk between two words) is used here. Sometimes this helps you get more search results.
+
+
+Here are some more examples of similar requests:
+
+```
+http.title:CALDERA http.title:login
+http.title:Deimos  http.title:C2  
+```
+
+**API request example**
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search "http.title:Gophish http.title:Login" -f json
+```
+
+
+Curl:
+
+
+```
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=http.title%3AGophish%20http.title%3ALogin&source_type=include&start=0&fields=*' \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: YOUR_API_KEY' jq .items[].data.uri
+```
+
+**Code example (Netlas Python Library)**
+
+![Malware search Python](images/malware_search_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/dfif/malware_search.py
+```
+
+
+Source code of scripts/dfir/malware_search.py:
+
+
+```python
+
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from whois for "http.title:Gophish http.title:Login"
+netlas_query = netlas_connection.query(query="http.title:Gophish http.title:Login")
+
+
+# iterate over data and print: uri, title, country
+for response in netlas_query['items']:
+    print (response['data']['uri'])  
+    print (response['data']['http']['title'])  
+    print (response['data']['geo']['country'])  
+pass
+
+```
 
 
 
