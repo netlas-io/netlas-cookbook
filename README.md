@@ -65,6 +65,11 @@
    - [Search author name in meta tags](#search-author-name-in-meta-tags)
    - [Search by FTP server's banners text](#search-by-ftp-servers-banners-text)
    - [Using Netlas as an alternative to the WayBack Machine](#using-netlas-as-an-alternative-to-the-wayback-machine)
+   - [Search related websites](#search-related-websites)
+ - [Using Netlas.io for Crypto Investigations](#using-netlasio-for-crypto-investigations)
+    - [Search mining farms](#search-mining-farms)
+    - [Search for websites infected with cryptominers](#search-for-websites-infected-with-cryptominers)
+    - [Search vulnerable Bitcoin nodes](#search-vulnerable-bitcoin-nodes)
  - [Using Netlas.io for Pentest](#using-neltas-for-pentest)
     - [Search subdomains](#search-subdomains)
     - [Search for sites with specific vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
@@ -82,12 +87,9 @@
     - [Search for domains that could potentially be used for phishing](#search-for-domains-that-could-potentially-be-used-for-phishing)
     - [Search for domains associated with a specific subnet](#search-for-domains-associated-with-a-specific-subnet)
     - [Search for servers with malicious software](#search-for-servers-with-malicious-software)
+- [Search for technologies and code examples](#search-for-technologies-and-code-examples)
 - [Using Netlas.io for fun or netstalking](#using-netlasio-for-fun-or-netstalking
 )
-- [Using Netlas.io for Crypto Investigations](#using-netlasio-for-crypto-investigations)
-    - [Search mining farms](#search-mining-farms)
-    - [Search for websites infected with cryptominers](#search-for-websites-infected-with-cryptominers)
-    - [Search vulnerable Bitcoin nodes](#search-vulnerable-bitcoin-nodes)
 - [Common problems](#common-problems)
      - [Error 429 - Too frequent requests](#error-429---too-frequent-requests)
      - [KeyError](#keyerror)
@@ -3037,6 +3039,285 @@ pass
 
 
 
+## Search related websites
+![Search related websites](images/search_related_websites.png)
+
+
+When gathering information about a person or company, it can be important to find as many sites as possible that can be related to them in some way. There are at least 5 ways to do this with Netlas.
+
+
+1. ID for various services (analytics, advertising systems, applications for integration with social networks and publishing systems. Their overlap may indicate that one person or team was involved. Few examples:
+
+
+Google Analytics:
+
+```
+http.body:UA-23870775
+```
+
+Google Tag Manager:
+
+```
+http.body:GTM-WCBNVW
+```
+
+Facebook Pixel (FB-XXXXXXXXXXXXXXXX)
+AddThis (AT-ra-XXXXXXXXXXXXXXXX)
+Google + (GP-1XXXXXXXXXXXXXXXXXXXXX) - yes, it's all found in the code on some sites
+Amazon Publisher Servies (APS-XXXX)
+
+And a host of other indetifiers that can most often be found at the top of the html code (but sometimes all over the code).
+
+
+2. ID of affiliate programmes (also use http.body for search it). You can find them in affiliate links that a person publishes on other sites or in social networks. These can be the following URL parameters (and their like):
+
+```
+aff_fcid=
+user_id=
+partner_id=
+ref_id=
+```
+
+
+3. Files (primarily user logos and avatars) mentions search [->](https://github.com/netlas-io/netlas-cookbook#search-file-mentions-looking-for-content-that-may-be-infringing-on-copyrights)
+
+
+4. Subdomain search [->](https://github.com/netlas-io/netlas-cookbook#search-subdomains)
+
+5. Whois contacts search [->](https://github.com/netlas-io/netlas-cookbook#search-persons-nickname-or-email-in-whois-contacts)
+
+
+
+# Using Netlas.io for Crypto Investigations
+
+
+Netlas provides a great opportunity for researchers who specialise in cryptocurrency crime. 
+
+Firstly, it can be used to search for references to wallet addresses and transaction numbers. 
+
+Second, it can be used to search for vulnerable mining farms, nodes and other servers associated with crypto infrastructure.
+
+
+## Search mining farms
+
+![Search mining farms](images/search_mining_farms.png)
+
+Antminer mining farms, which were first released by Bitmain back in 2013, are one of the most popular line of mining farm models in the world. You can find them by the presence of the word "antMiner" in the www_authenticate header.
+
+
+```
+http.headers.www_authenticate:antMiner
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.headers.www_authenticate%3AantMiner&page=1&indices=)
+
+
+You can also search for other types of mining farms. For examples:
+
+
+```
+http.headers.www_authenticate:XMR-Stak-Miner
+```
+
+Experiment by combining different filters, the words "miner/mining" and cryptocurrency names.
+
+
+**API request example**
+
+Netlas CLI Tools:
+
+```
+netlas search "http.headers.www_authenticate:antMiner"
+```
+
+
+Curl:
+
+```
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=http.headers.www_authenticate%3AantMiner&source_type=include&start=0&fields=*' \
+   -H 'accept: application/json' \
+   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.uri
+ ```
+
+**Code example (Netlas Python Library)**
+
+
+![Maining farms search Python](images/maining_farms_search_python.png)
+
+Run in command line:
+
+```
+python scripts/crypto/maining_farms_search.py
+```
+
+Source code of scripts/crypto/maining_farms_search.py:
+
+```python
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `http.headers.www_authenticate:antMiner`
+netlas_query = netlas_connection.query(query='http.headers.www_authenticate:antMiner')
+
+
+# iterate over data and print: uri, http headers
+for response in netlas_query['items']: 
+    print (response['data']['uri'])
+    print (response['data']['http']['headers'])
+
+pass
+```
+
+
+
+
+## Search for websites infected with cryptominers
+
+![Search website injected with miners](images/search_sites_injected_with_miners.png)
+
+
+Coinhive, a service that allows websites (mostly hacked) to use their visitor's computers to mine cryptocurrencies, is shutting down in 2019. But nevertheless, links to it are still embedded in many sites around the world. Let's try to find them:
+
+
+```
+http.body:coinhive.min.js domain:*
+```
+
+
+Note that we use the domain:* filter to find sites specifically, not all devices.
+
+
+Similarly, you can search for sites infected with other cryptominers (as well as other malicious code that executes on the user's side).
+
+
+**API request example**
+
+Netlas CLI Tools:
+
+```
+netlas search "http.body:coinhive.min.js domain:*"
+```
+
+
+Curl:
+
+```
+curl -X 'GET' \
+   'https://app.netlas.io/api/responses/?q=http.body%3Acoinhive.min.js%20domain%3A*&source_type=include&start=0&fields=*' \
+   -H 'accept: application/json' \
+   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.uri
+ ```
+
+**Code example (Netlas Python Library)**
+
+
+![Maining farms search Python](images/search_sites_injected_with_miners_python.png)
+
+Run in command line:
+
+```
+python scripts/crypto/search_sites_injected_with_miners.py
+```
+
+Source code of scripts/crypto/search_sites_injected_with_miners.py:
+
+
+```
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `http.body:coinhive.min.js domain:*`
+netlas_query = netlas_connection.query(query='http.body:coinhive.min.js domain:*')
+
+
+# iterate over data and print: uri
+for response in netlas_query['items']: 
+    print (response['data']['uri'])
+
+pass
+```
+
+
+
+
+
+## Search vulnerable Bitcoin nodes
+![Search bitcoin nodes](images/search_bitcoin_nodes.png)
+
+
+Bitcoin nodes use port 8333 for TCP connection. Therefore, it is easy to find them using the "port:" search filter.
+
+
+```
+port:8333 cve:*
+```
+
+Note that we use the "cve:*" filter to look for servers with vulnerabilities.
+
+
+**API request example**
+
+Netlas CLI Tools:
+
+```
+netlas search "port:8333 cve:*"
+```
+
+
+Curl:
+
+```
+curl -X 'GET' \
+    'https://app.netlas.io/api/responses/?q=port%3A8333%20cve%3A*&source_type=include&start=0&fields=*' \
+   -H 'accept: application/json' \
+   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.uri
+ ```
+
+**Code example (Netlas Python Library)**
+
+
+![Search bitcoin nodes Python](images/search_bitcoin_nodes_python.png)
+
+Run in command line:
+
+```
+python scripts/crypto/search_bitcoin_nodes.py
+```
+
+Source code of scripts/crypto/search_bitcoin_nodes.py:
+
+
+```
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `port:8333 cve:*`
+netlas_query = netlas_connection.query(query='port:8333 cve:*')
+
+
+# iterate over data and print: uri, CVE name and description
+for response in netlas_query['items']: 
+    print (response['data']['uri'])
+    print (response['data']['cve'][0]['name'])
+    print (response['data']['cve'][0]['description'])
+
+pass
+```
+
+
 # Using Neltas for Pentest
 
 
@@ -3832,6 +4113,39 @@ You can think of hundreds of other such requests. Experiment with different file
 
 
 
+# Search for technologies and code examples
+
+![Netlas for web designers](images/search_for_technologies_and_code_examples.png)
+
+Netlas, unlike conventional search engines, allows you to search the entire HTML code rather than the text of the page. This allows you to find sites that use certain JavaScript libraries. This can help you find code samples suitable for your tasks and save your time.
+
+
+For example, looking for sites that use an old obscure library to draw graphics:
+
+```
+http.body:kinetic.js
+```
+
+You can also see how different CSS frameworks are used on sites of certain themes and borrow good design ideas:
+
+```
+http.body:bootstrap.css http.title:travel
+```
+
+
+You can also filter sites that use specific frameworks and technologies by using tags:
+
+```
+tag.bootstrap:*
+tag.angularjs:*
+tag.wordpress:*
+tag.nextjs:*
+```
+
+
+
+
+
 # Using Netlas.io for fun or netstalking
 
 
@@ -3874,238 +4188,6 @@ http.body:*cats*mp4
 ```
 
 Keep in mind that Netlas does not censor the content it stores in its database in any way. If you find something illegal or immoral, you should complain to the hosting provider whose contacts are listed in the domain information.
-
-
-
-# Using Netlas.io for Crypto Investigations
-
-
-Netlas provides a great opportunity for researchers who specialise in cryptocurrency crime. 
-
-Firstly, it can be used to search for references to wallet addresses and transaction numbers. 
-
-Second, it can be used to search for vulnerable mining farms, nodes and other servers associated with crypto infrastructure.
-
-
-## Search mining farms
-
-![Search mining farms](images/search_mining_farms.png)
-
-Antminer mining farms, which were first released by Bitmain back in 2013, are one of the most popular line of mining farm models in the world. You can find them by the presence of the word "antMiner" in the www_authenticate header.
-
-
-```
-http.headers.www_authenticate:antMiner
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=http.headers.www_authenticate%3AantMiner&page=1&indices=)
-
-
-You can also search for other types of mining farms. For examples:
-
-
-```
-http.headers.www_authenticate:XMR-Stak-Miner
-```
-
-Experiment by combining different filters, the words "miner/mining" and cryptocurrency names.
-
-
-**API request example**
-
-Netlas CLI Tools:
-
-```
-netlas search "http.headers.www_authenticate:antMiner"
-```
-
-
-Curl:
-
-```
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=http.headers.www_authenticate%3AantMiner&source_type=include&start=0&fields=*' \
-   -H 'accept: application/json' \
-   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.uri
- ```
-
-**Code example (Netlas Python Library)**
-
-
-![Maining farms search Python](images/maining_farms_search_python.png)
-
-Run in command line:
-
-```
-python scripts/crypto/maining_farms_search.py
-```
-
-Source code of scripts/crypto/maining_farms_search.py:
-
-```python
-import netlas
-
-apikey = "YOUR_API_KEY"
-
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `http.headers.www_authenticate:antMiner`
-netlas_query = netlas_connection.query(query='http.headers.www_authenticate:antMiner')
-
-
-# iterate over data and print: uri, http headers
-for response in netlas_query['items']: 
-    print (response['data']['uri'])
-    print (response['data']['http']['headers'])
-
-pass
-```
-
-
-
-
-## Search for websites infected with cryptominers
-
-![Search website injected with miners](images/search_sites_injected_with_miners.png)
-
-
-Coinhive, a service that allows websites (mostly hacked) to use their visitor's computers to mine cryptocurrencies, is shutting down in 2019. But nevertheless, links to it are still embedded in many sites around the world. Let's try to find them:
-
-
-```
-http.body:coinhive.min.js domain:*
-```
-
-
-Note that we use the domain:* filter to find sites specifically, not all devices.
-
-
-Similarly, you can search for sites infected with other cryptominers (as well as other malicious code that executes on the user's side).
-
-
-**API request example**
-
-Netlas CLI Tools:
-
-```
-netlas search "http.body:coinhive.min.js domain:*"
-```
-
-
-Curl:
-
-```
-curl -X 'GET' \
-   'https://app.netlas.io/api/responses/?q=http.body%3Acoinhive.min.js%20domain%3A*&source_type=include&start=0&fields=*' \
-   -H 'accept: application/json' \
-   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.uri
- ```
-
-**Code example (Netlas Python Library)**
-
-
-![Maining farms search Python](images/search_sites_injected_with_miners_python.png)
-
-Run in command line:
-
-```
-python scripts/crypto/search_sites_injected_with_miners.py
-```
-
-Source code of scripts/crypto/search_sites_injected_with_miners.py:
-
-
-```
-import netlas
-
-apikey = "YOUR_API_KEY"
-
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `http.body:coinhive.min.js domain:*`
-netlas_query = netlas_connection.query(query='http.body:coinhive.min.js domain:*')
-
-
-# iterate over data and print: uri
-for response in netlas_query['items']: 
-    print (response['data']['uri'])
-
-pass
-```
-
-
-
-
-
-## Search vulnerable Bitcoin nodes
-![Search bitcoin nodes](images/search_bitcoin_nodes.png)
-
-
-Bitcoin nodes use port 8333 for TCP connection. Therefore, it is easy to find them using the "port:" search filter.
-
-
-```
-port:8333 cve:*
-```
-
-Note that we use the "cve:*" filter to look for servers with vulnerabilities.
-
-
-**API request example**
-
-Netlas CLI Tools:
-
-```
-netlas search "port:8333 cve:*"
-```
-
-
-Curl:
-
-```
-curl -X 'GET' \
-    'https://app.netlas.io/api/responses/?q=port%3A8333%20cve%3A*&source_type=include&start=0&fields=*' \
-   -H 'accept: application/json' \
-   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.uri
- ```
-
-**Code example (Netlas Python Library)**
-
-
-![Search bitcoin nodes Python](images/search_bitcoin_nodes_python.png)
-
-Run in command line:
-
-```
-python scripts/crypto/search_bitcoin_nodes.py
-```
-
-Source code of scripts/crypto/search_bitcoin_nodes.py:
-
-
-```
-import netlas
-
-apikey = "YOUR_API_KEY"
-
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `port:8333 cve:*`
-netlas_query = netlas_connection.query(query='port:8333 cve:*')
-
-
-# iterate over data and print: uri, CVE name and description
-for response in netlas_query['items']: 
-    print (response['data']['uri'])
-    print (response['data']['cve'][0]['name'])
-    print (response['data']['cve'][0]['description'])
-
-pass
-```
-
 
 
 
