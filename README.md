@@ -95,6 +95,7 @@
      - [KeyError](#keyerror)
      - [Automation of work with the list of requests](#automation-of-work-with-the-list-of-requests)
      - [Saving data in CSV format](#saving-data-in-csv-format)
+     - [Decoding Punycode domains](#decoding-punycode-domains)
      - [Working with very large amounts of data](#working-with-very-large-amounts-of-data)
 
 
@@ -4371,6 +4372,50 @@ You can open netlas_results.csv in Excel or any text editor.
 
 
 
+
+## Decoding Punycode domains
+
+
+![ Decoding Punycode domains](images/punycode.png)
+
+
+
+As mentioned above, Netlas does not store non-Latin domain names in their original encoding, but encodes them in Punycode. This is necessary for technical reasons, but it is completely inconvenient for human perception. 
+
+But this problem is easily solved with a couple of lines of Python code.
+
+
+Install [IDNA Python package](https://pypi.org/project/idna/):
+
+```
+pip install idna
+```
+
+
+And run scripts/common_problems/punycode.py in command line:
+
+```python
+
+import netlas
+import idna
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `domain:*.中国  OR host:*.中国 `
+netlas_query = netlas_connection.query(query="domain:*.xn--fiqs8s OR host:*.xn--fiqs8s")
+
+
+# iterate over data and print: ip, domain (decoded from punycode)
+for response in netlas_query['items']:
+    print (response['data']['ip'])
+    decoded_domain = idna.decode(str(response['data']['domain'][0]))
+    print (decoded_domain)
+pass
+
+```
 
 
 ## Working with very large amounts of data
