@@ -81,6 +81,7 @@
     - [Search vulnerable servers and devices near you (or any other location)](#search-vulnerable-servers-and-devices-near-you-or-any-other-location)
     - [Search for login/admin panels](#search-for-loginadmin-panels)
     - [Search for vulnerable database admin panels](#search-for-vulnerable-database-admin-panels)
+    - [Search for sites vulnerable to SQL injection](#search-for-sites-vulnerable-to-sql-injection)
 - [Files, backups and logs directories search](#files-backups-and-logs-directories-search)
 - [Using Netlas.io for Digital Forensics and Incident Response](#using-netlasio-for-digital-forensics-and-incident-response)         
     - [SMTP servers information gathering](#smtp-servers-information-gathering)
@@ -3768,6 +3769,98 @@ Searching for admin panels for servers found in this way may not be the easiest 
 
 
 
+
+## Search for sites vulnerable to SQL injection
+
+![SQL Injection search](images/sql_injection_search.png)
+
+SQL injection is a type of vulnerability that allows database queries to be made by manipulating URL parameters (this can be possible due to misconfigurations and poor quality code). 
+
+One of the oldest techniques for finding pages potentially vulnerable to SQL Injection is to search for pages that have enabled error message display in MySQl queries using Google Dorks. 
+
+A similar search can be done in Netlas:
+
+```
+http.body:mysql_fetch_array http.body:warning
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.body%3Amysql_fetch_array%20http.body%3Awarning&page=1&indices=)
+
+
+Few other examples:
+
+```
+http.body:mysql_num_rows http.body:warning
+http.body:mysql_connect http.body:denied
+http.body:mysql_query http.body:warning
+http.body:pg_connect http.body:fatal
+```
+
+
+**API request example**
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search "http.body:mysql_fetch_array http.body:warning" -f json
+```
+
+
+Curl:
+
+
+```
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=http.body%3Amysql_fetch_array%20http.body%3Awarning&source_type=include&start=0&fields=*' \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: YOUR_API_KEY' jq .items[].data.uri
+```
+
+**Code example (Netlas Python Library)**
+
+![SQL Injection search Python](images/sql_injection_search_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/pentest/sql_injection_search.py
+```
+
+
+Source code of scripts/pentest/sql_injection_search.py:
+
+
+```python
+import netlas
+
+apikey = "YOUR_API_KEY"
+ 
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# search in Netlas "http.body:mysql_fetch_array http.body:warning"
+netlas_query = netlas_connection.query(query="http.body:mysql_fetch_array http.body:warning")
+
+
+# iterate over data and print: uri, web page body
+for response in netlas_query['items']:
+    print (response['data']['uri'])  
+    print (response['data']['http']['body'])    
+pass
+```
+
+You may also use the following filters to search for vulnerable MySQL servers:
+
+```
+mysql.error_code:
+mysql.error_id:
+mysql.error_message:
+```
 
 
 
