@@ -64,6 +64,7 @@
    - [Search location in \<address\> tag](#search-location-in-address-tag)
    - [Search author name in meta tags](#search-author-name-in-meta-tags)
    - [Search by FTP server's banners text](#search-by-ftp-servers-banners-text)
+   - [Search for contact information in SSL certificates](#search-for-contact-information-in-ssl-certificates)
    - [Using Netlas as an alternative to the WayBack Machine](#using-netlas-as-an-alternative-to-the-wayback-machine)
    - [Search related websites](#search-related-websites)
  - [Using Netlas.io for Crypto Investigations](#using-netlasio-for-crypto-investigations)
@@ -97,6 +98,8 @@
      - [Automation of work with the list of requests](#automation-of-work-with-the-list-of-requests)
      - [Saving data in CSV format](#saving-data-in-csv-format)
      - [Decoding Punycode domains](#decoding-punycode-domains)
+     - [What to do if search queries don't return results?](#what-to-do-if-search-queries-dont-return-results)
+     - [Removing html tags from http body](#removing-html-tags-from-http-body)
      - [Working with very large amounts of data](#working-with-very-large-amounts-of-data)
 
 
@@ -2733,6 +2736,93 @@ pass
 
 ```
 
+## Search for contact information in SSL certificates
+![Certificates search](images/certificates_search.png)
+
+An SSL Certificate is a digital certificate that authenticates a website and allows the use of an encrypted connection. It may contain information about it owner: name of the contact person, name of the organisation, country and sometimes even the address and postcode. You can search this information using the following filters (and many others):
+
+
+```
+certificate.issuer.email_address:
+certificate.issuer.given_name:
+certificate.issuer.organization:
+certificate.issuer.postal_code:
+certificate.issuer.street_address:
+certificate.issuer.surname:
+
+```
+
+Let's try to find IP addresses that have a certain word in the street address in their certificate:
+
+```
+certificate.issuer.street_address:*mcgill*
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=certificate.issuer.street_address%3A*mcgill*&page=1&indices=)
+
+
+**API request example**
+
+
+Netlas CLI Tools:
+
+
+```
+netlas search "certificate.issuer.street_address:*mcgill*" -f json
+```
+
+
+Curl:
+
+
+```
+curl -X 'GET' \
+  'https://app.netlas.io/api/responses/?q=certificate.issuer.street_address%3A*mcgill*&source_type=include&start=0&fields=*' \
+  -H 'accept: application/json' \
+  -H 'X-API-Key: YOUR_API_KEY' jq .items[].data.uri
+```
+
+**Code example (Netlas Python Library)**
+
+![Certificates search Python](images/certificates_search_python.png)
+
+
+
+Run in command line:
+
+
+```
+python scripts/osint/certificates_search.py
+```
+
+
+Source code of scripts/osint/certificates_search.py:
+
+```python
+import netlas
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `certificate.issuer.street_address:*mcgill*`
+netlas_query = netlas_connection.query(query="certificate.issuer.street_address:*mcgill*")
+
+
+print (type(netlas_query))
+
+# iterate over data and print: ip, url, cetificate issuer 
+for response in netlas_query['items']:
+    print (response['data']['uri'])
+    print (response['data']['certificate']['issuer'])  
+pass
+
+```
+
+
+
+
 ## Using Netlas as an alternative to the WayBack Machine
 
 
@@ -4509,6 +4599,82 @@ for response in netlas_query['items']:
 pass
 
 ```
+
+
+## What to do if search queries don't return results?
+
+
+Sometimes you may encounter a situation where no or very few results are found on query, although you are sure there should be many more. In this case we recommend you to experiment and try to change the queries a bit. 
+
+
+1. Try adding two asterisks to your keyword. For example, domain:*github.com* returns 1,592,846 results. domain:githib.com - only 7911 results.
+
+2. Try using different search filters to achieve the same goal. For example, compare results for uri:*github.com*, host:*github.com* and domain:*github.com*.
+
+3. Do not use spaces in keywords. If you need to find the phrase "Hello world" in http.body, use the following query:
+
+
+```
+http.body:hello http.body:world
+```
+
+or
+
+```
+http.body:(hello AND world)
+```
+
+
+4. Refine your search filters as much as possible. For example, the query cve:*2023* will not return results. But the query cve.name:*2023* will return more than 28 million.
+
+
+5. Try different tabs when working with the web app or different data types when working with the API. For example, when searching for domains, sometimes Host or Domain Whois (rather than response) works better.
+
+
+
+## Removing html tags from http body
+
+![Certificates search](images/htmltotext.png)
+
+Key ['data']['http']['body'] by default returns the full body text of the web page, including all html tags. This format is not very easy to read. But you can easily remove them with the Python package [Html2text](https://pypi.org/project/html2text/).
+
+
+
+Run in command line:
+
+
+```
+python scripts/common_problems/htmltotext.py
+```
+
+
+Source code of scripts/common_problems/htmltotext.py:
+
+
+
+```python
+import netlas
+import html2text
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `http.body:*phpMyAdmin*`
+netlas_query = netlas_connection.query(query="http.body:*phpMyAdmin*")
+
+
+# iterate over data and print: ip, web page text
+for response in netlas_query['items']:
+    print (response['data']['ip'])
+    print (html2text.html2text(str(response['data']['http']['body'])))   
+pass
+
+```
+
+
+
 
 
 ## Working with very large amounts of data
