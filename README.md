@@ -95,6 +95,7 @@
 - [Using Netlas.io for Digital Forensics and Incident Response](#using-netlasio-for-digital-forensics-and-incident-response)         
     - [SMTP servers information gathering](#smtp-servers-information-gathering)
     - [Search for domains that could potentially be used for phishing](#search-for-domains-that-could-potentially-be-used-for-phishing)
+    - [Favicon search](#favicon-search)
     - [Search for domains associated with a specific subnet](#search-for-domains-associated-with-a-specific-subnet)
     - [Search for servers with malicious software](#search-for-servers-with-malicious-software)
 - [Search for technologies and code examples](#search-for-technologies-and-code-examples)
@@ -4305,6 +4306,64 @@ After that click on the left icon, select the export file type, file names and t
 
 
 For example, you can select the CSV file format and the domain, expiration_date, status fields. Such a table can be conveniently viewed in Excel, Numbers or Google Docs.
+
+
+
+
+## Favicon search
+
+![Favicon search](images/favicon_search.png)
+
+Searching for favicon.ico has three main uses. 
+
+First, it allows you to find potentially related sites and subdomains. Try to find IP associated with Lidl shops:
+
+```
+http.favicon.perceptual_hash:003c7e72207e3c00
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.favicon.perceptual_hash%3A003c7e72207e3c00&page=1&indices=)
+
+Second, it is a search for various IoT devices. Try to find HP products:
+
+
+```
+http.favicon.perceptual_hash:0c5ec8c181f37e2c
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.favicon.perceptual_hash%3A0c5ec8c181f37e2c&page=1&indices=)
+
+Third, it searches for servers that have certain software launched on them. Try to find servers with PhpMyAdmin: 
+
+
+```
+http.favicon.perceptual_hash:00084e5e5fffff8d
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.favicon.perceptual_hash%3A00084e5e5fffff8d&page=1&indices=)
+
+There are three main ways to search by favicon hash in Netlas:
+
+1. Click on the icon to the left of the search result.
+2. Click on the favicon search button to the right of the search bar and paste the favicon link into the pop-up window.
+3. Click on the favicon search button to the right of the search bar and upload the favicon file.
+
+
+You can also use the following filters to search by favicon:
+
+```
+http.favicon.last_modified:
+http.favicon.last_updated:
+http.favicon.uri:
+http.favicon.path:
+```
+
+
+
+
+
+
+
 
 
 
