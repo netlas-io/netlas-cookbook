@@ -83,6 +83,14 @@
     - [Search for login/admin panels](#search-for-loginadmin-panels)
     - [Search for vulnerable database admin panels](#search-for-vulnerable-database-admin-panels)
     - [Search for sites vulnerable to SQL injection](#search-for-sites-vulnerable-to-sql-injection)
+- [IoT search: 6 basic ways](#iot-search-6-basic-ways)
+    - [Search by http.title](#search-by-httptitle)
+    - [Search by port](#search-by-port)
+    - [Search by banner](#search-by-banner)
+    - [Search by favicon](#search-by-favicon)
+    - [Search by http.headers](#search-by-httpheaders)
+    - [Search by tag](#search-by-tag)
+    - [Additional search filters](#additional-search-filters)
 - [Files, backups and logs directories search](#files-backups-and-logs-directories-search)
 - [Using Netlas.io for Digital Forensics and Incident Response](#using-netlasio-for-digital-forensics-and-incident-response)         
     - [SMTP servers information gathering](#smtp-servers-information-gathering)
@@ -3951,6 +3959,167 @@ mysql.error_code:
 mysql.error_id:
 mysql.error_message:
 ```
+
+
+
+# IoT search: 6 basic ways
+
+Netlas searches not only websites and servers, but all devices connected to the Internet: smart home appliances, surveillance cameras, printers, routers, traffic lights, medical equipment, and more. 
+
+There are four main ways to find these devices.
+
+
+## Search by http.title
+
+![Iot Title Search](images/iot_title.png)
+
+
+The easiest way is to simply search for the vendor's name or device type in the http title of the answer.
+
+Try to search Jeedom home automation devices:
+
+```
+http.title:Jeedom
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3AJeedom&page=1&indices=)
+
+Or Avigilon webcams:
+
+```
+http.title:"Avigilon"
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3A%22Avigilon%22&page=1&indices=)
+
+There are two disadvantages to this method. The first is the large number of inappropriate results (just websites with relevant words in the title). But when using quotation marks and additional search filters like port:, there are fewer of them.
+
+The second is that a lot of IoT devices don't have any information in the http title by which they can be identified. So, other search filters can be useful too.
+
+
+## Search by port
+
+![Iot port search](images/iot_port.png)
+
+
+Different IoT devices use different ports for communication. And by the open port number, you can hypothetically assume that the IP address belongs to a certain type of device (**often the assumption is correct, but there can be inaccuracies and coincidences**).
+
+
+Try to search Internet radio(port 8000):
+
+```
+port:8000 http.title:radio
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=port%3A8000%20http.title%3Aradio&page=1&indices=)
+
+Or all devices with opened port 7547 (it's used to remotely manage routers via CWMP):
+
+
+```
+port:7547
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=port%3A7547&page=1&indices=)
+
+## Search by banner
+![Iot banner search](images/iot_banner.png)
+
+Let's look for routers that use the Telnet protocol (you could also filter them with port:23):
+
+```
+telnet.banner:router
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=telnet.banner%3Arouter&page=1&indices=)
+
+Or search banners for all protocols:
+
+```
+\*.banner:router
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=%5C*.banner%3Arouter&page=1&indices=)
+
+## Search by favicon
+![Iot favicon search](images/iot_favicon.png)
+
+One of the easiest ways to find devices that have certain software installed is to search by favicon. Let's try to find where different Cisco products are used: 
+
+```
+http.favicon.hash_sha256:62a8461e328d5bace3780ff738d0b58f6502592c04afa564e0a8a792583a7bfb
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.favicon.hash_sha256%3A62a8461e328d5bace3780ff738d0b58f6502592c04afa564e0a8a792583a7bfb&page=1&indices=)
+
+There are three main ways to search by favicon in Netlas:
+
+1. Click on the icon to the left of the search result.
+2. Click on the favicon search button to the right of the search bar and paste the favicon link into the pop-up window.
+3. Click on the favicon search button to the right of the search bar and upload the favicon file.
+
+
+## Search by http.headers
+![Iot headers search](images/iot_headers.png)
+
+Sometimes it happens that there is no identifying dev information in the http title, but it may be in other headers. For example, in http.server.header:
+
+```
+http.headers.server:"i-Catcher Console"
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.headers.server%3A%22i-Catcher%20Console%22&page=1&indices=)
+
+Netlas supports searching across several dozen header types. Try different variants.
+
+
+## Search by tag
+![Iot tag search](images/iot_tag.png)
+
+
+You can also try searching for devices by tags (categories). 
+
+```
+tag.category:"IoT"
+tag.category:"Web cameras"
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=tag.category%3A%22Web%20cameras%22&page=1&indices=)
+
+Just remember that tags are assigned automatically and some suitable devices may not be included in the corresponding category.
+
+
+## Additional search filters
+
+
+It's can search for IoT devices located in specific geolocations:
+
+
+```
+geo.city:
+geo.country:
+geo.continent:
+geo.location.lat:
+geo.location.long:
+```
+
+Filter devices by IP address range:
+
+
+```
+ip:[162.245.241.131 TO 162.245.241.133]
+```
+
+Or devices with "fresh" vulnerabilities:
+
+```
+cve.name:*2023*
+```
+
+
+More examples of queries to search for IoT devices can be found here:
+
+[Netlas Dorks](https://github.com/netlas-io/netlas-dorks)
 
 
 
