@@ -2911,7 +2911,7 @@ ref_id=
 
 5. Whois contacts search [->](https://github.com/netlas-io/netlas-cookbook#search-persons-nickname-or-email-in-whois-contacts)
 
-
+6. Favicon search [->](https://github.com/netlas-io/netlas-cookbook#favicon-search)
 
 # Using Netlas.io for Crypto Investigations
 
@@ -4323,6 +4323,8 @@ http.favicon.perceptual_hash:003c7e72207e3c00
 ```
 
 [Try in Netlas](https://app.netlas.io/responses/?q=http.favicon.perceptual_hash%3A003c7e72207e3c00&page=1&indices=)
+
+And also to find phishing sites that use the design of popular social networks, online stores, etc.
 
 Second, it is a search for various IoT devices. Try to find HP products:
 
