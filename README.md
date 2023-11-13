@@ -110,6 +110,7 @@
      - [KeyError](#keyerror)
      - [Automation of work with the list of requests](#automation-of-work-with-the-list-of-requests)
      - [Saving data in CSV format](#saving-data-in-csv-format)
+     - [Saving data in other formats](#saving-data-in-other-formats)
      - [Decoding Punycode domains](#decoding-punycode-domains)
      - [What to do if search queries don't return results?](#what-to-do-if-search-queries-dont-return-results)
      - [Removing html tags from http body](#removing-html-tags-from-http-body)
@@ -4962,6 +4963,21 @@ csv_file.close()
 ```
 
 You can open netlas_results.csv in Excel or any text editor.
+
+
+
+## Saving data in other formats
+
+
+Using Python, you can generate a wide variety of documents based on data from Netlas, inserting images, data visualizations, and customizing the layout. Here are some examples of useful packages.
+
+[XLSXWriter](https://xlsxwriter.readthedocs.io/) - generate Microsoft Excel files.
+
+[PyPDF](https://pypdf.readthedocs.io/en/stable/) - generate PDF files.
+
+[PythonPPTX](https://python-pptx.readthedocs.io/en/latest/) - generate Microsoft Power Point Presentations.
+
+[PythonDOCX](https://python-docx.readthedocs.io/en/latest/) - generate Microsoft Word files.
 
 
 
