@@ -66,7 +66,10 @@
    - [Search by FTP server's banners text](#search-by-ftp-servers-banners-text)
    - [Search for contact information in SSL certificates](#search-for-contact-information-in-ssl-certificates)
    - [Using Netlas as an alternative to the WayBack Machine](#using-netlas-as-an-alternative-to-the-wayback-machine)
-   - [Search related websites](#search-related-websites)
+   - [9 ways to search related websites](#9-ways-to-search-related-websites)
+ - [Scraping (extract data from web page body)](#scraping-extract-data-from-web-page-body)
+   - [Beatifulsoup package](#beatifulsoup-package)
+   - [Re package](#re-package)
  - [Using Netlas.io for Crypto Investigations](#using-netlasio-for-crypto-investigations)
     - [Search mining farms](#search-mining-farms)
     - [Search for websites infected with cryptominers](#search-for-websites-infected-with-cryptominers)
@@ -83,12 +86,13 @@
     - [Search for login/admin panels](#search-for-loginadmin-panels)
     - [Search for vulnerable database admin panels](#search-for-vulnerable-database-admin-panels)
     - [Search for sites vulnerable to SQL injection](#search-for-sites-vulnerable-to-sql-injection)
-- [IoT search: 6 basic ways](#iot-search-6-basic-ways)
+- [IoT search: 7 basic ways](#iot-search-7-basic-ways)
     - [Search by http.title](#search-by-httptitle)
     - [Search by port](#search-by-port)
     - [Search by banner](#search-by-banner)
     - [Search by favicon](#search-by-favicon)
-    - [Search by http.headers](#search-by-httpheaders)
+    - [Search by server headers](#search-by-server-headers)
+    - [Search by cookies](#search-by-cookies)
     - [Search by tag](#search-by-tag)
     - [Additional search filters](#additional-search-filters)
 - [Files, backups and logs directories search](#files-backups-and-logs-directories-search)
@@ -2864,14 +2868,14 @@ To see how the site looks, copy the contents of the "body" field (response tab) 
 
 After that, copy the code into one of the online html promoters, such as [Code beautify](https://codebeautify.org/htmlviewer). Or just save the file in html format and then open it in browser.
 
-## Search related websites
+## 9 ways to search related websites
 ![Search related websites](images/search_related_websites.png)
 
 
 When gathering information about a person or company, it can be important to find as many sites as possible that can be related to them in some way. There are at least 5 ways to do this with Netlas.
 
 
-1. ID for various services (analytics, advertising systems, applications for integration with social networks and publishing systems. Their overlap may indicate that one person or team was involved. Few examples:
+1. ID for various services (analytics, advertising systems, applications for integration with social networks and publishing systems). Their overlap may indicate that one person or team was involved. Few examples:
 
 
 Google Analytics:
@@ -2893,6 +2897,8 @@ Amazon Publisher Servies (APS-XXXX)
 
 And a host of other indetifiers that can most often be found at the top of the html code (but sometimes all over the code).
 
+[Try in Netlas](https://app.netlas.io/responses/?q=http.body%3AUA-23870775&page=1&indices=)
+
 
 2. ID of affiliate programmes (also use http.body for search it). You can find them in affiliate links that a person publishes on other sites or in social networks. These can be the following URL parameters (and their like):
 
@@ -2903,15 +2909,178 @@ partner_id=
 ref_id=
 ```
 
+3. Search by organization name in Domain Whois Netlas search
 
-3. Files (primarily user logos and avatars) mentions search [->](https://github.com/netlas-io/netlas-cookbook#search-file-mentions-looking-for-content-that-may-be-infringing-on-copyrights)
+![Search organization in WHOIS](images/search_organization_whois.png)
+
+```
+"GitHub, Inc."
+```
+
+[Try in Netlas](https://app.netlas.io/whois/domains/?q=%22GitHub%2C%20Inc.%22&page=1&indices=)
+
+4. Search by mail servers in DNS Netlas search
+
+![Search mail servers in DNS](images/search_mail_servers_dns.png)
 
 
-4. Subdomain search [->](https://github.com/netlas-io/netlas-cookbook#search-subdomains)
+```
+mx:*.parklogic.com
+```
 
-5. Whois contacts search [->](https://github.com/netlas-io/netlas-cookbook#search-persons-nickname-or-email-in-whois-contacts)
+[Try in Netlas](https://app.netlas.io/domains/?q=mx%3A*.parklogic.com&page=1&indices=)
 
-6. Favicon search [->](https://github.com/netlas-io/netlas-cookbook#favicon-search)
+5. Search by name servers in DNS Netlas search
+
+![Search name servers in DNS](images/search_name_servers_dns.png)
+
+```
+ns:ns?.parklogic.com
+```
+
+[Try in Netlas](https://app.netlas.io/domains/?q=mx%3A*.parklogic.com&page=1&indices=)
+
+6. Files (primarily user logos and avatars) mentions search [->](https://github.com/netlas-io/netlas-cookbook#search-file-mentions-looking-for-content-that-may-be-infringing-on-copyrights)
+
+
+7. Subdomain search [->](https://github.com/netlas-io/netlas-cookbook#search-subdomains)
+
+8. Whois contacts search (in Netlas response search) [->](https://github.com/netlas-io/netlas-cookbook#search-persons-nickname-or-email-in-whois-contacts)
+
+9. Favicon search [->](https://github.com/netlas-io/netlas-cookbook#favicon-search)
+
+
+
+
+
+
+
+# Scraping (extract data from web page body)
+
+Netlas API is a great tool for collecting contact and other website data. First, it allows you to do it quickly. Second, it does not require the use of proxy. Third, it allows you to collect data from sites that are currently unavailable.
+
+However, there are some disadvantages: Netlas scans only the main pages of sites (not all of them) and some rare sites are not included in its database due to protection.  But it can still be of great use.
+
+
+There are three main approaches to scraping: collecting information from html tags and CSS selectors, extracting data using regular expressions, and AI scraping. Let's take a closer look at the first two. 
+
+
+## Beatifulsoup package
+
+
+[Beatifulsoup](https://pypi.org/project/beautifulsoup4/) - is one of the world's most popular Python packages for parsing HTML code and XML files. Let's try using it to extract page titles (from \<h1> tags, NOT <title> tages).
+
+First, install package:
+
+```
+pip install beautifulsoup4
+```
+
+
+And Run scripts/osint/scraping_beatifulsoup.py:
+
+
+```
+python scripts/osint/scraping_beatifulsoup.py
+```
+
+![Beatiful soup scraping](images/scraping_beatifulsoup.png)
+
+
+
+Source code of scripts/osint/scraping_beatifulsoup.py:
+
+```python
+import netlas
+from bs4 import BeautifulSoup
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `http.body:shop`
+netlas_query = netlas_connection.query(query="http.body:shop")
+
+
+# iterate over data and print: URL, h1 tags from body
+for response in netlas_query['items']:
+    print (response['data']['uri'])
+    soup = BeautifulSoup(response['data']['http']['body'], "html.parser")
+    try:
+         print(soup.find("h1").get_text())
+    except:
+         print("no h1 tags")  
+pass
+```
+
+
+You can extract data from other elements of web pages in a similar way:
+
+```
+soup.find("h3").get_text()
+soup.find("id='loginform'").get_text()
+soup.find("class='forms'").get_text()
+soup.find("href='https://example.com'").get_text()
+```
+
+If you want to find all elements of a certain type use the find_all() method.
+
+
+## Re package
+
+
+[Re](https://docs.python.org/3/library/re.html) is a pre-installed Python package for searching and retrieving data using regular expressions. It is useful for extracting contact information from web pages and many other tasks. Let's look at an example of how it works.
+
+
+Run scripts/osint/scraping_re.py:
+
+```
+python scripts/osint/scraping_re.py
+```
+
+![Re scraping](images/scraping_re.png)
+
+Source code of scripts/osint/scraping_re.py:
+
+```python
+import netlas
+import re
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `http.body:shop`
+netlas_query = netlas_connection.query(query="http.body:shop")
+
+
+# iterate over data and print: URL, emails from body
+for response in netlas_query['items']:
+    print (response['data']['uri'])
+    emails = re.findall("[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_.]+", response['data']['http']['body'])  
+    try:
+         print(emails)
+    except:
+         print("no emails")
+pass
+```
+
+Similarly, you can extract links, phone numbers, cryptocurrency wallet addresses and more. Ready patterns can be found in regular expression libraries:
+
+[Regex Lib](https://regexlib.com/)
+[UI Bakery Regex Library](https://uibakery.io/regex-library)
+[Regex 101](https://regex101.com/)
+
+
+
+
+
+
+
+
+
 
 # Using Netlas.io for Crypto Investigations
 
@@ -3963,7 +4132,7 @@ mysql.error_message:
 
 
 
-# IoT search: 6 basic ways
+# IoT search: 7 basic ways
 
 Netlas searches not only websites and servers, but all devices connected to the Internet: smart home appliances, surveillance cameras, printers, routers, traffic lights, medical equipment, and more. 
 
@@ -4060,7 +4229,7 @@ There are three main ways to search by favicon in Netlas:
 3. Click on the favicon search button to the right of the search bar and upload the favicon file.
 
 
-## Search by http.headers
+## Search by server headers
 ![Iot headers search](images/iot_headers.png)
 
 Sometimes it happens that there is no identifying dev information in the http title, but it may be in other headers. For example, in http.server.header:
@@ -4073,6 +4242,19 @@ http.headers.server:"i-Catcher Console"
 
 Netlas supports searching across several dozen header types. Try different variants.
 
+
+## Search by cookies
+
+![Iot cookie search](images/iot_headers_cookie.png)
+
+
+Search Eco JS Parking lots:
+
+```
+http.headers.set_cookie:(regist_carNo=)
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.headers.set_cookie%3Aregist_carNo%3D&page=1&indices=)
 
 ## Search by tag
 ![Iot tag search](images/iot_tag.png)
@@ -4088,7 +4270,6 @@ tag.category:"Web cameras"
 [Try in Netlas](https://app.netlas.io/responses/?q=tag.category%3A%22Web%20cameras%22&page=1&indices=)
 
 Just remember that tags are assigned automatically and some suitable devices may not be included in the corresponding category.
-
 
 ## Additional search filters
 
