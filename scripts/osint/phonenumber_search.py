@@ -13,4 +13,3 @@ netlas_query = netlas_connection.query(query="http.body:1?234?567?89?99 OR http.
 for response in netlas_query['items']:
     print (response['data']['ip'])
     print (response['data']['uri'])
-pass

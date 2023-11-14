@@ -14,5 +14,3 @@ for response in netlas_query['items']:
     print (response['data']['uri'])
     print (response['data']['http']['title'])
     print (response['data']['http']['meta'])
-    
-pass

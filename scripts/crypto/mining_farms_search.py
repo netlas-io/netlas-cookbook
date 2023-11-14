@@ -13,5 +13,3 @@ netlas_query = netlas_connection.query(query='http.headers.www_authenticate:antM
 for response in netlas_query['items']: 
     print (response['data']['uri'])
     print (response['data']['http']['headers'])
-
-pass

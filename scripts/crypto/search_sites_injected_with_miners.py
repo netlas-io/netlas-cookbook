@@ -12,5 +12,3 @@ netlas_query = netlas_connection.query(query='http.body:coinhive.min.js domain:*
 # iterate over data and print: uri
 for response in netlas_query['items']: 
     print (response['data']['uri'])
-
-pass

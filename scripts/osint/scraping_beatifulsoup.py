@@ -15,7 +15,7 @@ for response in netlas_query['items']:
     print (response['data']['uri'])
     soup = BeautifulSoup(response['data']['http']['body'], "html.parser")
     try:
-         print(soup.find("h1").get_text())
-    except:
-         print("no h1 tags")  
+        print(soup.find("h1").get_text())
+    except Exception:
+        print("no h1 tags")
 pass

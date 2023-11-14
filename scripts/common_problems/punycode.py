@@ -15,4 +15,3 @@ for response in netlas_query['items']:
     print (response['data']['ip'])
     decoded_domain = idna.decode(str(response['data']['domain'][0]))
     print (decoded_domain)
-pass

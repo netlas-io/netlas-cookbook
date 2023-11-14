@@ -13,5 +13,4 @@ netlas_query = netlas_connection.query(query="http.body:*phpMyAdmin*")
 # iterate over data and print: ip, web page text
 for response in netlas_query['items']:
     print (response['data']['ip'])
-    print (html2text.html2text(str(response['data']['http']['body'])))   
-pass
+    print (html2text.html2text(str(response['data']['http']['body'])))

@@ -13,4 +13,3 @@ netlas_query = netlas_connection.query(query='uri:*lidl.* AND http.body:pdf')
 for response in netlas_query['items']: 
     print (response['data']['uri'])
     print (response['data']['http']['body'])
-pass

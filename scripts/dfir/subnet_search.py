@@ -12,4 +12,3 @@ netlas_query = netlas_connection.query(query='a:"163.114.132.0/24"',datatype="do
 # iterate over data and print: domain
 for response in netlas_query['items']: 
     print (response['data']['domain'])
-pass
