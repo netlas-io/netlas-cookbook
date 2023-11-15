@@ -13,4 +13,3 @@ netlas_query = netlas_connection.query(query="http.contacts.address:kirby")
 for response in netlas_query['items']:
     print (response['data']['uri'])
     print (response['data']['http']['contacts'])
-pass

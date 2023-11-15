@@ -5,6 +5,7 @@ fetch('https://app.netlas.io/api/domains/?q=ivanov.com&source_type=include&start
 })
     .then((response) => response.text())
     .then((body) => {
+
         var jsonArray = JSON.parse(body);
         console.log(jsonArray['items'][0]);
     }); 

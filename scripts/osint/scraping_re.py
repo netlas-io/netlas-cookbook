@@ -13,9 +13,9 @@ netlas_query = netlas_connection.query(query="http.body:shop")
 # iterate over data and print: URL, emails from body
 for response in netlas_query['items']:
     print (response['data']['uri'])
-    emails = re.findall("[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_.]+", response['data']['http']['body'])  
+    emails = re.findall("[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_.]+", response['data']['http']['body'])
     try:
-         print(emails)
-    except:
-         print("no emails")
+        print(emails)
+    except Exception:
+        print("no emails")
 pass

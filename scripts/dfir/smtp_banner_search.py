@@ -14,4 +14,3 @@ for response in netlas_query['items']:
     print (response['data']['smtp']['banner'])
     print (response['data']['uri'])
     print (response['data']['isp'])
-pass

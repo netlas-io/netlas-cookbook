@@ -14,4 +14,3 @@ for response in netlas_query['items']:
     print (response['data']['uri'])
     print (response['data']['geo']['country'])
     print (response['data']['whois']['related_nets'])
-pass

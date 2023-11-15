@@ -13,5 +13,3 @@ netlas_query = netlas_connection.query(query='tag.name:"adobe_coldfusion"')
 for response in netlas_query['items']:
     print (response['data']['ip'])
     print (response['data']['uri'])
-   
-pass

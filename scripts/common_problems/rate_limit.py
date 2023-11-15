@@ -19,7 +19,5 @@ def netlas_query():
         print (response['data']['cve'][0]['name'])
         print (response['data']['cve'][0]['description'])
 
-pass
-
 netlas_query()
 

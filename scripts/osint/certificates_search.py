@@ -14,5 +14,4 @@ print (type(netlas_query))
 # iterate over data and print: ip, url, cetificate issuer 
 for response in netlas_query['items']:
     print (response['data']['uri'])
-    print (response['data']['certificate']['issuer'])  
-pass
+    print (response['data']['certificate']['issuer'])
