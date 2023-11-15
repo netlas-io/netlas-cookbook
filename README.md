@@ -532,7 +532,7 @@ And of course, you can just copy the code and save to files. Here is the code of
 ```python
 import netlas
 
-apikey = "YOUR_API_KEY"
+apikey = "YOUR API KEY"
 
 # create new connection to Netlas
 netlas_connection = netlas.Netlas(api_key=apikey)
@@ -543,7 +543,6 @@ netlas_query = netlas_connection.query(query="port:7001")
 # iterate over data and print: IP address, port, path and protocol
 for response in netlas_query['items']:
     print(f"{response['data']['ip']}:{response['data']['port']}{response['data']['path']} [{response['data']['protocol']}]")
-pass
 
 ```
 
@@ -2045,7 +2044,6 @@ for response in netlas_query['items']:
     print (response['data']['uri'])
     print (response['data']['geo']['country'])
     print (response['data']['whois']['related_nets'])
-pass
 
 ```
 
@@ -2136,7 +2134,6 @@ for response in netlas_query['items']:
     print (response['data']['ip'])
     print (response['data']['uri'])
     print (response['data']['http']['title'])
-pass
 
 ```
 
@@ -2211,7 +2208,7 @@ python scripts/osint/juicyinfo_search.py
 Source code of scripts/osint/juicyinfo_search.py:
 
 
-```
+```python
 import netlas
 
 apikey = "YOUR_API_KEY"
@@ -2227,7 +2224,6 @@ netlas_query = netlas_connection.query(query='uri:*lidl.* AND http.body:pdf')
 for response in netlas_query['items']: 
     print (response['data']['uri'])
     print (response['data']['http']['body'])
-pass
 ```
 
 In order to automate links to PDF documents from the web page body you can use the Python [Re](https://docs.python.org/3/library/re.html) package.
@@ -2322,7 +2318,6 @@ netlas_query = netlas_connection.query(query="http.body:1?234?567?89?99 OR http.
 for response in netlas_query['items']:
     print (response['data']['ip'])
     print (response['data']['uri'])
-pass
 
 ```
 
@@ -2408,7 +2403,6 @@ for response in netlas_query['items']:
     print (response['data']['ip'])
     print (response['data']['uri'])
     print (response['data']['http']['title'])
-pass
 
 ```
 
@@ -2488,7 +2482,6 @@ netlas_query = netlas_connection.query(query="google.com",datatype="whois-domain
 # iterate over data and print: owner name
 for response in netlas_query['items']:
     print (response['data']['technical']['name'])  
-pass
 
 
 ```
@@ -2574,7 +2567,6 @@ netlas_query = netlas_connection.query(query="http.contacts.address:kirby")
 for response in netlas_query['items']:
     print (response['data']['uri'])
     print (response['data']['http']['contacts'])
-pass
 
 ```
 
@@ -2659,8 +2651,6 @@ for response in netlas_query['items']:
     print (response['data']['uri'])
     print (response['data']['http']['title'])
     print (response['data']['http']['meta'])
-    
-pass
 
 ```
 
@@ -2749,8 +2739,7 @@ for response in netlas_query['items']:
     print (response['data']['ip'])
     print (response['data']['uri'])
     print (response['data']['ftp']['banner'])
-   
-pass
+
 
 ```
 
@@ -2834,7 +2823,6 @@ print (type(netlas_query))
 for response in netlas_query['items']:
     print (response['data']['uri'])
     print (response['data']['certificate']['issuer'])  
-pass
 
 ```
 
@@ -3013,9 +3001,9 @@ for response in netlas_query['items']:
     print (response['data']['uri'])
     soup = BeautifulSoup(response['data']['http']['body'], "html.parser")
     try:
-         print(soup.find("h1").get_text())
-    except:
-         print("no h1 tags")  
+        print(soup.find("h1").get_text())
+    except Exception:
+        print("no h1 tags")
 pass
 ```
 
@@ -3064,11 +3052,11 @@ netlas_query = netlas_connection.query(query="http.body:shop")
 # iterate over data and print: URL, emails from body
 for response in netlas_query['items']:
     print (response['data']['uri'])
-    emails = re.findall("[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_.]+", response['data']['http']['body'])  
+    emails = re.findall("[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_.]+", response['data']['http']['body'])
     try:
-         print(emails)
-    except:
-         print("no emails")
+        print(emails)
+    except Exception:
+        print("no emails")
 pass
 ```
 
@@ -3147,10 +3135,10 @@ curl -X 'GET' \
 Run in command line:
 
 ```
-python scripts/crypto/maining_farms_search.py
+python scripts/crypto/mining_farms_search.py
 ```
 
-Source code of scripts/crypto/maining_farms_search.py:
+Source code of scripts/crypto/mining_farms_search.py:
 
 ```python
 import netlas
@@ -3168,8 +3156,6 @@ netlas_query = netlas_connection.query(query='http.headers.www_authenticate:antM
 for response in netlas_query['items']: 
     print (response['data']['uri'])
     print (response['data']['http']['headers'])
-
-pass
 ```
 
 
@@ -3241,8 +3227,6 @@ netlas_query = netlas_connection.query(query='http.body:coinhive.min.js domain:*
 # iterate over data and print: uri
 for response in netlas_query['items']: 
     print (response['data']['uri'])
-
-pass
 ```
 
 
@@ -3295,7 +3279,7 @@ python scripts/crypto/search_bitcoin_nodes.py
 Source code of scripts/crypto/search_bitcoin_nodes.py:
 
 
-```
+```python
 import netlas
 
 apikey = "YOUR_API_KEY"
@@ -3312,8 +3296,6 @@ for response in netlas_query['items']:
     print (response['data']['uri'])
     print (response['data']['cve'][0]['name'])
     print (response['data']['cve'][0]['description'])
-
-pass
 ```
 
 
@@ -3416,7 +3398,6 @@ netlas_query = netlas_connection.query(query="domain:*.github.com OR host:*.gith
 for response in netlas_query['items']:
     print (response['data']['ip'])
     print (response['data']['uri'])
-pass
 
 ```
 
@@ -3500,7 +3481,6 @@ netlas_query = netlas_connection.query(query="cve.name:CVE-2022-22965")
 for response in netlas_query['items']:
     print (response['data']['ip'])
     print (response['data']['uri'])
-pass
 
 ```
 
@@ -3586,8 +3566,6 @@ for response in netlas_query['items']:
     print (response['data']['uri'])
     print (response['data']['cve'][0]['name'])
     print (response['data']['cve'][0]['description'])
-    
-pass
 
 ```
 
@@ -3674,9 +3652,6 @@ netlas_query = netlas_connection.query(query='http.headers.server:"yawcam"')
 for response in netlas_query['items']:
     print (response['data']['ip'])
     print (response['data']['http']['headers']['server'])
-  
-   
-pass
 
 ```
 
@@ -3783,7 +3758,6 @@ for response in netlas_query['items']:
     print (response['data']['ip'])
     print (response['data']['uri'])
     print (response['data']['http']['title'])
-pass
 
 ```
 
@@ -3882,9 +3856,6 @@ netlas_query = netlas_connection.query(query='tag.name:"adobe_coldfusion"')
 for response in netlas_query['items']:
     print (response['data']['ip'])
     print (response['data']['uri'])
-   
-pass
-
 ```
 
 
@@ -3944,7 +3915,7 @@ python scripts/pentest/cve_location_search.py
 Source code of scripts/pentest/cve_location_search.py:
 
 
-```
+```python
 import netlas
 
 apikey = "YOUR_API_KEY"
@@ -3961,7 +3932,6 @@ for response in netlas_query['items']:
     print (response['data']['uri'])
     print (response['data']['cve'][0]['name'])
     print (response['data']['geo']['city'])
-pass
 
 ```
 
@@ -4124,7 +4094,6 @@ netlas_query = netlas_connection.query(query="http.body:mysql_fetch_array http.b
 for response in netlas_query['items']:
     print (response['data']['uri'])  
     print (response['data']['http']['body'])    
-pass
 ```
 
 You may also use the following filters to search for vulnerable MySQL servers:
@@ -4612,7 +4581,6 @@ for response in netlas_query['items']:
     print (response['data']['smtp']['banner'])
     print (response['data']['uri'])
     print (response['data']['isp'])
-pass
 
 ```
 
@@ -4775,7 +4743,6 @@ netlas_query = netlas_connection.query(query='a:"163.114.132.0/24"',datatype="do
 # iterate over data and print: domain
 for response in netlas_query['items']: 
     print (response['data']['domain'])
-pass
 
 ```
 
@@ -4860,8 +4827,7 @@ netlas_query = netlas_connection.query(query="http.title:Gophish http.title:Logi
 for response in netlas_query['items']:
     print (response['data']['uri'])  
     print (response['data']['http']['title'])  
-    print (response['data']['geo']['country'])  
-pass
+    print (response['data']['geo']['country'])
 
 ```
 
@@ -4977,7 +4943,7 @@ And run scripts/common_problems/rate_limit.py:
 import netlas
 from ratelimit import limits
 
-# One call - one second
+# One second - one call
 @limits(calls=1, period=1)
 def netlas_query():
      apikey = "YOUR_API_KEY"
@@ -4994,8 +4960,6 @@ def netlas_query():
         print (response['data']['uri'])
         print (response['data']['cve'][0]['name'])
         print (response['data']['cve'][0]['description'])
-
-pass
 
 netlas_query()
 
@@ -5033,11 +4997,11 @@ Run in command line:
 
 
 ```
-python scripts/common_problems/domains_list_search.py
+python scripts/common_problems/domain_list_search.py
 ```
 
 
-Source code of scripts/common_problems/domains_list_search.py:
+Source code of scripts/common_problems/domain_list_search.py:
 
 
 ```python
@@ -5054,16 +5018,15 @@ with open("scripts/common_problems/domains.txt") as f:
     # save each line to domain variable
     for domain in f:
          # retrieve data from responses by query `domain:domainname`
-         netlas_query = netlas_connection.query(query="domain:"+domain,datatype="domain-whois")
+        netlas_query = netlas_connection.query(
+            query=f"domain:{domain}", datatype="domain-whois"
+        )
 
 
-         # iterate over data and print:  ip, isp
-         for response in netlas_query['items']:
-             print (response['data']['ip'])
-             print (response['data']['isp'])
-        
-         pass
-    pass
+        # iterate over data and print:  ip, isp
+        for response in netlas_query['items']:
+            print (response['data']['ip'])
+            print (response['data']['isp'])
 
 ```
 
@@ -5097,30 +5060,25 @@ netlas_connection = netlas.Netlas(api_key=apikey)
 # retrieve data from responses by query `http.meta:nazar`
 netlas_query = netlas_connection.query(query="http.meta:nazar")
 
-# Create and open CSV file with results
-csv_file = open('netlas_results.csv', 'w')
-
-# Create CSV writer object
-writer = csv.writer(csv_file, delimiter =';')
+with open('netlas_results.csv', 'w') as csv_file:
+     # Create CSV writer object
+     writer = csv.writer(csv_file, delimiter =';')
 
 
-# Create a list with data headers:
-header = ['IP', 'URL', 'Title']
+     # Create a list with data headers:
+     header = ['IP', 'URL', 'Title']
 
-# Write headers to CSV file
-writer.writerow(header)
+     # Write headers to CSV file
+     writer.writerow(header)
 
-# iterate over data and print: ip and url to CSV file
-for response in netlas_query['items']:
+     # iterate over data and print: ip and url to CSV file
+     for response in netlas_query['items']:
 
     # Create a list with one line of data:
-     data = [response['data']['ip'], response['data']['uri']]
+          data = [response['data']['ip'], response['data']['uri']]
     # Write line to file
-     writer.writerow(data)   
-pass
-
-# Close CSV file
-csv_file.close()
+          writer.writerow(data)
+     pass
 
 ```
 
@@ -5185,7 +5143,6 @@ for response in netlas_query['items']:
     print (response['data']['ip'])
     decoded_domain = idna.decode(str(response['data']['domain'][0]))
     print (decoded_domain)
-pass
 
 ```
 
@@ -5257,8 +5214,7 @@ netlas_query = netlas_connection.query(query="http.body:*phpMyAdmin*")
 # iterate over data and print: ip, web page text
 for response in netlas_query['items']:
     print (response['data']['ip'])
-    print (html2text.html2text(str(response['data']['http']['body'])))   
-pass
+    print (html2text.html2text(str(response['data']['http']['body'])))
 
 ```
 
