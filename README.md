@@ -86,8 +86,9 @@
     - [Search for login/admin panels](#search-for-loginadmin-panels)
     - [Search for vulnerable database admin panels](#search-for-vulnerable-database-admin-panels)
     - [Search for sites vulnerable to SQL injection](#search-for-sites-vulnerable-to-sql-injection)
-- [IoT search: 7 basic ways](#iot-search-7-basic-ways)
+- [IoT search: 9 basic ways](#iot-search-9-basic-ways)
     - [Search by http.title](#search-by-httptitle)
+    - [Search by http.body](#search-by-httpbody)
     - [Search by port](#search-by-port)
     - [Search by banner](#search-by-banner)
     - [Search by favicon](#search-by-favicon)
@@ -4136,7 +4137,7 @@ mysql.error_message:
 
 
 
-# IoT search: 7 basic ways
+# IoT search: 9 basic ways
 
 Netlas searches not only websites and servers, but all devices connected to the Internet: smart home appliances, surveillance cameras, printers, routers, traffic lights, medical equipment, and more. 
 
@@ -4169,6 +4170,20 @@ http.title:"Avigilon"
 There are two disadvantages to this method. The first is the large number of inappropriate results (just websites with relevant words in the title). But when using quotation marks and additional search filters like port:, there are fewer of them.
 
 The second is that a lot of IoT devices don't have any information in the http title by which they can be identified. So, other search filters can be useful too.
+
+
+
+## Search by http.body
+
+![Iot Body Search](images/iot_body.png)
+
+Similarly, you can try searching for keywords in the body of the http response. To filter out at least some of the common websites, use the NOT domain:* filter. Let's try to search Reolink cameras:
+
+```
+http.body:(clip-status) NOT domain:*
+```
+
+The example isn't quite right, so these cameras can be found using tags (more on that below).
 
 
 ## Search by port
@@ -4263,6 +4278,7 @@ http.headers.set_cookie:(regist_carNo=)
 ## Search by tag
 ![Iot tag search](images/iot_tag.png)
 
+*This method may require a paid subscription.* [See the pricing](https://app.netlas.io/plans/)
 
 You can also try searching for devices by tags (categories). 
 
@@ -4306,6 +4322,9 @@ cve.name:*2023*
 More examples of queries to search for IoT devices can be found here:
 
 [Netlas Dorks](https://github.com/netlas-io/netlas-dorks)
+
+
+
 
 
 
@@ -5049,6 +5068,9 @@ with open("scripts/common_problems/domains.txt") as f:
 ```
 
 Similarly, you can work with a list of certificates, IP addresses, emails and whatever else you want.
+
+
+An example of searching IP addresses from a URL-loaded list can be found in [Tor exit nodes search](#tor-exit-nodes-search).
 
 
 ## Saving data in CSV format
