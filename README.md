@@ -95,6 +95,9 @@
     - [Search by cookies](#search-by-cookies)
     - [Search by tag](#search-by-tag)
     - [Additional search filters](#additional-search-filters)
+- [Using Netlas.io for Darknet research](#using-netlasio-for-darknet-research)
+    - [Tor exit nodes search](#tor-exit-nodes-search)
+    - [Collecting links to .onion sites](#collecting-links-to-onion-sites)
 - [Files, backups and logs directories search](#files-backups-and-logs-directories-search)
 - [Using Netlas.io for Digital Forensics and Incident Response](#using-netlasio-for-digital-forensics-and-incident-response)         
     - [SMTP servers information gathering](#smtp-servers-information-gathering)
@@ -4303,6 +4306,143 @@ cve.name:*2023*
 More examples of queries to search for IoT devices can be found here:
 
 [Netlas Dorks](https://github.com/netlas-io/netlas-dorks)
+
+
+
+
+
+
+
+# Using Netlas.io for Darknet research
+
+
+One of the main advantages of Netlas is that you can use it to search for things that are not indexed by Google. This is what can be conventionally called DeepWeb. For example, FTP servers or Telnet servers:
+
+```
+ftp.banner:*
+telnet.banner:*
+```
+
+
+But unfortunately Netlas does not index the Darknet (.onion, .i2p etc) as it only scans global IP addresses. But it can still be used to explore alternative network infrastructure and find links to .onion sites.
+
+
+## Tor exit nodes search
+
+Tor exit node is the point whrerer web traffic leaves the Tor network and is forwarded to destination. An up-to-date list of IP addresses of active Tor entry nodes is always available on the TorProject website:
+
+[Tor Project's list of exit nodes](https://check.torproject.org/torbulkexitlist?ip=1.1.1.1)
+
+
+Let's see how you can collect information about all active Tor exit nodes at once using Netlas. This example will be useful for all other tasks for which you need to collect information about a list of domains or IP addresses.
+
+
+Run scripts/darknet/tor_nodes.py:
+
+```
+python scripts/darknet/tor_nodes.py
+```
+
+![Tor exit nodes information gathering](images/tor_exit_nodes.png)
+
+Source code of scripts/darknet/tor_nodes.py:
+
+```python
+
+import netlas
+import urllib
+import time
+
+apikey = 'YOUR_API_KEY'
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# read file with Tor Exit Nodes IPs line by line
+response = urllib.request.urlopen('https://check.torproject.org/torbulkexitlist?ip=1.1.1.1')
+ip_lines = response.readlines()
+
+# save each line to ip variable
+for ip in ip_lines:
+     # wait one second
+     time.sleep(1)
+     # conver byte string to text
+     ip=ip.decode("utf-8")
+     # retrieve data from responses by query `ip: + tor exit node ip`
+     netlas_query = netlas_connection.query(query="ip:"+ip)
+
+    # iterate over data and print: ip, geo data, banner text
+
+     for response in netlas_query['items']:
+         print(response['data']['ip'])
+         print(response['data']['geo'])
+         print(response['data']['ntp']['banner'])
+     pass
+pass
+
+```
+
+Using time package and sleep method is good only for simple examples. Best solutions is using [rate limit package](https://github.com/netlas-io/netlas-cookbook#error-429---too-frequent-requests).
+
+
+
+## Collecting links to .onion sites
+
+
+As mentioned above, Netlas only scans global domains, so it is not possible to search for .onion domains. But you can search for references to .onion domains in the text of web pages.  Here is an example of a simple python script (with regular expression) that does this:
+
+
+Run scripts/darknet/onion_links.py:
+
+```
+python scripts/darknet/onion_links.py
+```
+
+![Onion links collecting](images/onion_links.png)
+
+Source code of scripts/darknet/onion_links.py:
+
+
+```python
+import netlas
+import re
+
+apikey = "YOUR_API_KEY"
+
+# create new connection to Netlas
+netlas_connection = netlas.Netlas(api_key=apikey)
+
+# retrieve data from responses by query `http.body:*.onion AND forum`
+netlas_query = netlas_connection.query(query="http.body:(*.onion AND forum)")
+
+
+# iterate over data and print: URL, .onion link from body
+for response in netlas_query['items']:
+    print(response['data']['uri'])
+    onion_links = re.findall("[a-z-1-9]*\.onion", response['data']['http']['body'])  
+    try:
+         print(onion_links)
+    except:
+         print("no onion links")
+pass
+
+```
+
+You can collect links for other networks like I2Pin the same way:
+
+```
+http.body:*.i2p
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
