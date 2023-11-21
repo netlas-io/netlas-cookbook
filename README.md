@@ -1843,7 +1843,7 @@ Enter in the command line:
 ruby scripts/ruby_example.rb
 ```
 
-If you are not using Gitpod, you should have [Ruby]([https://go.dev/doc/install](https://www.ruby-lang.org/en/documentation/installation/) installed on your device.
+If you are not using Gitpod, you should have [Ruby](https://www.ruby-lang.org/en/documentation/installation/) installed on your device.
 
 
 
