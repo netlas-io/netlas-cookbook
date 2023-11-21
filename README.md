@@ -285,7 +285,7 @@ http.title:(netlas OR shodan) NOT port:443
 ## Ranges
 
 
-If you use a numeric value as the value of a field, you can designate it asa value from and to (extreme limits of the value range):
+If you use a numeric value as the value of a field, you can designate it as a value from and to (extreme limits of the value range):
 
 
 ```
