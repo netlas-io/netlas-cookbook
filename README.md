@@ -148,7 +148,7 @@ Surface management tools are in development:
   
 Some of the databases collected by Netlas.io can be purchased from the **Datastore** [→](https://app.netlas.io/datastore/)  
 
-You can also integrate Netlas.io services into your applications using **API** [→](https://netlas.io/api)  
+You can also integrate Netlas.io services into your applications using **API** [→](https://docs.netlas.io/automation/)  
 
 
 
