@@ -2917,11 +2917,32 @@ Google Tag Manager:
 http.body:GTM-WCBNVW
 ```
 
-Facebook Pixel (FB-XXXXXXXXXXXXXXXX)
-AddThis (AT-ra-XXXXXXXXXXXXXXXX)
-Google + (GP-1XXXXXXXXXXXXXXXXXXXXX) - yes, it's all found in the code on some sites
-Amazon Publisher Servies (APS-XXXX)
+AddThis:
 
+```
+http.body:AT-ra-500bcd681b192302
+```
+
+Facebook Pixel:
+
+```
+http.body:FB-XXXXXXXXXXXXXXXX
+```
+
+Google+:
+
+```
+http.body:GP-1XXXXXXXXXXXXXXXXXXXXX
+```
+       
+Amazon Publisher Servies:
+
+```
+http.body:APS-XXXX
+```
+
+Yes, it's all found in the code on some sites.
+ 
 And a host of other indetifiers that can most often be found at the top of the html code (but sometimes all over the code).
 
 [Try in Netlas](https://app.netlas.io/responses/?q=http.body%3AUA-23870775&page=1&indices=)
