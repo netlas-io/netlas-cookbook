@@ -135,8 +135,8 @@ Netlas.io includes several search tools:
 - **IP/Domain info** [→](https://app.netlas.io/host/)   
 - **Response search** [→](https://app.netlas.io/responses/)  
 - **DNS search** [→](https://app.netlas.io/domains/)   
-- **IP WHOIS search** [→](https://app.netlas.io/whois/ip/)   
-- **Domain WHOIS search** [→](https://app.netlas.io/whois/domains/)   
+- **IP WHOIS search** [→](https://app.netlas.io/whois_ip/)   
+- **Domain WHOIS search** [→](https://app.netlas.io/whois_domains/)   
 - **Certificates search** [→](https://app.netlas.io/certs/)  
 
 
@@ -1083,7 +1083,7 @@ Corresponds to the results that can be obtained in [Netlas DNS search](https://a
 ### datatype="domain-whois"
 
 
-Corresponds to the results that can be obtained in [Netlas Domain Whois Search](https://app.netlas.io/whois/domains/).
+Corresponds to the results that can be obtained in [Netlas Domain Whois Search](https://app.netlas.io/whois_domains/).
 
 ```
 {
@@ -1365,7 +1365,7 @@ Corresponds to the results that can be obtained in [Netlas Domain Whois Search](
 
 ### datatype="ip-whois"
 
-Corresponds to the results that can be obtained in [Netlas IP Whois Search](https://app.netlas.io/whois/ip/).
+Corresponds to the results that can be obtained in [Netlas IP Whois Search](https://app.netlas.io/whois_ip/).
 
 ```
 {
@@ -2441,7 +2441,7 @@ WHOIS is a worldwide public database that stores information about all registere
 
 ![Title/body search example](images/osint_whois.png)
 
-Use [WHOIS Domain search](https://app.netlas.io/whois/domains/)
+Use [WHOIS Domain search](https://app.netlas.io/whois_domains/)
 
 ```
 github.com
@@ -2965,7 +2965,7 @@ ref_id=
 "GitHub, Inc."
 ```
 
-[Try in Netlas](https://app.netlas.io/whois/domains/?q=%22GitHub%2C%20Inc.%22&page=1&indices=)
+[Try in Netlas](https://app.netlas.io/whois_domains/?q=%22GitHub%2C%20Inc.%22&page=1&indices=)
 
 4. Search by mail servers in DNS Netlas search
 
@@ -4673,7 +4673,7 @@ Open Whois domain search and enter company domain name + ~. For example:
 domain:facebook.com~
 ``` 
 
-[Try in Netlas](https://app.netlas.io/whois/domains/?q=domain%3Afacebook.com~&page=1&indices=)
+[Try in Netlas](https://app.netlas.io/whois_domains/?q=domain%3Afacebook.com~&page=1&indices=)
 
 
 ![Domain fuzzy search import](images/domain_fuzzy_search_import.png)
