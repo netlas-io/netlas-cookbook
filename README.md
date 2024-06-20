@@ -150,7 +150,16 @@ Some of the databases collected by Netlas.io can be purchased from the **Datasto
 
 You can also integrate Netlas.io services into your applications using **API** [→](https://docs.netlas.io/automation/)  
 
+You can read short articles about main use-cases here:
 
+- [Attack Surface Discovery](https://netlas.io/use-cases/attack_surface_discovery)
+- [Non-intrusive security assessment](https://netlas.io/use-cases/security-assessment)
+- [Uncover shadow IT and phishing threats using](https://netlas.io/use-cases/shadow-it-and-phishing-threats)
+- [OSINT investigations](https://netlas.io/use-cases/osint_investigations)
+- [Vulnerable devices search](https://netlas.io/use-cases/vulnerable_devices)
+- [Security of IoT & industrial devices](https://netlas.io/use-cases/industrial-security)
+- [Reputation scoring](https://netlas.io/use-cases/reputation_scoring)
+- [Threat hunting](https://netlas.io/use-cases/threat_hunting)
 
 
 # Simple usage examples
