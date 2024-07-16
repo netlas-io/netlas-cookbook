@@ -3395,6 +3395,11 @@ You can track the most recently published CVEs (Common Vulnerabilities and Expos
 We also regularly post most relevant queries to search vulnerable devices and software on our [Twitter](https://twitter.com/Netlas_io) and [Telegram](https://t.me/netlas) feeds, as well as [Netlas Dorks](https://github.com/netlas-io/netlas-dorks) Github repository.
 
 
+You can also check out our two articles about Attack Surface:
+- [Complete Guide on Attack Surface Discovery](https://netlas.io/blog/attack_surface_discovery_guide/).
+- [Best Attack Surface Visualization Tools](https://netlas.io/blog/best_attack_surface_visualization_tools/).
+
+
 In this section, we will simply cover the general principles of searching for sites and servers with vulnerabilities.
 
 
