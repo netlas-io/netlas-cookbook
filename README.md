@@ -115,7 +115,7 @@ The goal of this guide is very simple - to teach anyone interested in cyber secu
   - [What to Do If Search Queries Don't Return Results?](#what-to-do-if-search-queries-dont-return-results)
   - [Removing HTML Tags from HTTP Body](#removing-html-tags-from-http-body)
   - [Working with Very Large Amounts of Data](#working-with-very-large-amounts-of-data)
-  - [To Be Contininued... Stay Tuned!](#to-be-contininued-stay-tuned)
+  - [Acknowledgments](#acknowledgments)
 
 
 ## What is Netlas.io?
@@ -178,7 +178,7 @@ Open [Netlas.io IP/Domain info](https://app.netlas.io/host/netlas.io/) and enter
 
 ### Search for Non-Latin Domains
 
-![Punycode convert](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/punycode_convert.png)
+![Punycode convert](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/punycode_convert.jpeg)
 
 If you need to find Chinese or other internationalised domain names, then convert them to Punycode. For example:
 
