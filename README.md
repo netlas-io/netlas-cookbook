@@ -178,7 +178,7 @@ Open [Netlas.io IP/Domain info](https://app.netlas.io/host/netlas.io/) and enter
 
 ### Search for Non-Latin Domains
 
-![Punycode convert](images/punycode_convert.png)
+![Punycode convert](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/punycode_convert.png)
 
 If you need to find Chinese or other internationalised domain names, then convert them to Punycode. For example:
 
@@ -194,7 +194,7 @@ You can do this with the help of special online tools. For example - [Charset.or
 
 
 
-![Search by http title](images/http_title_simple_example.png)
+![Search by http title](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/http_title_simple_example.png)
 
 
 Open [Netlas.io response search](https://app.netlas.io/responses/) and enter:
