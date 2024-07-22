@@ -1985,7 +1985,7 @@ There are three main approaches to scraping: collecting information from html ta
 ### Beatifulsoup Package
 
 
-[Beatifulsoup](https://pypi.org/project/beautifulsoup4/) - is one of the world's most popular Python packages for parsing HTML code and XML files. Let's try using it to extract page titles (from \<h1> tags, NOT <title> tages).
+[Beatifulsoup](https://pypi.org/project/beautifulsoup4/) - is one of the world's most popular Python packages for parsing HTML code and XML files. Let's try using it to extract page titles (from \<h1> tags, NOT \<title> tages).
 
 First, install package:
 
