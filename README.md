@@ -1,7 +1,7 @@
 
 
 
-<img src="https://app.netlas.io/static/media/logo-dark.e3792204ae117bd83067f342f15944f6.svg" width="180px" class="hidden">
+<img src="https://app.netlas.io/static/media/logo-dark.e3792204ae117bd83067f342f15944f6.svg" width="180px" class="!hidden">
 
 # Netlas CookBook <!-- omit in toc -->
 
