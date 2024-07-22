@@ -1,130 +1,124 @@
 
 
-<div align="center">
-      <img align="center" src="https://app.netlas.io/static/media/logo-dark.e3792204ae117bd83067f342f15944f6.svg" width="180px" >
-     <h1>Welcome to Netlas CookBook!</h1>
-     <img alt="GitHub stars" src="https://img.shields.io/github/stars/netlas-io/netlas-cookbook"> 
-     <img alt="GitHub forks" src="https://img.shields.io/github/forks/netlas-io/netlas-cookbook"> <br>
-     <img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat">
-      <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fnetlas-io%2Fnetlas-cookbook&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/>
-     <br>
-     <br>
-  The goal of this guide is very simple - to teach anyone interested in cyber security, regardless of their knowledge level, how to make the most of Netlas.io.
-      <br>
-     <br>
-  ⭐️ Give us a star to show your appreciation <br>
-  👁️ Subscribe for updates<br>
-</div>
 
+<img src="https://app.netlas.io/static/media/logo-dark.e3792204ae117bd83067f342f15944f6.svg" width="180px" class="hidden">
 
+# Netlas CookBook <!-- omit in toc -->
 
+<span class="hidden">
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/netlas-io/netlas-cookbook"> 
+    <img alt="GitHub forks" src="https://img.shields.io/github/forks/netlas-io/netlas-cookbook">
+    <br>
+    <img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat">
+    <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fnetlas-io%2Fnetlas-cookbook&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/>
+    <br><br>
+</span>
+    
+The goal of this guide is very simple - to teach anyone interested in cyber security, regardless of their knowledge level, how to make the most of Netlas.io.
 
+⭐️ Give us a star to show your appreciation   
+👁️ Subscribe for updates<br>
 
-
-# Table of contents
+## Table of Contents <!-- omit in toc -->
 
 - [What is Netlas.io?](#what-is-netlasio)
-- [Simple usage examples](#simple-usage-examples) 
-  - [Getting information about IP or domain](#getting-information-about-ip-or-domain)
-  - [Search for non-latin domains](#search-for-non-latin-domains)
-  - [Looking for websites that contain a certain word in their title](#looking-for-websites-that-contain-a-certain-word-in-their-title)
-- [Search query syntax](#search-query-syntax)
+- [Simple Usage Examples](#simple-usage-examples)
+  - [Getting Information About IP or Domain](#getting-information-about-ip-or-domain)
+  - [Search for Non-Latin Domains](#search-for-non-latin-domains)
+  - [Looking for Websites That Contain a Certain Word in Their Title](#looking-for-websites-that-contain-a-certain-word-in-their-title)
+- [Search Query Syntax](#search-query-syntax)
   - [Filters (Fields)](#filters-fields)
-  - [Logical operators](#logical-operators)
+  - [Logical Operators](#logical-operators)
   - [Ranges](#ranges)
   - [Wildcards](#wildcards)
-  - [Fuzzines](#fuzziness)
-  - [Regular expressions](#regular-expressions)
-  - [Other Netlas.io search features](#other-netlasio-search-features) 
-- [API requests](#api-requests)
-  - [How to find the API key](#how-to-find-the-api-key)
-  - [Tools for debugging API requests](#tools-for-debugging-api-requests)
-  - [Structure of Netlas API JSON response](#structure-of-netlas-api-json-response)
-  - [Tools for working with data in JSON format](#tools-for-working-with-data-in-json-format)
+  - [Fuzziness](#fuzziness)
+  - [Regular Expressions](#regular-expressions)
+  - [Other Netlas.io Search Features](#other-netlasio-search-features)
+- [API Requests](#api-requests)
+  - [How to Find the API-key?](#how-to-find-the-api-key)
+  - [Tools for Debugging API Requests](#tools-for-debugging-api-requests)
+  - [Structure of Netlas API JSON Response](#structure-of-netlas-api-json-response)
+  - [Tools for Working with Data in JSON Format](#tools-for-working-with-data-in-json-format)
   - [Netlas Python Library](#netlas-python-library)
-  - [Examples of response keys for getting useful data](#examples-of-response-keys-for-getting-useful-data)
-  - [Netlas Python response datatypes](#netlas-python-response-datatypes)
+  - [Examples of Response Keys for Getting Useful Data](#examples-of-response-keys-for-getting-useful-data)
+  - [Netlas Python Response Datatypes](#netlas-python-response-datatypes)
   - [Netlas CLI Tools](#netlas-cli-tools)
-  - [Search vs Downloads vs Host methods](#search-vs-download-vs-host-methods)
-  - [Additional request parameters](#additional-request-parameters)
-  - [Make requests with Python (without Netlas Python Library](#make-requests-with-python-without-netlas-python-library)
-  - [Examples for other programming languages](#examples-for-other-programming-languages)
-     - [NodeJS](#nodejs)
-     - [Ruby](#ruby)
-     - [Bash](#bash)
+  - [Search vs Download vs Host Methods](#search-vs-download-vs-host-methods)
+  - [Additional Request Parameters](#additional-request-parameters)
+  - [Make Requests with Python (without Netlas Python Library)](#make-requests-with-python-without-netlas-python-library)
+  - [Examples for Other Programming Languages](#examples-for-other-programming-languages)
   - [JQ Utility](#jq-utility)
-  - [AI tools for writing code](#ai-tools-for-writing-code)
-  - [Code checkers](#code-checkers)
- - [Using Netlas.io for OSINT](#using-netlasio-for-osint-open-source-intelligence)
-   - [Search person's nickname or email in WHOIS contacts](#search-persons-nickname-or-email-in-whois-contacts)
-   - [Search person's nickname or email in title and body of web page](#search-persons-nickname-or-email-in-title-and-body-of-web-page)
-   - [Search links to "juicy info files" on subdomains of the company's website](#search-links-to-juicy-info-files-on-subdomains-of-the-companys-website)
-   - [Phone number mentions search](#phone-number-mentions-search)
-   - [Search file mentions (looking for content that may be infringing on copyrights)](#search-file-mentions-looking-for-content-that-may-be-infringing-on-copyrights)
-   - [Domain WHOIS information gathering](#domain-whois-information-gathering)
-   - [Search location in \<address\> tag](#search-location-in-address-tag)
-   - [Search author name in meta tags](#search-author-name-in-meta-tags)
-   - [What other interesting things can be found in the meta tags of html documents?](#what-other-interesting-things-can-be-found-in-the-meta-tags-of-html-documents)
-   - [Search by FTP server's banners text](#search-by-ftp-servers-banners-text)
-   - [Search for contact information in SSL certificates](#search-for-contact-information-in-ssl-certificates)
-   - [Using Netlas as an alternative to the WayBack Machine](#using-netlas-as-an-alternative-to-the-wayback-machine)
-   - [9 ways to search related websites](#9-ways-to-search-related-websites)
- - [Scraping (extract data from web page body)](#scraping-extract-data-from-web-page-body)
-   - [Beatifulsoup package](#beatifulsoup-package)
-   - [Re package](#re-package)
-   - [Other Python packages for scraping](#other-python-packages-for-scraping)
- - [Using Netlas.io for Crypto Investigations](#using-netlasio-for-crypto-investigations)
-    - [Search mining farms](#search-mining-farms)
-    - [Search for websites infected with cryptominers](#search-for-websites-infected-with-cryptominers)
-    - [Search vulnerable Bitcoin nodes](#search-vulnerable-bitcoin-nodes)
- - [Using Netlas.io for Pentest](#using-neltas-for-pentest)
-    - [Search subdomains](#search-subdomains)
-    - [Search for sites with specific vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
-    - [Search for sites with vulnerabilities that contain a certain word in their descriptions](#search-for-sites-with-vulnerabilities-that-contain-a-certain-word-in-their-descriptions)
-    - [Search by server http header](#search-by-server-http-header)
-      - [Default logins and passwords](#default-logins-and-passwords)
-    - [Search servers with CVEs by favicon hash](#search-servers-with-cves-by-favicon-hash)
-    - [Search servers with CVEs by tag name](#search-servers-with-cves-by-tag-name)
-    - [Search vulnerable servers and devices near you (or any other location)](#search-vulnerable-servers-and-devices-near-you-or-any-other-location)
-    - [Search for login/admin panels](#search-for-loginadmin-panels)
-    - [Search for vulnerable database admin panels](#search-for-vulnerable-database-admin-panels)
-    - [Search for sites vulnerable to SQL injection](#search-for-sites-vulnerable-to-sql-injection)
-- [IoT search: 9 basic ways](#iot-search-9-basic-ways)
-    - [Search by http.title](#search-by-httptitle)
-    - [Search by http.body](#search-by-httpbody)
-    - [Search by port](#search-by-port)
-    - [Search by banner](#search-by-banner)
-    - [Search by favicon](#search-by-favicon)
-    - [Search by server headers](#search-by-server-headers)
-    - [Search by cookies](#search-by-cookies)
-    - [Search by tag](#search-by-tag)
-    - [Additional search filters](#additional-search-filters)
-- [Using Netlas.io for Darknet research](#using-netlasio-for-darknet-research)
-    - [Tor exit nodes search](#tor-exit-nodes-search)
-    - [Collecting links to .onion sites](#collecting-links-to-onion-sites)
-- [Files, backups and logs directories search](#files-backups-and-logs-directories-search)
-- [Using Netlas.io for Digital Forensics and Incident Response](#using-netlasio-for-digital-forensics-and-incident-response)         
-    - [SMTP servers information gathering](#smtp-servers-information-gathering)
-    - [Search for domains that could potentially be used for phishing](#search-for-domains-that-could-potentially-be-used-for-phishing)
-    - [Favicon search](#favicon-search)
-    - [Search for domains associated with a specific subnet](#search-for-domains-associated-with-a-specific-subnet)
-    - [Search for servers with malicious software](#search-for-servers-with-malicious-software)
-- [Search for technologies and code examples](#search-for-technologies-and-code-examples)
-- [Using Netlas.io for fun or netstalking](#using-netlasio-for-fun-or-netstalking
-)
-- [Common problems](#common-problems)
-     - [Error 429 - Too frequent requests](#error-429---too-frequent-requests)
-     - [KeyError](#keyerror)
-     - [Automation of work with the list of requests](#automation-of-work-with-the-list-of-requests)
-     - [Saving data in CSV format](#saving-data-in-csv-format)
-     - [Saving data in other formats](#saving-data-in-other-formats)
-     - [Decoding Punycode domains](#decoding-punycode-domains)
-     - [What to do if search queries don't return results?](#what-to-do-if-search-queries-dont-return-results)
-     - [Removing html tags from http body](#removing-html-tags-from-http-body)
-     - [Working with very large amounts of data](#working-with-very-large-amounts-of-data)
+  - [AI Tools for Writing Code](#ai-tools-for-writing-code)
+  - [Code Checkers](#code-checkers)
+- [Using Netlas.io for OSINT (Open Source Intelligence)](#using-netlasio-for-osint-open-source-intelligence)
+  - [Search Person's Nickname or Email in WHOIS Contacts](#search-persons-nickname-or-email-in-whois-contacts)
+  - [Search for Person's Nickname or Email in Title and Body of Web Page](#search-for-persons-nickname-or-email-in-title-and-body-of-web-page)
+  - [Search for "Luicy Info Files" on Subdomains of the Company's Website](#search-for-luicy-info-files-on-subdomains-of-the-companys-website)
+  - [Phone Number Mentions Search](#phone-number-mentions-search)
+  - [Search File Mentions (Looking for Content That May be Infringing on Copyrights)](#search-file-mentions-looking-for-content-that-may-be-infringing-on-copyrights)
+  - [Domain WHOIS Information Gathering](#domain-whois-information-gathering)
+  - [Search Location in \<address\> Tag](#search-location-in-address-tag)
+  - [Search Author Name in Meta Tags](#search-author-name-in-meta-tags)
+  - [What Other Interesting Things Can Be Found in the Meta Tags of HTML Document?](#what-other-interesting-things-can-be-found-in-the-meta-tags-of-html-document)
+  - [Search by FTP Server's Banners Text](#search-by-ftp-servers-banners-text)
+  - [Search for Contact Information in SSL Certificates](#search-for-contact-information-in-ssl-certificates)
+  - [Using Netlas as an Alternative to the WayBack Machine](#using-netlas-as-an-alternative-to-the-wayback-machine)
+  - [9 Ways to Search Related Websites](#9-ways-to-search-related-websites)
+- [Scraping (Extract Data from Web Page Body)](#scraping-extract-data-from-web-page-body)
+  - [Beatifulsoup Package](#beatifulsoup-package)
+  - [Re Package](#re-package)
+  - [Other Python Packages for Scraping](#other-python-packages-for-scraping)
+- [Using Netlas.io for Crypto Investigations](#using-netlasio-for-crypto-investigations)
+  - [Search Mining Farms](#search-mining-farms)
+  - [Search for Websites Infected with Cryptominers](#search-for-websites-infected-with-cryptominers)
+  - [Search Vulnerable Bitcoin Nodes](#search-vulnerable-bitcoin-nodes)
+- [Using Neltas for Pentest](#using-neltas-for-pentest)
+  - [Subdomain Search](#subdomain-search)
+  - [Search for Sites with Specific Vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
+  - [Search for Sites with Vulnerabilities That Contain a Certain Word in Their Descriptions](#search-for-sites-with-vulnerabilities-that-contain-a-certain-word-in-their-descriptions)
+  - [Search by Server HTTP Header](#search-by-server-http-header)
+  - [Search for Vulnerable Servers by Favicon Hash](#search-for-vulnerable-servers-by-favicon-hash)
+  - [Search for Vulnerable Servers by Tag Name](#search-for-vulnerable-servers-by-tag-name)
+  - [Search for Vulnerable Servers and Devices Near You (or Any Other Location)](#search-for-vulnerable-servers-and-devices-near-you-or-any-other-location)
+  - [Search for Login/Admin Panels](#search-for-loginadmin-panels)
+  - [Search for Vulnerable Database Admin Panels](#search-for-vulnerable-database-admin-panels)
+  - [Search for Sites Vulnerable to SQL Injection](#search-for-sites-vulnerable-to-sql-injection)
+- [IoT Search: 9 Basic Ways](#iot-search-9-basic-ways)
+  - [Search by Title](#search-by-title)
+  - [Search Inside Body](#search-inside-body)
+  - [Search by Port](#search-by-port)
+  - [Search by Banner](#search-by-banner)
+  - [Search by Favicon](#search-by-favicon)
+  - [Search by Server Headers](#search-by-server-headers)
+  - [Search by Cookies](#search-by-cookies)
+  - [Search by Tag](#search-by-tag)
+  - [Additional Search Filters](#additional-search-filters)
+- [Using Netlas.io for Darknet Research](#using-netlasio-for-darknet-research)
+  - [Tor Exit Nodes Search](#tor-exit-nodes-search)
+  - [Collecting Links to .onion Sites](#collecting-links-to-onion-sites)
+- [Files, Backups and Logs Directories Search](#files-backups-and-logs-directories-search)
+- [Using Netlas.io for Digital Forensics and Incident Response](#using-netlasio-for-digital-forensics-and-incident-response)
+  - [SMTP Servers Information Gathering](#smtp-servers-information-gathering)
+  - [Search for Domains That Could Potentially Be Used for Phishing](#search-for-domains-that-could-potentially-be-used-for-phishing)
+  - [Favicon Search](#favicon-search)
+  - [Search for Domains Associated with a Specific Subnet](#search-for-domains-associated-with-a-specific-subnet)
+  - [Search for Servers with Malicious Software](#search-for-servers-with-malicious-software)
+- [Search for Technologies and Code Examples](#search-for-technologies-and-code-examples)
+- [Using Netlas.io for Fun or Netstalking](#using-netlasio-for-fun-or-netstalking)
+- [Common Problems](#common-problems)
+  - [Error 429 - Too Frequent Requests](#error-429---too-frequent-requests)
+  - [KeyError](#keyerror)
+  - [Automation of Work with the List of Requests](#automation-of-work-with-the-list-of-requests)
+  - [Saving Data in CSV Format](#saving-data-in-csv-format)
+  - [Saving Data in Other Formats](#saving-data-in-other-formats)
+  - [Decoding Punycode Domains](#decoding-punycode-domains)
+  - [What to Do If Search Queries Don't Return Results?](#what-to-do-if-search-queries-dont-return-results)
+  - [Removing HTML Tags from HTTP Body](#removing-html-tags-from-http-body)
+  - [Working with Very Large Amounts of Data](#working-with-very-large-amounts-of-data)
+  - [To Be Contininued... Stay Tuned!](#to-be-contininued-stay-tuned)
 
 
-# What is Netlas.io?
+## What is Netlas.io?
 
 
 Search engine to find and analyse information about all IP addresses and domains available on the Internet. Netlas has some attack surface management features, but this guide is focused mostly on Netlas search tools and how to use them in automations.
@@ -150,7 +144,7 @@ Some of the databases collected by Netlas.io can be purchased from the **Datasto
 
 You can also integrate Netlas.io services into your applications using **API** [→](https://docs.netlas.io/automation/)  
 
-You can read short articles about main use-cases here:
+You can read short articles about general use-cases here:
 
 - [Attack Surface Discovery](https://netlas.io/use-cases/attack_surface_discovery)
 - [Non-intrusive security assessment](https://netlas.io/use-cases/security-assessment)
@@ -162,13 +156,13 @@ You can read short articles about main use-cases here:
 - [Threat hunting](https://netlas.io/use-cases/threat_hunting)
 
 
-# Simple usage examples
+## Simple Usage Examples
 
 
 Before we get into the technical details, let's see how [Netlas.io](https://app.netlas.io/) works with a few simple examples.
 
 
-## Getting information about IP or domain
+### Getting Information About IP or Domain
 ![Domain information gathering](images/domain_information_gathering.png)
 
 
@@ -182,7 +176,7 @@ Open [Netlas.io IP/Domain info](https://app.netlas.io/host/netlas.io/) and enter
 
 
 
-## Search for non-latin domains
+### Search for Non-Latin Domains
 
 ![Punycode convert](images/punycode_convert.png)
 
@@ -196,7 +190,7 @@ You can do this with the help of special online tools. For example - [Charset.or
 
 
 
-## Looking for websites that contain a certain word in their title
+### Looking for Websites That Contain a Certain Word in Their Title
 
 
 
@@ -220,7 +214,7 @@ This will find all servers whose HTTP titles contain the word starts with "g" an
 
 
 
-# Search query syntax
+## Search Query Syntax
 
 
 Now let's learn more about how search queries work in [Netlas.io](https://app.netlas.io/). 
@@ -228,7 +222,7 @@ Now let's learn more about how search queries work in [Netlas.io](https://app.ne
 Netlas.io based on [Elasticsearch](https://github.com/elastic/elasticsearch), free and open, distributed, RESTful search engine. And the search methods in Netlas.io are very similar to those of other Elasticsearch-based databases. 
 
 
-## Filters (Fields)
+### Filters (Fields)
 
 
 ![Search filters](images/search_filters.png)
@@ -267,7 +261,7 @@ and many others.
 
 
 
-## Logical operators
+### Logical Operators
 
 You can use multiple filters in a single query and combine them using logical operators AND, OR, NOT. For example:
 
@@ -291,7 +285,7 @@ http.title:(netlas OR shodan) NOT port:443
 [Try in Netlas](https://nt.ls/OrFOY)
 
 
-## Ranges
+### Ranges
 
 
 If you use a numeric value as the value of a field, you can designate it as a value from and to (extreme limits of the value range):
@@ -316,7 +310,7 @@ host:"1.1.1.1" port:<=1000
 [Try in Netlas](https://app.netlas.io/responses/?q=host%3A%221.1.1.1%22%20port%3A%3C%3D1000&page=1&indices=)
 
 
-## Wildcards
+### Wildcards
 
 
 If you don't know the exact description of a certain character in your query (for example, you don't know the exact zone for a domain or the spelling of a name), you can replace it with an asterisk:
@@ -351,7 +345,7 @@ You can also use asterisks in filters. For example:
 This query do a search on all banner types simultaneously and replaces several filters: amqp.banner:, ftp.banner:, dns.banner:, telnet.banner:, etc.
 
 
-## Fuzziness
+### Fuzziness
 
 ![Fuzzines](images/fuziness.png)
 
@@ -364,7 +358,7 @@ http.title:Joseph~
 
 [Try in Netlas](https://app.netlas.io/responses/?q=http.title%3AJoseph~&page=1&indices=)
 
-## Regular expressions
+### Regular Expressions
 
 
 Regular expressions - it is a sequence of characters that allows you to search for, retrieve and replace pieces of text in a source document that match certain patterns. For example:
@@ -384,17 +378,17 @@ For more information on using regular expressions, see the examples in the Netla
 
 
 
-## Other Netlas.io search features
+### Other Netlas.io Search Features
 
 
-### Download results
+#### Download Results <!-- omit in toc -->
 
 ![Download results](images/download_results.png)
 
 You can save your results (all or selected fields) in JSON and CSV format to view them in a format you like or automatically analyse them with different tools.
 
 
-### Group results
+#### Group Results <!-- omit in toc -->
 
 ![Group results](images/group_results.png)
 
@@ -402,13 +396,13 @@ You can save your results (all or selected fields) in JSON and CSV format to vie
 You can group results by different field values to speed up the search time. For example, by domain name or geolocation.
 
 
-### Share results
+#### Share Results <!-- omit in toc -->
 
 ![Share results](images/share_results.png)
 
 You can freely share links to search results (no registration is required to open them, unless the user has exceeded the free limit of 50 requests).
 
-### Search history
+#### Search History <!-- omit in toc -->
 
 ![Request history](images/request_history.png)
 
@@ -416,7 +410,7 @@ You can freely share links to search results (no registration is required to ope
 Also remember that all the quiries you have made can be viewed on your profile page (link in the top right corner).
 
 
-# API requests
+## API Requests
 
 
 Netlas.io's most important function is to help people conduct cybersecurity research faster and more efficiently. The service has an API (application programming interface) that allows you to automate the execution of various requests. 
@@ -430,7 +424,7 @@ You can read more about using the Netlas API in the Netlas Cookbook (what you're
 [API Documentation](https://netlas-api.readthedocs.io/en/latest/)
 
 
-## How to find the API-key?
+### How to Find the API-key?
 
 
 This is the very first place to start with the API. You don't even have to pay for a subscription (50 requests per day are free). Just go to [profile page](https://app.netlas.io/profile/).
@@ -439,7 +433,7 @@ This is the very first place to start with the API. You don't even have to pay f
 
 ![Profile page](images/profile.png)
 
-## Tools for debugging API requests
+### Tools for Debugging API Requests
 
 ![Netlas shema](images/netlas_shema.png)
 
@@ -461,7 +455,7 @@ Netlas scheme is still under development and you may find its analogs designed f
 
 
 
-## Structure of Netlas API JSON response 
+### Structure of Netlas API JSON Response 
 
 ![JSON API response](images/json_api_response.png)
 
@@ -472,7 +466,7 @@ Similar to other APIs, the Netlas API response consists of headers and a respons
 If you use Netlas Shema, you can copy or download the response body and view it in any text editor or JSON analyser.
 
 
-## Tools for working with data in JSON format
+### Tools for Working with Data in JSON Format
 
 ![JSON Eveluator](images/json_evaluator.png)
 
@@ -486,7 +480,7 @@ A little tip that will come in handy when writing code using the Netlas API. In 
 
 
 
-## Netlas Python library
+### Netlas Python Library
 
 
 
@@ -558,7 +552,7 @@ for response in netlas_query['items']:
 
 ```
 
-## Examples of response keys for getting useful data
+### Examples of Response Keys for Getting Useful Data
 
 
 It's mentioned above that in order to find JSON patches of API response to get the data you need, you can use special online applications (JSON-evaluators). To make your life even better, here is a small list of examples of Python library response keys that are needed most often.
@@ -621,1066 +615,30 @@ response['data']['cve'][0]['exploit_links']
 
 
 
-## Netlas Python response datatypes
+### Netlas Python Response Datatypes
 
 ![Python Netlas datatypes](images/datatypes.png)
 
-When working with the Netlas Python Library, it is very important to correctly specify the type of data you want to retrieve. By default, the response type is returned and many Netlas CookBook examples use it.
+When working with the Netlas Python Library, it is very important to correctly specify the type of data you want to retrieve. By default, the `response` type is returned and many Netlas CookBook examples use it.
 
 But for some tasks, like getting whoois information about a domain or searching for domains in a subnet you need to use a different data type. For example:
-
 
 ```
 netlas_query = netlas_connection.query(query='a:"163.114.132.0/24"',datatype="domain")
 ```
 
-
 If you think some query is not returning results when it should - just try changing the value of the **datatype** parameter. It is very likely that this will help.
 
-Now let's look at examples of what types of data can be retrieved using the Netlas Python Library.
+Available datatypes:
+
+- **datatype="response"**:: corresponds to the results that can be obtained in [Netlas Responses Search](https://app.netlas.io/responses/).
+- **datatype="domain"**: corresponds to the results that can be obtained in [Netlas DNS search](https://app.netlas.io/domains/)
+- **datatype="domain-whois"**: corresponds to the results that can be obtained in [Netlas Domain Whois Search](https://app.netlas.io/whois_domains/).
+- **datatype="ip-whois"**: corresponds to the results that can be obtained in [Netlas IP Whois Search](https://app.netlas.io/whois_ip/).
+- **datatype="cert"**: corresponds to the results that can be obtained in [Netlas Certificates Search](https://app.netlas.io/certs/).
 
 
-### datatype="response"
-
-
-Corresponds to the results that can be obtained in [Netlas Response Search](https://app.netlas.io/responses/).
-
-
-```
-{
-    "last_updated": "2023-09-23T04:39:09.622Z",
-    "jarm": "29d29d15d29d29d21c29d29d29d29d935576741dfb52d851054f608b751a40",
-    "isp": "Amazon.com",
-    "ip": "15.185.166.67",
-    "certificate": {
-        "issuer_dn": "CN=Amazon RSA 2048 M01, O=Amazon, C=US",
-        "fingerprint_md5": "8f4fd5fc8311e5edf02db7ef94eca174",
-        "chain": [
-            {
-                "issuer_dn": "CN=Amazon Root CA 1, O=Amazon, C=US",
-                "fingerprint_md5": "943b3cc1d311e06f4e4acbf58f289ad2",
-                "redacted": False,
-                "signature": {
-                    "valid": False,
-                    "signature_algorithm": {
-                        "name": "SHA256-RSA",
-                        "oid": "1.2.840.113549.1.1.11",
-                    },
-                    "self_signed": False,
-                    "value": "rQDeAgUjLgYyYrRrsZQW5BFA3iv6WcE17+CqjytBudHzhzkAHfI9tadHDAYGxpHzB1cC1O29F8GQmr9IdaIHTzDdSmpCtQ09FcAP/oRbxjyZzFdSsdhuEtWWkpNLlOUH6ImCCGp6NNSeZOE9h2qSkJpjoUv4j7bqNNMFviDC3gbijJ9zi59NOYXKzhk2nYXJnsn4UD+2foih78qEBotQtApcphxE8f3IYUBg8mElqgf0x8JzdeQMC0KNBOVfREiZW3uJgZaniJ1LDWLoBMTX/rTosm3K7MAcvDhbHd+Fzlt640lLbLmn3fQFskmt4cUUa8LM681/1lhpusMgfn+wuA==",
-                },
-                "subject": {
-                    "country": ["US"],
-                    "organization": ["Amazon"],
-                    "common_name": ["Amazon RSA 2048 M01"],
-                },
-                "serial_number": "166129328851546858514271303855646110030630415",
-                "version": 3,
-                "issuer": {
-                    "country": ["US"],
-                    "organization": ["Amazon"],
-                    "common_name": ["Amazon Root CA 1"],
-                },
-                "tbs_noct_fingerprint": "0706b7e834d90e828da6e11374d1253e9254bd252349fd5cada87040945476b1",
-                "fingerprint_sha256": "5338ebec8fb2ac60996126d3e76aa34fd0f3318ac78ebb7ac8f6f1361f484b33",
-                "extensions": {
-                    "subject_key_id": "81b80e638a891218e5fa3b3b50959fe6e5901385",
-                    "crl_distribution_points": [
-                        "http://crl.rootca1.amazontrust.com/rootca1.crl"
-                    ],
-                    "certificate_policies": [{"id": "2.23.140.1.2.1"}],
-                    "authority_key_id": "8418cc8534ecbc0c94942e08599cc7b2104e0a08",
-                    "key_usage": {
-                        "digital_signature": True,
-                        "certificate_sign": True,
-                        "crl_sign": True,
-                        "value": 97,
-                    },
-                    "authority_info_access": {
-                        "issuer_urls": [
-                            "http://crt.rootca1.amazontrust.com/rootca1.cer"
-                        ],
-                        "ocsp_urls": ["http://ocsp.rootca1.amazontrust.com"],
-                    },
-                    "basic_constraints": {"max_path_len": 0, "is_ca": True},
-                    "extended_key_usage": {"client_auth": True, "server_auth": True},
-                },
-                "tbs_fingerprint": "0706b7e834d90e828da6e11374d1253e9254bd252349fd5cada87040945476b1",
-                "subject_dn": "CN=Amazon RSA 2048 M01, O=Amazon, C=US",
-                "fingerprint_sha1": "2ad974a775f73cbdbbd8f5ac3a49255fa8fb1f8c",
-                "signature_algorithm": {
-                    "name": "SHA256-RSA",
-                    "oid": "1.2.840.113549.1.1.11",
-                },
-                "spki_subject_fingerprint": "84d611e87c488631378a9a9aa87c77cc6b4b34243abf9e46c42113580dac3e27",
-                "validity": {
-                    "start": "2022-08-23T22:21:28Z",
-                    "length": 252460800,
-                    "end": "2030-08-23T22:21:28Z",
-                },
-                "validation_level": "DV",
-            },
-            {
-                "issuer_dn": "CN=Starfield Services Root Certificate Authority - G2, O=Starfield Technologies\\, Inc., L=Scottsdale, ST=Arizona, C=US",
-                "fingerprint_md5": "e865a22aae524d26869af0448d6fd896",
-                "redacted": False,
-                "signature": {
-                    "valid": False,
-                    "signature_algorithm": {
-                        "name": "SHA256-RSA",
-                        "oid": "1.2.840.113549.1.1.11",
-                    },
-                    "self_signed": False,
-                    "value": "YjdCXLwQtT6LLOkMm2xF4gcAevnFWAu5CIw+7bMlPLVvUOTNNWqnkzSWMiGpSESrnO09tKpzbeR/FoCJbM8oAxiDR3mjEH4wW6w7sGDgd9QIpuEdfF7Au/maeyKdpwAJfqxGF4PcnCZXmTA5YpaP7dreqsXMGz7KQ2hsVxa81Q4gLv7/wmpdLqBKbRRYh5TmOTFffHPLkIhqhBGWJ6bt2YFGpn6jcgAKUj6DiAdjd4lpFw85hdKrCEVN0FE6/V1dN2RMfjCyVSRCnTawXZwXgWHxyvkQAiSr6w10kY17RSlQOYiypok1JR4UakcjMS9cmvqtmg5iUaQqqcT5NJ0hGA==",
-                },
-                "subject": {
-                    "country": ["US"],
-                    "organization": ["Amazon"],
-                    "common_name": ["Amazon Root CA 1"],
-                },
-                "serial_number": "144918191876577076464031512351042010504348870",
-                "version": 3,
-                "issuer": {
-                    "country": ["US"],
-                    "province": ["Arizona"],
-                    "organization": ["Starfield Technologies, Inc."],
-                    "locality": ["Scottsdale"],
-                    "common_name": [
-                        "Starfield Services Root Certificate Authority - G2"
-                    ],
-                },
-                "tbs_noct_fingerprint": "c95f7b20f6fcd39fd3a07a2e44252423b634fdbe35e1e045d964deea626115cb",
-                "fingerprint_sha256": "87dcd4dc74640a322cd205552506d1be64f12596258096544986b4850bc72706",
-                "extensions": {
-                    "subject_key_id": "8418cc8534ecbc0c94942e08599cc7b2104e0a08",
-                    "crl_distribution_points": [
-                        "http://crl.rootg2.amazontrust.com/rootg2.crl"
-                    ],
-                    "certificate_policies": [{"id": "2.5.29.32.0"}],
-                    "authority_key_id": "9c5f00dfaa01d7302b3888a2b86d4a9cf2119183",
-                    "key_usage": {
-                        "digital_signature": True,
-                        "certificate_sign": True,
-                        "crl_sign": True,
-                        "value": 97,
-                    },
-                    "authority_info_access": {
-                        "issuer_urls": ["http://crt.rootg2.amazontrust.com/rootg2.cer"],
-                        "ocsp_urls": ["http://ocsp.rootg2.amazontrust.com"],
-                    },
-                    "basic_constraints": {"is_ca": True},
-                },
-                "tbs_fingerprint": "c95f7b20f6fcd39fd3a07a2e44252423b634fdbe35e1e045d964deea626115cb",
-                "subject_dn": "CN=Amazon Root CA 1, O=Amazon, C=US",
-                "fingerprint_sha1": "06b25927c42a721631c1efd9431e648fa62e1e39",
-                "signature_algorithm": {
-                    "name": "SHA256-RSA",
-                    "oid": "1.2.840.113549.1.1.11",
-                },
-                "spki_subject_fingerprint": "064778d61d47af9b3bf3cbd1dabc44c6575ab14d0be5b08461fc6ebeac97db18",
-                "validity": {
-                    "start": "2015-05-25T12:00:00Z",
-                    "length": 713278800,
-                    "end": "2037-12-31T01:00:00Z",
-                },
-                "validation_level": "unknown",
-            },
-            {
-                "issuer_dn": "OU=Starfield Class 2 Certification Authority, O=Starfield Technologies\\, Inc., C=US",
-                "fingerprint_md5": "c6150925cfea5941ddc7ff2a0a506692",
-                "redacted": False,
-                "signature": {
-                    "valid": False,
-                    "signature_algorithm": {
-                        "name": "SHA256-RSA",
-                        "oid": "1.2.840.113549.1.1.11",
-                    },
-                    "self_signed": False,
-                    "value": "Ix3jilfKfekXeUzxHlX9zFNuPkcP38ZV8rIENu2AH1PEXTQoa77HVfxn6ss/f5CyM80bWBCCAvj4L/UTYNQFzvGBCMHdp3WXTxi5bd73k5EIun5ALO3B6rt2njMGdx0NCH9T3Rtkq4In8WnVTV6u9KHDdadYRC3yPHCYrLpptpV3fw8xXiz8oIc6R2nweV/0FFSklV4ReBJgJ86fwnf/I1N3Xbr/6lnn28+vkpbvJJo1EHqckcYOfZn2Pxnf9XJU4RWpB1l7g79SLkaMsgBkdhxI09h56G5WzK4sA5DXGTiZ5MoJGVv/B5awqH80Sd9WqfewX+0z7YxHtzADXfQDjA==",
-                },
-                "subject": {
-                    "country": ["US"],
-                    "province": ["Arizona"],
-                    "organization": ["Starfield Technologies, Inc."],
-                    "locality": ["Scottsdale"],
-                    "common_name": [
-                        "Starfield Services Root Certificate Authority - G2"
-                    ],
-                },
-                "serial_number": "12037640545166866303",
-                "version": 3,
-                "issuer": {
-                    "country": ["US"],
-                    "organization": ["Starfield Technologies, Inc."],
-                    "organizational_unit": [
-                        "Starfield Class 2 Certification Authority"
-                    ],
-                },
-                "tbs_noct_fingerprint": "8408d5e5010ab8da67eb33a7d79ace944dd0ac103ae6ead3ff30dec571066b03",
-                "fingerprint_sha256": "28689b30e4c306aab53b027b29e36ad6dd1dcf4b953994482ca84bdc1ecac996",
-                "extensions": {
-                    "subject_key_id": "9c5f00dfaa01d7302b3888a2b86d4a9cf2119183",
-                    "crl_distribution_points": ["http://s.ss2.us/r.crl"],
-                    "certificate_policies": [{"id": "2.5.29.32.0"}],
-                    "authority_key_id": "bf5fb7d1cedd1f86f45b55acdcd710c20ea988e7",
-                    "key_usage": {
-                        "digital_signature": True,
-                        "certificate_sign": True,
-                        "crl_sign": True,
-                        "value": 97,
-                    },
-                    "authority_info_access": {
-                        "issuer_urls": ["http://x.ss2.us/x.cer"],
-                        "ocsp_urls": ["http://o.ss2.us/"],
-                    },
-                    "basic_constraints": {"is_ca": True},
-                },
-                "tbs_fingerprint": "8408d5e5010ab8da67eb33a7d79ace944dd0ac103ae6ead3ff30dec571066b03",
-                "subject_dn": "CN=Starfield Services Root Certificate Authority - G2, O=Starfield Technologies\\, Inc., L=Scottsdale, ST=Arizona, C=US",
-                "fingerprint_sha1": "9e99a48a9960b14926bb7f3b02e22da2b0ab7280",
-                "signature_algorithm": {
-                    "name": "SHA256-RSA",
-                    "oid": "1.2.840.113549.1.1.11",
-                },
-                "spki_subject_fingerprint": "49d851948bc94134d7b0d7db70db8a471a832fb089a6e2c49c1f41b22d2044b5",
-                "validity": {
-                    "start": "2009-09-02T00:00:00Z",
-                    "length": 783279556,
-                    "end": "2034-06-28T17:39:16Z",
-                },
-                "validation_level": "unknown",
-            },
-        ],
-        "src": "https://15.185.166.67:443/",
-        "redacted": False,
-        "signature": {
-            "valid": False,
-            "signature_algorithm": {
-                "name": "SHA256-RSA",
-                "oid": "1.2.840.113549.1.1.11",
-            },
-            "self_signed": False,
-            "value": "qARBGZAxC9/c0jTpNm8WGjK5ezIuby5bduqHoTNk6qdWVikG0IsL1ccW6AYbljH2rluTo7RCHvsbLhhUc5eWrB3r3fALYEo0denhmIHoMC6KlNfFnq7Ocmo+9WQH1slBdHeYwn/GkDh4Y8TeQRAHxK60kFdGlnIvdqVTRl+FLPdSPmDTXSKBEw3UKFsK4qkKHAz9kzOvYTfh9cPi+1xXvZEoxexKZ797+SkFizaGSMlRZ3vw/H+3u5NEZEci7W7ryUJxcWIEzgEAltiYIehGZgG1vID5yottdqjHLjOUuo1ZWuY4QMa+1dcWAPi4HTnNFwSmuUuurj2MhVF5tUjR7A==",
-        },
-        "subject": {"common_name": ["ecs-t.me-south-1.amazonaws.com"]},
-        "serial_number": "7594487530256147170481808759715185448",
-        "version": 3,
-        "issuer": {
-            "country": ["US"],
-            "organization": ["Amazon"],
-            "common_name": ["Amazon RSA 2048 M01"],
-        },
-        "tbs_noct_fingerprint": "f200e84b762cb204f35c2e584d862d4151f55e9eb5f84bd90788a0ee6d6e9bbd",
-        "fingerprint_sha256": "e508abebeacadee987d3358d2814704c679ebcd288162daec1b00eed5c67ce24",
-        "extensions": {
-            "subject_key_id": "c04875daafea32cea4b445cd519feba2a6c55abd",
-            "crl_distribution_points": ["http://crl.r2m01.amazontrust.com/r2m01.crl"],
-            "certificate_policies": [{"id": "2.23.140.1.2.1"}],
-            "authority_key_id": "81b80e638a891218e5fa3b3b50959fe6e5901385",
-            "key_usage": {
-                "digital_signature": True,
-                "key_encipherment": True,
-                "value": 5,
-            },
-            "subject_alt_name": {
-                "dns_names": [
-                    "ecs-t.me-south-1.amazonaws.com",
-                    "*.ecs-t.me-south-1.vpce.amazonaws.com",
-                ]
-            },
-            "signed_certificate_timestamps": [
-                {
-                    "log_id": "7s3QZNXbGs7FXLedtM0TojKHRny87N7DUUhZRnEftZs=",
-                    "signature": "BAMARjBEAiAOVC948tZX1EOqmn5GZAkWX5bDg+XdAfV1IDGaAn0srAIgLlsYlEa3ASMja81lJ9vdTv51s6rtuxuqGUjaRlS2yBc=",
-                    "version": 0,
-                    "timestamp": 1679003882,
-                },
-                {
-                    "log_id": "c9meiRtMlnigIH1HneayxhzQUV5xGSqMa4AQesF3crU=",
-                    "signature": "BAMASDBGAiEAhozpK/Us5nSLmK8R02khEGty0fs4Om2f7zGb6HZdUI4CIQD52vRjACeRv/R7k8pLmcRv3s/59wFMKBA5bC11746CKA==",
-                    "version": 0,
-                    "timestamp": 1679003882,
-                },
-                {
-                    "log_id": "SLDja9qmRzQP5WoC+p0w6xxSActW3SyB2bu/qznYhHM=",
-                    "signature": "BAMARjBEAiAoDiU/x7FVl+YjFangUrJgJ2GDPH6gr0AIVBU6rPfdmwIgUacvoJQu2yuTniJKRDYBHP16m1N6LwRRiLtkjB8/qho=",
-                    "version": 0,
-                    "timestamp": 1679003882,
-                },
-            ],
-            "authority_info_access": {
-                "issuer_urls": ["http://crt.r2m01.amazontrust.com/r2m01.cer"],
-                "ocsp_urls": ["http://ocsp.r2m01.amazontrust.com"],
-            },
-            "basic_constraints": {"is_ca": False},
-            "extended_key_usage": {"client_auth": True, "server_auth": True},
-        },
-        "tbs_fingerprint": "3e47d1114cea3de3212384410a358d387c7babf9a900138316e43fd8875f7ddf",
-        "subject_dn": "CN=ecs-t.me-south-1.amazonaws.com",
-        "names": [
-            "*.ecs-t.me-south-1.vpce.amazonaws.com",
-            "ecs-t.me-south-1.amazonaws.com",
-        ],
-        "fingerprint_sha1": "aabe018d8f41b00c195ccb10d8c0a0b34ade599c",
-        "signature_algorithm": {"name": "SHA256-RSA", "oid": "1.2.840.113549.1.1.11"},
-        "spki_subject_fingerprint": "39312a7565efe0e3bfa6be02ce4c7e5d6e3b635f4f4c0375dd7f6a62bb3776ec",
-        "validity": {
-            "start": "2023-03-16T00:00:00Z",
-            "length": 29635199,
-            "end": "2024-02-21T23:59:59Z",
-        },
-        "validation_level": "DV",
-    },
-    "uri": "https://15.185.166.67:443/",
-    "host_type": "ip",
-    "prot7": "http",
-    "target": {"ip": "15.185.166.67", "type": "ip"},
-    "ptr": ["ec2-15-185-166-67.me-south-1.compute.amazonaws.com"],
-    "geo": {
-        "continent": "Asia",
-        "country": "BH",
-        "tz": "Asia/Bahrain",
-        "location": {"accuracy": 1000, "lat": 26.0333, "long": 50.55},
-    },
-    "path": "/",
-    "protocol": "https",
-    "prot4": "tcp",
-    "@timestamp": "2023-09-23T04:39:09.622Z",
-    "whois": {
-        "abuse": "abuse@amazonaws.com",
-        "related_nets": [
-            {
-                "country": "BH",
-                "address": "Arcapita Building No. 551, Road 4612, Block 346\nBahrain Bay, Manama Sea Front",
-                "city": "Manama",
-                "created": "2020-04-15",
-                "description": "Amazon Data Services Bahrain",
-                "range": "15.185.0.0 - 15.185.255.255",
-                "handle": "NET-15-185-0-0-2",
-                "organization": "Amazon Data Services Bahrain (AT-9051)",
-                "name": "AMAZON-BAH",
-                "start_ip": "15.185.0.0",
-                "net_size": 65535,
-                "cidr": ["15.185.0.0/16"],
-                "state": "PostalCode:",
-                "postal_code": "Country:        BH",
-                "end_ip": "15.185.255.255",
-                "updated": "2021-02-10",
-                "contacts": {
-                    "emails": ["amzn-noc-contact@amazon.com", "abuse@amazonaws.com"],
-                    "phones": ["+1-206-555-0000"],
-                },
-            }
-        ],
-        "net": {
-            "country": "US",
-            "address": "410 Terry Ave N.",
-            "city": "Seattle",
-            "created": "2021-01-28",
-            "description": "Amazon Technologies Inc.",
-            "range": "15.179.0.0 - 15.188.255.255",
-            "handle": "NET-15-179-0-0-1",
-            "organization": "Amazon Technologies Inc. (AT-88-Z)",
-            "name": "AT-88-Z",
-            "start_ip": "15.179.0.0",
-            "net_size": 655359,
-            "cidr": [
-                "15.179.0.0/16",
-                "15.180.0.0/14",
-                "15.184.0.0/14",
-                "15.188.0.0/16",
-            ],
-            "state": "WA",
-            "postal_code": "98109",
-            "end_ip": "15.188.255.255",
-            "updated": "2021-02-10",
-            "contacts": {
-                "emails": [
-                    "aws-rpki-routing-poc@amazon.com",
-                    "abuse@amazonaws.com",
-                    "aws-routing-poc@amazon.com",
-                    "amzn-noc-contact@amazon.com",
-                ],
-                "phones": ["+1-206-555-0000"],
-            },
-        },
-        "asn": {
-            "registry": "arin",
-            "number": ["16509"],
-            "country": "US",
-            "name": "AMAZON-02",
-            "cidr": "15.185.0.0/16",
-            "updated": "2021-01-28",
-        },
-    },
-    "port": 443,
-    "host": "15.185.166.67",
-    "iteration": "8",
-    "http": {
-        "headers": {
-            "date": ["Sat, 23 Sep 2023 04:39:04 GMT"],
-            "server": ["Server"],
-            "content_type": ["text/html"],
-            "connection": ["keep-alive"],
-            "content_length": ["565"],
-        },
-        "status_code": 403,
-        "body_sha256": "dde8e6ebf3d4b584e943c002257d1882b5fdff8d988dba30479c35cbf3cfe0f9",
-        "http_version": {"major": 1, "minor": 1, "name": "HTTP/1.1"},
-        "title": "403 Forbidden",
-        "status_line": "403 Forbidden",
-        "body": '<html>\r\n<head><title>403 Forbidden</title></head>\r\n<body bgcolor="white">\r\n<center><h1>403 Forbidden</h1></center>\r\n<hr><center>Server</center>\r\n</body>\r\n</html>\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n',
-        "content_length": 565,
-    },
-    "scan_date": "2023-09-22",
-}
-
-```
-
-### datatype="domain"
-
-
-Corresponds to the results that can be obtained in [Netlas DNS search](https://app.netlas.io/domains/).
-
-```
-{
-    "a": [
-        "31.13.66.35",
-        "157.240.26.35",
-        "31.13.72.59",
-        "157.240.221.35",
-        "157.240.212.35",
-        "185.60.219.35",
-        "163.70.128.35",
-        "89.208.50.56",
-        "89.208.50.46",
-        "185.89.218.12",
-        "31.13.72.36",
-        "157.240.238.53",
-        "157.240.28.35",
-        "31.13.84.36",
-        "31.13.66.13",
-        "157.240.252.35",
-        "188.186.146.207",
-        "157.240.0.35",
-        "157.240.234.35",
-        "157.240.210.35",
-        "157.240.214.35",
-    ],
-    "txt": [
-        "google-site-verification=A2WZWCNQHrGV_TWwKh6KHY90tY0SHZo_RnyMJoDaG0s",
-        "google-site-verification=wdH5DTJTc9AYNwVunSVFeK0hYDGUIEOGb-RReU6pJlY",
-        "v=spf1 redirect=_spf.facebook.com",
-        "google-site-verification=sK6uY9x7eaMoEMfn3OILqwTFYgaNp4llmguKI-C3_iA",
-        "zoom-domain-verification=a6c90d61-66ec-485c-9f3d-cce7036f01bb",
-    ],
-    "last_updated": "2023-09-07T16:31:15.683Z",
-    "@timestamp": "2023-09-07T16:31:15.683Z",
-    "level": 2,
-    "zone": "com",
-    "ns": [
-        "d.ns.facebook.com",
-        "a.ns.facebook.com",
-        "c.ns.facebook.com",
-        "b.ns.facebook.com",
-    ],
-    "domain": "facebook.com",
-    "mx": ["smtpin.vvv.facebook.com"],
-}
-```
-
-### datatype="domain-whois"
-
-
-Corresponds to the results that can be obtained in [Netlas Domain Whois Search](https://app.netlas.io/whois_domains/).
-
-```
-{
-    "referer": ["http://id.facebook.org:80/"],
-    "last_updated": "2023-01-06T05:22:51.401Z",
-    "isp": "Facebook",
-    "ip": "157.240.222.35",
-    "certificate": {
-        "issuer_dn": "CN=DigiCert SHA2 High Assurance Server CA, OU=www.digicert.com, O=DigiCert Inc, C=US",
-        "fingerprint_md5": "98ab77aa62edb573f62de255d57eb7a7",
-        "chain": [
-            {
-                "issuer_dn": "CN=DigiCert High Assurance EV Root CA, OU=www.digicert.com, O=DigiCert Inc, C=US",
-                "fingerprint_md5": "aaee5cf8b0d8596d2e0cbe67421cf7db",
-                "redacted": False,
-                "signature": {
-                    "valid": False,
-                    "signature_algorithm": {
-                        "name": "SHA256-RSA",
-                        "oid": "1.2.840.113549.1.1.11",
-                    },
-                    "value": "GIqViQPmbd9c/B1o6kqPg9ZRL41rRBaerGP10m5shJmLqoFxhFvtNE6wt3mSKcwtgGrwjiDheaT+A0cT6vWGyllxffQElmvTWVg9/tMxJVwYOISj5p+C/YxbmDFOzXieGv2Fy0mq8ieLmXL8PqrVQQva1TahvxxuR0l/XtlIfAPZ/YtJoJgmQkDr1pIRpGQKV1TE9R3WAl5rrO7EgJoScvpWk9f/vzCFBjC/C39O/1cFnSTthcMr+6Z1qKwtFu99eSey68KdCwfqqoXTAaMgKEFZQyjSgeOq9ux7O3e2QGKABUFFAe8XBj7ewDObZ9NhLnKH5Gn8EgBXQB5w9R7JtA==",
-                    "self_signed": False,
-                },
-                "subject": {
-                    "country": ["US"],
-                    "organization": ["DigiCert Inc"],
-                    "common_name": ["DigiCert SHA2 High Assurance Server CA"],
-                    "organizational_unit": ["www.digicert.com"],
-                },
-                "serial_number": "6489877074546166222510380951761917343",
-                "version": 3,
-                "issuer": {
-                    "country": ["US"],
-                    "organization": ["DigiCert Inc"],
-                    "common_name": ["DigiCert High Assurance EV Root CA"],
-                    "organizational_unit": ["www.digicert.com"],
-                },
-                "tbs_noct_fingerprint": "ac5d79b4a1e84b9ea1f7f72b022158540f37c8557fc99f0c08b37f670632a177",
-                "fingerprint_sha256": "19400be5b7a31fb733917700789d2f0a2471c0c9d506c0e504c06c16d7cb17c0",
-                "extensions": {
-                    "subject_key_id": "5168ff90af0207753cccd9656462a212b859723b",
-                    "crl_distribution_points": [
-                        "http://crl4.digicert.com/DigiCertHighAssuranceEVRootCA.crl"
-                    ],
-                    "certificate_policies": [
-                        {"cps": ["https://www.digicert.com/CPS"], "id": "2.5.29.32.0"}
-                    ],
-                    "key_usage": {
-                        "digital_signature": True,
-                        "certificate_sign": True,
-                        "crl_sign": True,
-                        "value": 97,
-                    },
-                    "authority_key_id": "b13ec36903f8bf4701d498261a0802ef63642bc3",
-                    "authority_info_access": {
-                        "ocsp_urls": ["http://ocsp.digicert.com"]
-                    },
-                    "basic_constraints": {"max_path_len": 0, "is_ca": True},
-                    "extended_key_usage": {"client_auth": True, "server_auth": True},
-                },
-                "tbs_fingerprint": "ac5d79b4a1e84b9ea1f7f72b022158540f37c8557fc99f0c08b37f670632a177",
-                "subject_dn": "CN=DigiCert SHA2 High Assurance Server CA, OU=www.digicert.com, O=DigiCert Inc, C=US",
-                "fingerprint_sha1": "a031c46782e6e6c662c2c87c76da9aa62ccabd8e",
-                "signature_algorithm": {
-                    "name": "SHA256-RSA",
-                    "oid": "1.2.840.113549.1.1.11",
-                },
-                "spki_subject_fingerprint": "4d8f65901ef8a23b1210242a5dfc786708a0d4008e7cecd03d4145a1c0834095",
-                "validity": {
-                    "start": "2013-10-22T12:00:00Z",
-                    "length": 473385600,
-                    "end": "2028-10-22T12:00:00Z",
-                },
-                "validation_level": "unknown",
-            }
-        ],
-        "redacted": False,
-        "src": "https://id.facebook.org:443/",
-        "signature": {
-            "valid": False,
-            "signature_algorithm": {
-                "name": "SHA256-RSA",
-                "oid": "1.2.840.113549.1.1.11",
-            },
-            "value": "J4KWSqUeBXSNTCAN0TB+tkpGu1GoAszD2KpmS0LXoUWz5ei2qdWQgTx2ev0z8yoDO1cCIM7VO89lazjpyF+XuwyMLnuYs9HfJpnAaeLnfPUY5ZDT+bVmqZY6Kldz5WE3DJHLx8PCpC2doO44NOU6A89HUJ8oOXB3rAXkC9rWaAwsbj0fxyHfv7U4mPMQIcbbK8S1Frj/x2+ti7VgywWZ9YvGY+kFdneSUL1TIrq05yktGmKp0D6lJjHgYUDcP9uOmHlwQcdmQceLjOZsne5F5CLUb5uxDBGvYW6vdyU9ludj5G3q8TxHzT7kA0ZEPXRT2E7zOusOqmk1SFDkqoZKjA==",
-            "self_signed": False,
-        },
-        "subject": {
-            "country": ["US"],
-            "province": ["California"],
-            "organization": ["Facebook, Inc."],
-            "locality": ["Menlo Park"],
-            "common_name": ["*.facebook.com"],
-        },
-        "serial_number": "19893338216669499980325027031545953435",
-        "version": 3,
-        "issuer": {
-            "country": ["US"],
-            "organization": ["DigiCert Inc"],
-            "common_name": ["DigiCert SHA2 High Assurance Server CA"],
-            "organizational_unit": ["www.digicert.com"],
-        },
-        "tbs_noct_fingerprint": "df456e6ceaa34418349216961cc6ecef01376a9e32c33721b1587cbf1c72197e",
-        "fingerprint_sha256": "6d3310857228502a97dd41ed65e60b0010fadaf89dd3751f58afb4e7df1a6ab8",
-        "extensions": {
-            "subject_key_id": "4c15f24cbbc260120e4d70080d1bbb5dabe7c2c8",
-            "crl_distribution_points": [
-                "http://crl3.digicert.com/sha2-ha-server-g6.crl",
-                "http://crl4.digicert.com/sha2-ha-server-g6.crl",
-            ],
-            "certificate_policies": [
-                {"cps": ["http://www.digicert.com/CPS"], "id": "2.23.140.1.2.2"}
-            ],
-            "key_usage": {"digital_signature": True, "value": 1},
-            "authority_key_id": "5168ff90af0207753cccd9656462a212b859723b",
-            "subject_alt_name": {
-                "dns_names": [
-                    "*.facebook.com",
-                    "*.facebook.net",
-                    "*.fbcdn.net",
-                    "*.fbsbx.com",
-                    "*.m.facebook.com",
-                    "*.messenger.com",
-                    "*.xx.fbcdn.net",
-                    "*.xy.fbcdn.net",
-                    "*.xz.fbcdn.net",
-                    "facebook.com",
-                    "messenger.com",
-                ]
-            },
-            "signed_certificate_timestamps": [
-                {
-                    "log_id": "6D7Q2j71BjUy51covIlryQPTy9ERa+zraeF3fW0GvW4=",
-                    "signature": "BAMARzBFAiEAppvmXJDR1evBdQF5iyEXzzrAOcMQW2Fm/i9ViUFXl5MCICZdSiqRejoyhl8uNBBx5v5Cm1Pd85pFJKaDwonWPIZi",
-                    "version": 0,
-                    "timestamp": 1665797310,
-                },
-                {
-                    "log_id": "s3N3B+GEUPhjhtYFqdwRCUp5LbFnDAuH3PADDnk2pZo=",
-                    "signature": "BAMASDBGAiEAwQs698alQANUk0RinrEjZH3TMFrzADwVy0cPTOV/i8UCIQCYAmFDOK3MUylxldqK6AsFmXFYQZUf2Vh6OBf0Hh4eTw==",
-                    "version": 0,
-                    "timestamp": 1665797310,
-                },
-                {
-                    "log_id": "tz77JN+cTbp18jnFulj0bF38Qs96nzXEnh0JgSXttJk=",
-                    "signature": "BAMARzBFAiAlp5VSWNIfuPEqUaJM4KPYDTtV1NKLS9cQCZO+KbwubwIhAOtoFMwjvpXfo0lBEdGLv5Euz/cbvc9Vs0+rxGWKYmyX",
-                    "version": 0,
-                    "timestamp": 1665797310,
-                },
-            ],
-            "authority_info_access": {
-                "issuer_urls": [
-                    "http://cacerts.digicert.com/DigiCertSHA2HighAssuranceServerCA.crt"
-                ],
-                "ocsp_urls": ["http://ocsp.digicert.com"],
-            },
-            "basic_constraints": {"is_ca": False},
-            "extended_key_usage": {"client_auth": True, "server_auth": True},
-        },
-        "tbs_fingerprint": "5fba091ad7823e298babad2664328d4d0ebe959672360389ba19a1407e729073",
-        "subject_dn": "CN=*.facebook.com, O=Facebook\\, Inc., L=Menlo Park, ST=California, C=US",
-        "names": [
-            "*.facebook.com",
-            "*.facebook.net",
-            "*.fbcdn.net",
-            "*.fbsbx.com",
-            "*.m.facebook.com",
-            "*.messenger.com",
-            "*.xx.fbcdn.net",
-            "*.xy.fbcdn.net",
-            "*.xz.fbcdn.net",
-            "facebook.com",
-            "messenger.com",
-        ],
-        "fingerprint_sha1": "78e0341711b4390bb75069707980fe5cdeb94010",
-        "signature_algorithm": {"name": "SHA256-RSA", "oid": "1.2.840.113549.1.1.11"},
-        "spki_subject_fingerprint": "c77933d7cb602adcad550d3bd79edf559062f0db42aa575bbb7f82065ff1b81b",
-        "validity": {
-            "start": "2022-10-15T00:00:00Z",
-            "length": 7862399,
-            "end": "2023-01-13T23:59:59Z",
-        },
-        "validation_level": "OV",
-    },
-    "uri": "https://id.facebook.org:443/",
-    "host_type": "domain",
-    "target": {"domain": "id.facebook.org", "type": "domain"},
-    "prot7": "http",
-    "ptr": ["edge-star-mini-shv-01-gru1.facebook.com"],
-    "geo": {
-        "continent": "South America",
-        "country": "BR",
-        "city": "Barueri",
-        "tz": "America/Sao_Paulo",
-        "location": {"accuracy": 20, "lat": -23.5111, "long": -46.8727},
-        "subdivisions": ["SP"],
-    },
-    "path": "/",
-    "protocol": "https",
-    "prot4": "tcp",
-    "@timestamp": "2023-01-06T05:22:51.401Z",
-    "whois": {
-        "abuse": "noc@fb.com",
-        "related_nets": [],
-        "net": {
-            "country": "US",
-            "address": "1601 Willow Rd.",
-            "city": "Menlo Park",
-            "created": "2015-05-14",
-            "range": "157.240.0.0 - 157.240.255.255",
-            "description": "Facebook, Inc.",
-            "handle": "NET-157-240-0-0-1",
-            "organization": "Facebook, Inc. (THEFA-3)",
-            "start_ip": "157.240.0.0",
-            "name": "THEFA-3",
-            "cidr": ["157.240.0.0/16"],
-            "net_size": 65535,
-            "state": "CA",
-            "postal_code": "94025",
-            "end_ip": "157.240.255.255",
-            "updated": "2021-12-14",
-            "contacts": {"emails": ["noc@fb.com"], "phones": ["+1-650-543-4800"]},
-        },
-        "asn": {
-            "country": "US",
-            "registry": "arin",
-            "number": ["32934"],
-            "name": "FACEBOOK",
-            "cidr": "157.240.0.0/17",
-            "updated": "2015-05-14",
-        },
-    },
-    "port": 443,
-    "domain": [
-        "ns1.facebook.co.za",
-        "viruses.thefacebook.at",
-        "www.dreamscancometruefarms.com",
-        "mongo.facebook.com.br",
-        "exchange.facebook.com.br",
-        "vpn.on.fb.me",
-        "antivirus-free.fquestions.com",
-        "www.freundes-o.de",
-        "postmaster.facebook.com",
-        "yuniskanbur.facebook.de",
-        "server1.on.fb.me",
-        "edge-star-mini-shv-01-gru1.facebook.com",
-        "facebook.com",
-        "m.fb.me",
-        "connect.facebook.it",
-        "wap.facebook.com.br",
-        "go.facebook.com.br",
-        "kosuncovered.thefacebook.at",
-        "hubertperron.facebook.fr",
-        "id.facebook.org",
-    ],
-    "host": "id.facebook.org",
-    "iteration": "116",
-    "http": {
-        "headers": {
-            "date": ["Fri, 06 Jan 2023 05:20:18 GMT"],
-            "content_type": ['text/html; charset="utf-8"'],
-            "location": ["https://www.facebook.com/"],
-            "connection": ["keep-alive"],
-            "alt_svc": ['h3=":443"; ma=86400'],
-            "x_fb_debug": [
-                "RFWHzJvmFz2VmGnEMEGuUrp++5KjvUp54QMRH/LASEF9AsrEWDXjcn5BhwcElETITZI9y8LYi9ogk41tppPD5w=="
-            ],
-            "content_length": ["0"],
-        },
-        "status_code": 302,
-        "http_version": {"major": 1, "minor": 1, "name": "HTTP/1.1"},
-        "status_line": "302 Found",
-    },
-    "scan_date": "2023-01-03",
-}
-
-```
-
-### datatype="ip-whois"
-
-Corresponds to the results that can be obtained in [Netlas IP Whois Search](https://app.netlas.io/whois_ip/).
-
-```
-{
-    "last_updated": "2023-09-29T06:58:14.041Z",
-    "isp": "Scaleway",
-    "ip": "51.159.153.170",
-    "ntp": {
-        "time_response": {
-            "reference_timestamp": {"seconds": 3904958862, "fraction": 2043133245},
-            "root_delay": {"seconds": 0, "fraction": 1426},
-            "reference_id": "CsUDEA==",
-            "root_dispersion": {"seconds": 0, "fraction": 6123},
-            "precision": -24,
-            "leap_indicator": 0,
-            "receive_timestamp": {"seconds": 3904959379, "fraction": 929677788},
-            "poll": 3,
-            "version": 3,
-            "stratum": 5,
-            "mode": 4,
-            "origin_timestamp": {"seconds": 0, "fraction": 0},
-            "transmit_timestamp": {"seconds": 3904959379, "fraction": 929912735},
-        },
-        "banner": "Version: 3\nTime:\nwall: 216457477\next: 63831567379\nTimeResponse:\nVersion: 3\nMode: 4\nStratum: 5\nPoll: 3\nPrecision: -24\nRootDelay:\nFraction: 1426\nRootDispersion:\nFraction: 6123\nReferenceID: [10, 197, 3, 16]\nReferenceTimestamp:\nSeconds: 3904958862\nFraction: 2043133245\nOriginTimestamp:\nReceiveTimestamp:\nSeconds: 3904959379\nFraction: 929677788\nTransmitTimestamp:\nSeconds: 3904959379\nFraction: 929912735\n",
-        "time": "2023-09-29T06:56:19.216457477Z",
-        "version": 3,
-    },
-    "uri": "ntp://51.159.153.170:123",
-    "host_type": "ip",
-    "prot7": "ntp",
-    "target": {"ip": "51.159.153.170", "type": "ip"},
-    "ptr": ["170-153-159-51.instances.scw.cloud"],
-    "geo": {
-        "continent": "Europe",
-        "country": "FR",
-        "city": "Paris",
-        "tz": "Europe/Paris",
-        "location": {"accuracy": 1000, "lat": 48.8323, "long": 2.4075},
-        "postal": "75001",
-        "subdivisions": ["IDF", "75"],
-    },
-    "protocol": "ntp",
-    "prot4": "udp",
-    "@timestamp": "2023-09-29T06:58:14.041Z",
-    "whois": {
-        "abuse": "abuse@online.net",
-        "related_nets": [
-            {
-                "created": "2018-03-28T15:59:36Z",
-                "start_ip": "51.158.0.0",
-                "description": "SCALEWAY\nParis, France",
-                "range": "51.158.0.0 - 51.159.255.255",
-                "net_size": 131071,
-                "cidr": ["51.158.0.0/15"],
-                "updated": "2022-05-03T10:05:58Z",
-                "end_ip": "51.159.255.255",
-            }
-        ],
-        "net": {
-            "country": "FR",
-            "address": "8 rue de la ville l'eveque 75008 PARIS",
-            "created": "2018-02-09T11:38:35Z",
-            "range": "51.159.0.0 - 51.159.255.255",
-            "handle": "MM42047-RIPE",
-            "organization": "Scaleway",
-            "start_ip": "51.159.0.0",
-            "name": "ONLINENET_DEDICATED_SERVERS",
-            "net_size": 65535,
-            "cidr": ["51.159.0.0/16"],
-            "updated": "2018-02-28T16:21:55Z",
-            "end_ip": "51.159.255.255",
-            "contacts": {"persons": ["Mickael Marchand"], "phones": ["+33173502000"]},
-        },
-        "asn": {
-            "number": ["12876"],
-            "country": "FR",
-            "registry": "ripencc",
-            "name": "Online SAS",
-            "cidr": "51.158.0.0/15",
-            "updated": "1993-09-01",
-        },
-    },
-    "port": 123,
-    "host": "51.159.153.170",
-    "iteration": "8",
-    "scan_date": "2023-09-22",
-}
-
-
-```
-
-### datatype="cert"
-
-Corresponds to the results that can be obtained in [Netlas Certificates Search](https://app.netlas.io/certs/).
-
-```
-{
-    "last_updated": "2021-07-24T23:07:33.045Z",
-    "@timestamp": "2021-07-24T23:07:33.045Z",
-    "certificate": {
-        "issuer_dn": "CN=Let's Encrypt Authority X3, O=Let's Encrypt, C=US",
-        "fingerprint_md5": "b1a639dfc20b296dbbfa4d038a25d613",
-        "chain": [
-            {
-                "issuer_dn": "CN=DST Root CA X3, O=Digital Signature Trust Co.",
-                "fingerprint_md5": "b15409274f54ad8f023d3b85a5ecec5d",
-                "redacted": False,
-                "signature": {
-                    "valid": False,
-                    "signature_algorithm": {
-                        "name": "SHA256-RSA",
-                        "oid": "1.2.840.113549.1.1.11",
-                    },
-                    "self_signed": False,
-                    "value": "3TPXEfNjWDjdGBX7CVW+dla5cEilaUcne8IkCJLxWh9KEik3JHRRHGJouM2VcGfl96S8TihRzZvoroed6ti6WqEBmtzw3Wodatg+VyOeph4EYpr/1wXKtx8/wApIvJSwtmVi4MFU5aMqrSDE6ea73Mj2tcMyo5jMd6jmeWUHK8so/joWUoHOUgwuX4Po1QYz+3dszkDqMp4fklxBwXRsW10KXzPMTZ+sOPAveyxindmjkW8lGy+QsRlGPfZ+G6Z6h7mjem0Y+iWlkYcV4PIWL1iwBi8saCbGS5jN2p8M+X+Q7UNKEkROb3N6KOqkqm57TH2H3eDJAkSnh6/DNFu0Qg==",
-                },
-                "subject": {
-                    "country": ["US"],
-                    "organization": ["Let's Encrypt"],
-                    "common_name": ["Let's Encrypt Authority X3"],
-                },
-                "serial_number": "13298795840390663119752826058995181320",
-                "version": 3,
-                "issuer": {
-                    "organization": ["Digital Signature Trust Co."],
-                    "common_name": ["DST Root CA X3"],
-                },
-                "fingerprint_sha256": "25847d668eb4f04fdd40b12b6b0740c567da7d024308eb6c2c96fe41d9de218d",
-                "tbs_noct_fingerprint": "3e1a1a0f6c53f3e97a492d57084b5b9807059ee057ab1505876fd83fda3db838",
-                "tbs_fingerprint": "3e1a1a0f6c53f3e97a492d57084b5b9807059ee057ab1505876fd83fda3db838",
-                "extensions": {
-                    "crl_distribution_points": [
-                        "http://crl.identrust.com/DSTROOTCAX3CRL.crl"
-                    ],
-                    "subject_key_id": "a84a6a63047dddbae6d139b7a64565eff3a8eca1",
-                    "certificate_policies": [
-                        {"id": "2.23.140.1.2.1"},
-                        {
-                            "cps": ["http://cps.root-x1.letsencrypt.org"],
-                            "id": "1.3.6.1.4.1.44947.1.1.1",
-                        },
-                    ],
-                    "key_usage": {
-                        "digital_signature": True,
-                        "certificate_sign": True,
-                        "crl_sign": True,
-                        "value": 97,
-                    },
-                    "authority_key_id": "c4a7b1a47b2c71fadbe14b9075ffc41560858910",
-                    "authority_info_access": {
-                        "issuer_urls": [
-                            "http://apps.identrust.com/roots/dstrootcax3.p7c"
-                        ],
-                        "ocsp_urls": ["http://isrg.trustid.ocsp.identrust.com"],
-                    },
-                    "basic_constraints": {"max_path_len": 0, "is_ca": True},
-                },
-                "subject_dn": "CN=Let's Encrypt Authority X3, O=Let's Encrypt, C=US",
-                "fingerprint_sha1": "e6a3b45b062d509b3382282d196efe97d5956ccb",
-                "signature_algorithm": {
-                    "name": "SHA256-RSA",
-                    "oid": "1.2.840.113549.1.1.11",
-                },
-                "spki_subject_fingerprint": "78d2913356ad04f8f362019df6cb4f4f8b003be0d2aa0d1cb37d2fd326b09c9e",
-                "validity": {
-                    "length": 157766400,
-                    "start": "2016-03-17T16:40:46Z",
-                    "end": "2021-03-17T16:40:46Z",
-                },
-                "validation_level": "DV",
-            },
-            {
-                "issuer_dn": "CN=DST Root CA X3, O=Digital Signature Trust Co.",
-                "fingerprint_md5": "410352dc0ff7501b16f0028eba6f45c5",
-                "redacted": False,
-                "signature": {
-                    "valid": True,
-                    "signature_algorithm": {
-                        "name": "SHA1-RSA",
-                        "oid": "1.2.840.113549.1.1.5",
-                    },
-                    "self_signed": True,
-                    "value": "oxosmxcAXKke7ihmNzq/g8c/S8MJoJUgXePZWUTSPg0+vYpLoHQfzhCCnHQaHX6YGt3LE0uzIETkkenM/H2l22rl/ub94E7dtwA6tXBJr/Ll6wLx0QKLGcuUOl5IxBgeWBlfHgJa8Azxsa2p3FmGi27pkfWGyvq5ZjOqWVvO4qcWc0fLK8yZsDdIz+NWS/XPDwxyMofG8ES7U3JtQ/UmSJpSZ7dYq/5ndnF42w2iVhQTOSQxhaKoAlowR+HdUAe8AgmQAOtkY2CbFryIyRLm0n2Ri/k9Mo1ltOl8sVd26sW2KDm/FWUcyPZ3lmoKjXcL2JELBI4H2ym2Cu6dgjU1EA==",
-                },
-                "subject": {
-                    "organization": ["Digital Signature Trust Co."],
-                    "common_name": ["DST Root CA X3"],
-                },
-                "serial_number": "91299735575339953335919266965803778155",
-                "version": 3,
-                "issuer": {
-                    "organization": ["Digital Signature Trust Co."],
-                    "common_name": ["DST Root CA X3"],
-                },
-                "fingerprint_sha256": "0687260331a72403d909f105e69bcf0d32e1bd2493ffc6d9206d11bcd6770739",
-                "tbs_noct_fingerprint": "d0b243776a6c10e4485b34ea3e3b3a063f3089770e04a78c8087b7c49d4f98d6",
-                "tbs_fingerprint": "d0b243776a6c10e4485b34ea3e3b3a063f3089770e04a78c8087b7c49d4f98d6",
-                "extensions": {
-                    "subject_key_id": "c4a7b1a47b2c71fadbe14b9075ffc41560858910",
-                    "key_usage": {
-                        "certificate_sign": True,
-                        "crl_sign": True,
-                        "value": 96,
-                    },
-                    "basic_constraints": {"is_ca": True},
-                },
-                "subject_dn": "CN=DST Root CA X3, O=Digital Signature Trust Co.",
-                "fingerprint_sha1": "dac9024f54d8f6df94935fb1732638ca6ad77c13",
-                "signature_algorithm": {
-                    "name": "SHA1-RSA",
-                    "oid": "1.2.840.113549.1.1.5",
-                },
-                "spki_subject_fingerprint": "ba285dc8432f62fb8979d84c65660dc04e6219bf716c6dc2e4e49bb2dba68612",
-                "validity": {
-                    "length": 662662136,
-                    "start": "2000-09-30T21:12:19Z",
-                    "end": "2021-09-30T14:01:15Z",
-                },
-                "validation_level": "unknown",
-            },
-        ],
-        "redacted": False,
-        "src": "https://ct.googleapis.com/logs/argon2019/",
-        "signature": {
-            "valid": False,
-            "signature_algorithm": {
-                "name": "SHA256-RSA",
-                "oid": "1.2.840.113549.1.1.11",
-            },
-            "self_signed": False,
-            "value": "IgTWRYQiNa4CEjz9f+MCfnS/n638utteo5ena1WziFXdWasUePWXVM1R5sYIiXUUmt1z/34OSFHpisetgRI683OCEZxZDBiRBsN5lXPs/hMcO14Hs9WhWTrrfUckLHgLOXTiFJ/iCrlKJgUo5QzMFOvwm2iQ9GIMQSS94qRoHBI7U4Upu99ffammpj0Ou4YmBPGXmMngyOx3WtK8eCG7kGEsH01ny8sCUnwtNvlwuKrarw5L0vnnAMzazRzoFDx/vC3R2KewwD8j5eYnF9eI7E7KZSK7Q3eEzboxTO2EZkld40/pdzH+o7B3XOzpJQhglJ3B4iuEZ9Zj9CytNAURCw==",
-        },
-        "subject": {"common_name": ["l-t.me"]},
-        "index": 617433965,
-        "serial_number": "298806317781126933132565598755589171656545",
-        "version": 3,
-        "issuer": {
-            "country": ["US"],
-            "organization": ["Let's Encrypt"],
-            "common_name": ["Let's Encrypt Authority X3"],
-        },
-        "fingerprint_sha256": "ac3e22f1a55d4db5b66ff6df72ee47cf9c550bc97595f26b6f50a38e38628e2b",
-        "tbs_noct_fingerprint": "783f8f2c6844ce3fba97b524e5285b2b4e5f623c18b55d153a0f27087cec67ec",
-        "tbs_fingerprint": "9eb431ee59fcd1ebcaaf574d034236786613782891006ac20dac22cb87bae3aa",
-        "extensions": {
-            "subject_key_id": "53b6643e7203a5e5ffd40b9e9d0a049c3ccab86d",
-            "certificate_policies": [
-                {"id": "2.23.140.1.2.1"},
-                {
-                    "cps": ["http://cps.letsencrypt.org"],
-                    "id": "1.3.6.1.4.1.44947.1.1.1",
-                },
-            ],
-            "key_usage": {
-                "digital_signature": True,
-                "key_encipherment": True,
-                "value": 5,
-            },
-            "authority_key_id": "a84a6a63047dddbae6d139b7a64565eff3a8eca1",
-            "subject_alt_name": {"dns_names": ["l-t.me"]},
-            "signed_certificate_timestamps": [
-                {
-                    "log_id": "b1N2rDHwMRnYmQCkURX/dxUcEdkCwQApBo2yCJo32RM=",
-                    "signature": "BAMARjBEAiBkCDpebkU6+Grogm0B/IG0aEZhaCcfBIiuiofxTyggbgIgJN0bFWWIWyBYDReAlT8x3qKXu1Kh569eCe/YRTUDUbQ=",
-                    "version": 0,
-                    "timestamp": 1563184252,
-                },
-                {
-                    "log_id": "Y/Lbzeg7zCzPC3KEJ1drM6SNYXePvXWmOLHHaFRL2I0=",
-                    "signature": "BAMASDBGAiEArAXCIYXcs3ZhPtge9wVdP2lbGJkCBmoo3wMQkaLmcp0CIQDZHZEuyfO9wy/knwfGaIxVEu/+2+DZS7Irzdx5z8ehoA==",
-                    "version": 0,
-                    "timestamp": 1563184252,
-                },
-            ],
-            "authority_info_access": {
-                "issuer_urls": ["http://cert.int-x3.letsencrypt.org/"],
-                "ocsp_urls": ["http://ocsp.int-x3.letsencrypt.org"],
-            },
-            "basic_constraints": {"is_ca": False},
-            "extended_key_usage": {"client_auth": True, "server_auth": True},
-        },
-        "subject_dn": "CN=l-t.me",
-        "names": ["l-t.me"],
-        "fingerprint_sha1": "8dd1c6bb83834846c3518a50bd2de5425b679647",
-        "signature_algorithm": {"name": "SHA256-RSA", "oid": "1.2.840.113549.1.1.11"},
-        "spki_subject_fingerprint": "8c98ec718b8ec4a008524edee0ba9e90e32ef6da97f2eab732004ae0f70de202",
-        "validity": {
-            "length": 7776000,
-            "start": "2019-07-15T08:50:52Z",
-            "end": "2019-10-13T08:50:52Z",
-        },
-        "validation_level": "DV",
-    },
-}
-
-```
-
-
-
-
-
-
-
-
-
-
-## Netlas CLI Tools
+### Netlas CLI Tools
 
 ![Netlas cli tools](images/netlas_cli_tools.png)
 
@@ -1730,7 +688,7 @@ We also have a Github repository with a couple of examples of automating various
 [Netlas Scripts](https://github.com/netlas-io/netlas-scripts)
 
 
-## Search vs Download vs Host methods
+### Search vs Download vs Host Methods
 
 
 The Netlas API has many methods, but the most commonly used methods are search and download. They are very similar to each other, but still have some differences.
@@ -1748,7 +706,7 @@ netlas host "51.159.153.170"
 
 
 
-## Additional request parameters
+### Additional Request Parameters
 
 
 The Netlas API allows you to flexibly adjust the data returned by requests with additional parameters. For example:
@@ -1766,7 +724,7 @@ A full list of parameters for the different methods and endpoints can be found h
 
 
 
-## Make requests with Python (without Netlas Python Library)
+### Make Requests with Python (without Netlas Python Library)
 
 
 You may find it easier in some cases not to use the Netlas Python Library, but to use the standard Python request package, which is familiar to many developers:
@@ -1795,7 +753,7 @@ But Netlas Python Library is still preferable as it is designed to deal with dif
 
 
 
-## Examples for other programming languages
+### Examples for Other Programming Languages
 
 
 While we recommend using our Python Library to automate Netlas search, it's worth noting that the Netlas API can be built into most applications with a wide variety of technology stacks. The main thing is that it should be able to make **REST requests** and **parse JSON** data.
@@ -1804,7 +762,7 @@ While we recommend using our Python Library to automate Netlas search, it's wort
 Here are some examples in different popular programming languages.
 
 
-### NodeJS 
+#### NodeJS <!-- omit in toc -->
 
 ![Node JS Netlas](images/netlas_nodejs.png)
 
@@ -1839,7 +797,7 @@ fetch('https://app.netlas.io/api/domains/?q=ivanov.com&source_type=include&start
 ```
 
 
-### Ruby 
+#### Ruby <!-- omit in toc -->
 
 ![Ruby Netlas](images/netlas_ruby.png)
 
@@ -1881,7 +839,7 @@ puts jsonArray['items'][0]['data']['domain']
 ```
 
 
-### Bash 
+#### Bash <!-- omit in toc -->
 
 ![Bash Netlas](images/netlas_bash.png)
 
@@ -1909,7 +867,7 @@ Don't forget that [Netlas Schema](https://app.netlas.io/schema/) automatically g
 
 
 
-## JQ Utility
+### JQ Utility
 
 Note that in the example above, the JQ utility was used to extract fields from JSON data. 
 
@@ -1953,7 +911,7 @@ You can read more about JQ here (I recommend paying special attention to data fi
 
 
 
-## AI tools for writing code
+### AI Tools for Writing Code
 
 ![You.com](images/you_com.png)
 
@@ -1969,7 +927,7 @@ If you encounter any problems when customising the Netlas Cookbook examples, we 
 When working with such services, you just need to describe in words the task you want to solve with the help of code.
 
 
-## Code checkers
+### Code Checkers
 ![Python code check](images/python_code_check.png)
 
 When you rework the Netlas Cookbook examples to suit your purposes, you may find that the code will not execute from some errors. Special online tools can help you find and fix them:  
@@ -1986,7 +944,7 @@ If you don't want to copy your code to third-party services, you can check it fo
 
 
 
-# Using Netlas.io for OSINT (Open Source Intelligence)
+## Using Netlas.io for OSINT (Open Source Intelligence)
 
 
 ![OSINT Flowchart](images/osint_flowchart.png)
@@ -1998,7 +956,7 @@ It can also be used to find old versions of web pages (as an analogue of the Way
 
 
 
-## Search person's nickname or email in WHOIS contacts
+### Search Person's Nickname or Email in WHOIS Contacts
 
 
 Most often WHOIS data contains only the contact information of the company registering the domains. But sometimes there may be personal contacts of persons of interest. This query will help you find them.  
@@ -2086,7 +1044,7 @@ for response in netlas_query['items']:
 
 
 
-## Search person's nickname or email in title and body of web page
+### Search for Person's Nickname or Email in Title and Body of Web Page
 
 
 Netlas allows you to search for mentions of certain words in headings and in the html code of web pages. You can search for words by exact match, by approximate match (see the fuzzy queries section) and replace characters you are not sure of with asterisks.
@@ -2172,7 +1130,7 @@ for response in netlas_query['items']:
 
 
 
-## Search links to "juicy info files" on subdomains of the company's website
+### Search for "Luicy Info Files" on Subdomains of the Company's Website
 
 ![Juicy info files search](images/juicyinfo_search.png)
 
@@ -2263,7 +1221,7 @@ In order to automate links to PDF documents from the web page body you can use t
 
 
 
-## Phone number mentions search
+### Phone Number Mentions Search
 
 
 As with nicknames and emails, you can also look for mentions of a phone number in the code of web pages or WHOIS contact information. 
@@ -2355,7 +1313,7 @@ for response in netlas_query['items']:
 
 
 
-## Search file mentions (looking for content that may be infringing on copyrights)
+### Search File Mentions (Looking for Content That May be Infringing on Copyrights)
 
 
 Let's imagine that you are a musician and you want to find all the sites where your tracks are posted. You can do this by searching for pages that mention your name and have links to files with the .mp3 extension.
@@ -2440,7 +1398,7 @@ for response in netlas_query['items']:
 
 
 
-## Domain WHOIS information gathering
+### Domain WHOIS Information Gathering
 
 
 WHOIS is a worldwide public database that stores information about all registered domains in the world. 
@@ -2519,7 +1477,7 @@ for response in netlas_query['items']:
 
 
 
-## Search location in \<address\> tag
+### Search Location in \<address\> Tag
 
 \<address\> tag is located inside the \<head\> tag of a web page and may contain physical addresses. With a search using this tag, you can find sites associated with a particular street, and sometimes even a particular building.
 
@@ -2603,7 +1561,7 @@ for response in netlas_query['items']:
 
 
 
-##  Search author name in meta tags
+###  Search Author Name in Meta Tags
 
 \<meta\> tags are located inside the \<head\> tag of a web page and contain the most important keywords, description, miscellaneous service information and the author's name. 
 
@@ -2687,7 +1645,7 @@ for response in netlas_query['items']:
 
 
 
-## What other interesting things can be found in the meta tags of html documents?
+### What Other Interesting Things Can Be Found in the Meta Tags of HTML Document?
 
 In addition to the author's name, meta tags can contain a variety of information: encoding, language, permission to index the page by search engine robots, text for link cards in social networks, OpenGraph metadata, and much more. Here are some more examples of meta tags that may contain useful information for investigations:
 
@@ -2699,7 +1657,7 @@ In addition to the author's name, meta tags can contain a variety of information
 
 
 
-## Search by FTP server's banners text
+### Search by FTP Server's Banners Text
 
 
 Another important step in finding information about a person or company is to look for its mention in the text of FTP server banners. It is possible that the IP address of the found servers will be the key to finding other sites related to the person or company you are interested in. And in case of very strong luck to find something interesting in the files posted there (if the FTP server is open).
@@ -2786,7 +1744,8 @@ for response in netlas_query['items']:
 
 ```
 
-## Search for contact information in SSL certificates
+### Search for Contact Information in SSL Certificates
+
 ![Certificates search](images/certificates_search.png)
 
 An SSL Certificate is a digital certificate that authenticates a website and allows the use of an encrypted connection. It may contain information about it owner: name of the contact person, name of the organisation, country and sometimes even the address and postcode. You can search this information using the following filters (and many others):
@@ -2872,7 +1831,7 @@ for response in netlas_query['items']:
 
 
 
-## Using Netlas as an alternative to the WayBack Machine
+### Using Netlas as an Alternative to the WayBack Machine
 
 
 Archive.org has been used by OSINT specialists to search old versions of websites and social media profiles pages to find now deleted contact and other information.
@@ -2904,7 +1863,8 @@ To see how the site looks, copy the contents of the "body" field (response tab) 
 
 After that, copy the code into one of the online html promoters, such as [Code beautify](https://codebeautify.org/htmlviewer). Or just save the file in html format and then open it in browser.
 
-## 9 ways to search related websites
+### 9 Ways to Search Related Websites
+
 ![Search related websites](images/search_related_websites.png)
 
 
@@ -3012,7 +1972,7 @@ ns:ns?.parklogic.com
 
 
 
-# Scraping (extract data from web page body)
+## Scraping (Extract Data from Web Page Body)
 
 Netlas API is a great tool for collecting contact and other website data. First, it allows you to do it quickly. Second, it does not require the use of proxy. Third, it allows you to collect data from sites that are currently unavailable.
 
@@ -3022,7 +1982,7 @@ However, there are some disadvantages: Netlas scans only the main pages of sites
 There are three main approaches to scraping: collecting information from html tags and CSS selectors, extracting data using regular expressions, and AI scraping. Let's take a closer look at the first two. 
 
 
-## Beatifulsoup package
+### Beatifulsoup Package
 
 
 [Beatifulsoup](https://pypi.org/project/beautifulsoup4/) - is one of the world's most popular Python packages for parsing HTML code and XML files. Let's try using it to extract page titles (from \<h1> tags, NOT <title> tages).
@@ -3084,7 +2044,7 @@ soup.find("href='https://example.com'").get_text()
 If you want to find all elements of a certain type use the find_all() method.
 
 
-## Re package
+### Re Package
 
 
 [Re](https://docs.python.org/3/library/re.html) is a pre-installed Python package for searching and retrieving data using regular expressions. It is useful for extracting contact information from web pages and many other tasks. Let's look at an example of how it works.
@@ -3133,7 +2093,7 @@ Similarly, you can extract links, phone numbers, cryptocurrency wallet addresses
 
 
 
-## Other Python packages for scraping
+### Other Python Packages for Scraping
 
 
 Beaitiful soup and Re packages are just one of the many tools for scraping data from web pages using Python. Here are some more examples of such packages:
@@ -3155,7 +2115,7 @@ Beaitiful soup and Re packages are just one of the many tools for scraping data 
 
 
 
-# Using Netlas.io for Crypto Investigations
+## Using Netlas.io for Crypto Investigations
 
 
 Netlas provides a great opportunity for researchers who specialise in cryptocurrency crime. 
@@ -3165,7 +2125,7 @@ Firstly, it can be used to search for references to wallet addresses and transac
 Second, it can be used to search for vulnerable mining farms, nodes and other servers associated with crypto infrastructure.
 
 
-## Search mining farms
+### Search Mining Farms
 
 ![Search mining farms](images/search_mining_farms.png)
 
@@ -3241,7 +2201,7 @@ for response in netlas_query['items']:
 
 
 
-## Search for websites infected with cryptominers
+### Search for Websites Infected with Cryptominers
 
 ![Search website injected with miners](images/search_sites_injected_with_miners.png)
 
@@ -3313,7 +2273,7 @@ for response in netlas_query['items']:
 
 
 
-## Search vulnerable Bitcoin nodes
+### Search Vulnerable Bitcoin Nodes
 ![Search bitcoin nodes](images/search_bitcoin_nodes.png)
 
 
@@ -3379,7 +2339,7 @@ for response in netlas_query['items']:
 ```
 
 
-# Using Neltas for Pentest
+## Using Neltas for Pentest
 
 
 Netlas.io allows you to search for sites with many different types of vulnerabilities. This can be done by vulnerability number (CVE-...), the name of the software installed on the server, certain words in page headers, and other parameters.
@@ -3404,7 +2364,7 @@ In this section, we will simply cover the general principles of searching for si
 
 
 
-## Search subdomains
+### Subdomain Search
 
 
 By using asterisks in search queries, you can find all subdomains of different levels (whose name ends with the name of a particular first-level domain (.com) or second-level domain (google.com).
@@ -3490,7 +2450,7 @@ for response in netlas_query['items']:
 
 
 
-## Search for sites with specific vulnerabilities
+### Search for Sites with Specific Vulnerabilities
 
 
 
@@ -3571,7 +2531,7 @@ for response in netlas_query['items']:
 
 
 
-## Search for sites with vulnerabilities that contain a certain word in their descriptions
+### Search for Sites with Vulnerabilities That Contain a Certain Word in Their Descriptions
 
 
 If you don't need to investigate servers with a specific type of vulnerability, but just want to see vulnerable servers in a specific group (such as Oracle WebLogic Server or WordPress sites), you can search for them using keywords and the cve.description: filter. 
@@ -3656,7 +2616,7 @@ for response in netlas_query['items']:
 
 
 
-## Search by server http header
+### Search by Server HTTP Header
 
 
 This method allows you to find devices manufactured by a specific company.
@@ -3740,7 +2700,7 @@ for response in netlas_query['items']:
 
 ```
 
-### Default logins and passwords 
+#### Default Logins and Passwords <!-- omit in toc -->
 
 
 One practical application of searching by software name in server headers is to search for devices from a particular vendor. This may be necessary both when searching for devices with specific vulnerabilities and for devices with standard logins and passwords.
@@ -3762,7 +2722,7 @@ Remember that using standard logins and passwords to log into other people's sys
 
 
 
-## Search servers with CVEs by favicon hash
+### Search for Vulnerable Servers by Favicon Hash
 
 
 One way to find web servers exposed to a particular vulnerability is to search for favicon ico of a particular web server software. 
@@ -3847,7 +2807,7 @@ for response in netlas_query['items']:
 ```
 
 
-## Search servers with CVEs by tag name
+### Search for Vulnerable Servers by Tag Name
 
 
 To simplify searching across servers running different software, Netlas automatically tags search results with specific tags.
@@ -3946,7 +2906,7 @@ for response in netlas_query['items']:
 
 
 
-## Search vulnerable servers and devices near you (or any other location)
+### Search for Vulnerable Servers and Devices Near You (or Any Other Location)
 
 ![CVE location search](images/cve_location_search.png)
 
@@ -4022,7 +2982,7 @@ for response in netlas_query['items']:
 
 
 
-## Search for login/admin panels
+### Search for Login/Admin Panels
 ![Admin panels search](images/admin_panels_search.png)
 
 
@@ -4055,7 +3015,7 @@ tag.wordpress:*
 
 
 
-## Search for vulnerable database admin panels
+### Search for Vulnerable Database Admin Panels
 ![Database admin panels search](images/database_admin_panels_search.png)
 
 Let's try to search vulnerable [phpMyAdmin](https://www.phpmyadmin.net/) admin panel (the one of most popular software for administering MySQL databases):
@@ -4098,7 +3058,7 @@ Searching for admin panels for servers found in this way may not be the easiest 
 
 
 
-## Search for sites vulnerable to SQL injection
+### Search for Sites Vulnerable to SQL Injection
 
 ![SQL Injection search](images/sql_injection_search.png)
 
@@ -4191,14 +3151,14 @@ mysql.error_message:
 
 
 
-# IoT search: 9 basic ways
+## IoT Search: 9 Basic Ways
 
 Netlas searches not only websites and servers, but all devices connected to the Internet: smart home appliances, surveillance cameras, printers, routers, traffic lights, medical equipment, and more. 
 
 There are four main ways to find these devices.
 
 
-## Search by http.title
+### Search by Title
 
 ![Iot Title Search](images/iot_title.png)
 
@@ -4227,7 +3187,7 @@ The second is that a lot of IoT devices don't have any information in the http t
 
 
 
-## Search by http.body
+### Search Inside Body
 
 ![Iot Body Search](images/iot_body.png)
 
@@ -4240,7 +3200,7 @@ http.body:(clip-status) NOT domain:*
 The example isn't quite right, so these cameras can be found using tags (more on that below).
 
 
-## Search by port
+### Search by Port
 
 ![Iot port search](images/iot_port.png)
 
@@ -4265,7 +3225,7 @@ port:7547
 
 [Try in Netlas](https://app.netlas.io/responses/?q=port%3A7547&page=1&indices=)
 
-## Search by banner
+### Search by Banner
 ![Iot banner search](images/iot_banner.png)
 
 Let's look for routers that use the Telnet protocol (you could also filter them with port:23):
@@ -4284,7 +3244,7 @@ Or search banners for all protocols:
 
 [Try in Netlas](https://app.netlas.io/responses/?q=%5C*.banner%3Arouter&page=1&indices=)
 
-## Search by favicon
+### Search by Favicon
 ![Iot favicon search](images/iot_favicon.png)
 
 One of the easiest ways to find devices that have certain software installed is to search by favicon. Let's try to find where different Cisco products are used: 
@@ -4302,7 +3262,7 @@ There are three main ways to search by favicon in Netlas:
 3. Click on the favicon search button to the right of the search bar and upload the favicon file.
 
 
-## Search by server headers
+### Search by Server Headers
 ![Iot headers search](images/iot_headers.png)
 
 Sometimes it happens that there is no identifying dev information in the http title, but it may be in other headers. For example, in http.server.header:
@@ -4316,7 +3276,7 @@ http.headers.server:"i-Catcher Console"
 Netlas supports searching across several dozen header types. Try different variants.
 
 
-## Search by cookies
+### Search by Cookies
 
 ![Iot cookie search](images/iot_headers_cookie.png)
 
@@ -4329,7 +3289,7 @@ http.headers.set_cookie:(regist_carNo=)
 
 [Try in Netlas](https://app.netlas.io/responses/?q=http.headers.set_cookie%3Aregist_carNo%3D&page=1&indices=)
 
-## Search by tag
+### Search by Tag
 ![Iot tag search](images/iot_tag.png)
 
 *This method may require a paid subscription.* [See the pricing](https://app.netlas.io/plans/)
@@ -4345,7 +3305,7 @@ tag.category:"Web cameras"
 
 Just remember that tags are assigned automatically and some suitable devices may not be included in the corresponding category.
 
-## Additional search filters
+### Additional Search Filters
 
 
 It's can search for IoT devices located in specific geolocations:
@@ -4386,7 +3346,7 @@ More examples of queries to search for IoT devices can be found here:
 
 
 
-# Using Netlas.io for Darknet research
+## Using Netlas.io for Darknet Research
 
 
 One of the main advantages of Netlas is that you can use it to search for things that are not indexed by Google. This is what can be conventionally called DeepWeb. For example, FTP servers or Telnet servers:
@@ -4400,7 +3360,7 @@ telnet.banner:*
 But unfortunately Netlas does not index the Darknet (.onion, .i2p etc) as it only scans global IP addresses. But it can still be used to explore alternative network infrastructure and find links to .onion sites.
 
 
-## Tor exit nodes search
+### Tor Exit Nodes Search
 
 Tor exit node is the point whrerer web traffic leaves the Tor network and is forwarded to destination. An up-to-date list of IP addresses of active Tor entry nodes is always available on the TorProject website:
 
@@ -4459,7 +3419,7 @@ Using time package and sleep method is good only for simple examples. Best solut
 
 
 
-## Collecting links to .onion sites
+### Collecting Links to .onion Sites
 
 
 As mentioned above, Netlas only scans global domains, so it is not possible to search for .onion domains. But you can search for references to .onion domains in the text of web pages.  Here is an example of a simple python script (with regular expression) that does this:
@@ -4522,7 +3482,7 @@ http.body:*.i2p
 
 
 
-# Files, backups and logs directories search
+## Files, Backups and Logs Directories Search
 
 ![Directory search](images/directory_search.png)
 
@@ -4585,7 +3545,7 @@ You can think of hundreds of other such requests. Experiment with different file
 
 
 
-# Using Netlas.io for Digital Forensics and Incident Response
+## Using Netlas.io for Digital Forensics and Incident Response
 
 
 
@@ -4594,7 +3554,7 @@ This section is very difficult to separate from the Netlas for OSINT section, as
 In this section, we describe more "technical" queries that can help, for example, gather information about the technical infrastructure of networks or investigate phishing attacks.
 
 
-## SMTP servers information gathering
+### SMTP Servers Information Gathering
 
 SMTP (Simple Mail Transfer Protocol) is a communication protocol that enables to send and receive emails. In most email clients, when viewing emails, the "Show Original" function is available, which allows you to view the address of the SMTP server from which the email was sent.
 
@@ -4671,7 +3631,7 @@ for response in netlas_query['items']:
 
 
 
-## Search for domains that could potentially be used for phishing
+### Search for Domains That Could Potentially Be Used for Phishing
 
 
 One of the popular methods of scammers is to use domains that are very similar in spelling to the domains of well-known companies.
@@ -4704,7 +3664,7 @@ For example, you can select the CSV file format and the domain, expiration_date,
 
 
 
-## Favicon search
+### Favicon Search
 
 ![Favicon search](images/favicon_search.png)
 
@@ -4765,7 +3725,7 @@ http.favicon.path:
 
 
 
-## Search for domains associated with a specific subnet
+### Search for Domains Associated with a Specific Subnet
 
 
 ![Subnet search](images/subnet_search.png)
@@ -4833,7 +3793,7 @@ for response in netlas_query['items']:
 
 
 
-## Search for servers with malicious software
+### Search for Servers with Malicious Software
 
 ![Malware search](images/malware_search.png)
 
@@ -4920,7 +3880,7 @@ for response in netlas_query['items']:
 
 
 
-# Search for technologies and code examples
+## Search for Technologies and Code Examples
 
 ![Netlas for web designers](images/search_for_technologies_and_code_examples.png)
 
@@ -4953,7 +3913,7 @@ tag.nextjs:*
 
 
 
-# Using Netlas.io for fun or netstalking
+## Using Netlas.io for Fun or Netstalking
 
 
 Netlas, like many other search engines, can be used without any specific purpose, and just explore with its help unexplored corners of the Internet, hoping to find something interesting there.
@@ -4999,10 +3959,10 @@ Keep in mind that Netlas does not censor the content it stores in its database i
 
 
 
-# Common problems
+## Common Problems
 
 
-## Error 429 - Too frequent requests
+### Error 429 - Too Frequent Requests
 
 
 ![Request limit](images/request_limit.png)
@@ -5054,7 +4014,7 @@ Similar packages exist for other popular programming languages, as exceeding the
 
 If you really need to make more than one enquiry per second, you can write to the sales team to solve your problem on a case-by-case basis - **sales@netlas.io**
 
-## KeyError
+### KeyError
 
 ![Key error](images/key_error.png)
 
@@ -5072,7 +4032,7 @@ try:
 ```
 
 
-## Automation of work with the list of requests
+### Automation of Work with the List of Requests
 
 The main advantage of working with Netlas Python or the Netlas API versus just typing queries in the web version of Netlas.io is that you can save a tremendous amount of time typing one-size-fits-all queries. For example, you can quickly gather information about a long list of domains using very simple Python code.
 
@@ -5121,7 +4081,7 @@ Similarly, you can work with a list of certificates, IP addresses, emails and wh
 An example of searching IP addresses from a URL-loaded list can be found in [Tor exit nodes search](#tor-exit-nodes-search).
 
 
-## Saving data in CSV format
+### Saving Data in CSV Format
 
 ![Save data in CSV](images/save_data_in_csv.png)
 
@@ -5171,7 +4131,7 @@ You can open netlas_results.csv in Excel or any text editor.
 
 
 
-## Saving data in other formats
+### Saving Data in Other Formats
 
 
 Using Python, you can generate a wide variety of documents based on data from Netlas, inserting images, data visualizations, and customizing the layout. Here are some examples of useful packages.
@@ -5188,7 +4148,7 @@ Using Python, you can generate a wide variety of documents based on data from Ne
 
 
 
-## Decoding Punycode domains
+### Decoding Punycode Domains
 
 
 ![ Decoding Punycode domains](images/punycode.png)
@@ -5232,7 +4192,7 @@ for response in netlas_query['items']:
 ```
 
 
-## What to do if search queries don't return results?
+### What to Do If Search Queries Don't Return Results?
 
 
 Sometimes you may encounter a situation where no or very few results are found on query, although you are sure there should be many more. In this case we recommend you to experiment and try to change the queries a bit. 
@@ -5263,7 +4223,7 @@ http.body:(hello AND world)
 
 
 
-## Removing html tags from http body
+### Removing HTML Tags from HTTP Body
 
 ![Certificates search](images/htmltotext.png)
 
@@ -5307,7 +4267,7 @@ for response in netlas_query['items']:
 
 
 
-## Working with very large amounts of data
+### Working with Very Large Amounts of Data
 
 ![Datastore](images/datastore.png)
 
@@ -5327,7 +4287,7 @@ and more.
 
 
 
-## To be contininued... Stay tuned!
+### To Be Contininued... Stay Tuned!
 
 Want to know about Netlas Cookbook updates? 
 
@@ -5345,13 +4305,6 @@ Want to know about Netlas Cookbook updates?
 
 
 Many thanks [@cyb_detective](https://twitter.com/cyb_detective) for help (https://cybdetective.com)
-
-## License
-
-![cc license](https://i.creativecommons.org/l/zero/1.0/88x31.png)
-
-This work is licensed under a [CC0 1.0 Universal](LICENSE.md) license.
-
 
 
 
