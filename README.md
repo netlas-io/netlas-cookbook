@@ -774,7 +774,7 @@ node scripts/node_example.js
 ```
 
 
-If you are not using Gitpod, you should have [NodeJS]([https://nodejs.org/en/download) installed on your device.
+If you are not using Gitpod, you should have [NodeJS](https://nodejs.org/en/download) installed on your device.
 
 
 
