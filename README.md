@@ -163,7 +163,7 @@ Before we get into the technical details, let's see how [Netlas.io](https://app.
 
 
 ### Getting Information About IP or Domain
-![Domain information gathering](images/domain_information_gathering.png)
+![Domain information gathering](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/domain_information_gathering.png)
 
 
 Open [Netlas.io IP/Domain info](https://app.netlas.io/host/netlas.io/) and enter the domain name or IP. The following information will be displayed as a result:
@@ -4281,28 +4281,12 @@ In [Netlas Datastore](https://app.netlas.io/datastore/) you can find:
 * Known PTR records (1,135,524,997 items) - FREE
 * Top 1,000,000 most common subdomains
 
-
 and more.
 
 
 
 
-### To Be Contininued... Stay Tuned!
-
-Want to know about Netlas Cookbook updates? 
-
-
-👁️ Subscribe for updates
-
-
-⭐️ Give us a star to show your appreciation
-
-
-* [Twitter](https://twitter.com/Netlas_io)
-* [Telegram](https://t.me/netlas)
-* [Medium](https://netlas.medium.com/)
-* [Linkedin](https://www.linkedin.com/company/netlas-io/)
-
+### Acknowledgments
 
 Many thanks [@cyb_detective](https://twitter.com/cyb_detective) for help (https://cybdetective.com)
 
