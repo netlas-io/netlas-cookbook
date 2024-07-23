@@ -120,7 +120,6 @@ The goal of this guide is very simple - to teach anyone interested in cyber secu
 
 ## What is Netlas.io?
 
-
 Search engine to find and analyse information about all IP addresses and domains available on the Internet. Netlas has some attack surface management features, but this guide is focused mostly on Netlas search tools and how to use them in automations.
 
 Netlas.io includes several search tools:
@@ -225,7 +224,7 @@ Netlas.io based on [Elasticsearch](https://github.com/elastic/elasticsearch), fr
 ### Filters (Fields)
 
 
-![Search filters](images/search_filters.png)
+![Search filters](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_filters.png)
 
 
 
@@ -244,7 +243,7 @@ You can use this query to find pages which contain the word "netlas" inside thei
 A list of available filters for each search type is displayed on the right side of the page.
 
 
-![Filters Mapping Images](images/filters.png)
+![Filters Mapping Images](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/filters.png)
 
 
 Filters allow you to search for servers based on many different parameters. For example:
@@ -347,7 +346,7 @@ This query do a search on all banner types simultaneously and replaces several f
 
 ### Fuzziness
 
-![Fuzzines](images/fuziness.png)
+![Fuzzines](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/fuziness.png)
 
 If you need to search not by exact, but by approximate value of a field (for example, pages whose titles contain all names consonant with Joseph), just add ~ to the query:
 
@@ -383,14 +382,14 @@ For more information on using regular expressions, see the examples in the Netla
 
 #### Download Results <!-- omit in toc -->
 
-![Download results](images/download_results.png)
+![Download results](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/download_results.png)
 
 You can save your results (all or selected fields) in JSON and CSV format to view them in a format you like or automatically analyse them with different tools.
 
 
 #### Group Results <!-- omit in toc -->
 
-![Group results](images/group_results.png)
+![Group results](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/group_results.png)
 
 
 You can group results by different field values to speed up the search time. For example, by domain name or geolocation.
@@ -398,13 +397,13 @@ You can group results by different field values to speed up the search time. For
 
 #### Share Results <!-- omit in toc -->
 
-![Share results](images/share_results.png)
+![Share results](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/share_results.png)
 
 You can freely share links to search results (no registration is required to open them, unless the user has exceeded the free limit of 50 requests).
 
 #### Search History <!-- omit in toc -->
 
-![Request history](images/request_history.png)
+![Request history](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/request_history.png)
 
 
 Also remember that all the quiries you have made can be viewed on your profile page (link in the top right corner).
@@ -431,11 +430,11 @@ This is the very first place to start with the API. You don't even have to pay f
 
 
 
-![Profile page](images/profile.png)
+![Profile page](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/profile.png)
 
 ### Tools for Debugging API Requests
 
-![Netlas shema](images/netlas_shema.png)
+![Netlas shema](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/netlas_shema.png)
 
 
 You don't have to write scripts or create applications to start using the Netlas API. You can simply test it using our online tool [Netlas schema](https://app.netlas.io/schema).
@@ -457,7 +456,7 @@ Netlas scheme is still under development and you may find its analogs designed f
 
 ### Structure of Netlas API JSON Response 
 
-![JSON API response](images/json_api_response.png)
+![JSON API response](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/json_api_response.png)
 
 
 Similar to other APIs, the Netlas API response consists of headers and a response body in JSON (JavaScript Object Notation) format. JSON files contain data in key-value format and can be analysed using almost any programming language.
@@ -468,7 +467,7 @@ If you use Netlas Shema, you can copy or download the response body and view it 
 
 ### Tools for Working with Data in JSON Format
 
-![JSON Eveluator](images/json_evaluator.png)
+![JSON Eveluator](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/json_evaluator.png)
 
 
 A little tip that will come in handy when writing code using the Netlas API. In order to understand the structure of a JSON file faster and find the path to get a certain value, use special tools such as:
@@ -506,7 +505,7 @@ Gitpod is a cloud development environment based on Ubuntu (Linux distribution). 
 [Run Netlas Cookbook in Gitpod](https://gitpod.io#https://github.com/netlas-io/netlas-cookbook)
 
 
-![Netlas Github](images/netlas_python_example_py.png)
+![Netlas Github](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/netlas_python_example_py.png)
 
 
 Install Netlas Python library using pip (package installer for Python). Enter in the command line:
@@ -617,7 +616,7 @@ response['data']['cve'][0]['exploit_links']
 
 ### Netlas Python Response Datatypes
 
-![Python Netlas datatypes](images/datatypes.png)
+![Python Netlas datatypes](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/datatypes.png)
 
 When working with the Netlas Python Library, it is very important to correctly specify the type of data you want to retrieve. By default, the `response` type is returned and many Netlas CookBook examples use it.
 
@@ -640,7 +639,7 @@ Available datatypes:
 
 ### Netlas CLI Tools
 
-![Netlas cli tools](images/netlas_cli_tools.png)
+![Netlas cli tools](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/netlas_cli_tools.png)
 
 You can also use the Netlas Python Library directly from the command line. For example:
 
@@ -764,7 +763,7 @@ Here are some examples in different popular programming languages.
 
 #### NodeJS <!-- omit in toc -->
 
-![Node JS Netlas](images/netlas_nodejs.png)
+![Node JS Netlas](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/netlas_nodejs.png)
 
 
 Enter in the command line:
@@ -799,7 +798,7 @@ fetch('https://app.netlas.io/api/domains/?q=ivanov.com&source_type=include&start
 
 #### Ruby <!-- omit in toc -->
 
-![Ruby Netlas](images/netlas_ruby.png)
+![Ruby Netlas](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/netlas_ruby.png)
 
 
 
@@ -841,7 +840,7 @@ puts jsonArray['items'][0]['data']['domain']
 
 #### Bash <!-- omit in toc -->
 
-![Bash Netlas](images/netlas_bash.png)
+![Bash Netlas](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/netlas_bash.png)
 
 
 Enter in the command line:
@@ -913,7 +912,7 @@ You can read more about JQ here (I recommend paying special attention to data fi
 
 ### AI Tools for Writing Code
 
-![You.com](images/you_com.png)
+![You.com](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/you_com.png)
 
 
 If you encounter any problems when customising the Netlas Cookbook examples, we recommend that you seek help from AI tools for improving and writing code. For example:
@@ -928,7 +927,7 @@ When working with such services, you just need to describe in words the task you
 
 
 ### Code Checkers
-![Python code check](images/python_code_check.png)
+![Python code check](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/python_code_check.png)
 
 When you rework the Netlas Cookbook examples to suit your purposes, you may find that the code will not execute from some errors. Special online tools can help you find and fix them:  
 
@@ -947,7 +946,7 @@ If you don't want to copy your code to third-party services, you can check it fo
 ## Using Netlas.io for OSINT (Open Source Intelligence)
 
 
-![OSINT Flowchart](images/osint_flowchart.png)
+![OSINT Flowchart](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_flowchart.png)
 
 
 Netlas.io can help you gather data about a domain or company, as well as find mentions of a person (or anyone) in internet. 
@@ -965,7 +964,7 @@ Most often WHOIS data contains only the contact information of the company regis
 
 **Search query example**  
 
-![Whois email search example](images/osint_email_search.png)
+![Whois email search example](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_email_search.png)
 
 
 
@@ -1001,7 +1000,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Whois email search example Python](images/osint_email_search_python.png)
+![Whois email search example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_email_search_python.png)
 
 
 
@@ -1053,7 +1052,7 @@ Netlas allows you to search for mentions of certain words in headings and in the
 
 **Search query example**  
 
-![Title/body search example](images/osint_title_body_search.png)
+![Title/body search example](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_title_body_search.png)
 
 
 
@@ -1091,7 +1090,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Whois email search example Python](images/osint_title_body_search_python.png)
+![Whois email search example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_title_body_search_python.png)
 
 
 
@@ -1132,7 +1131,7 @@ for response in netlas_query['items']:
 
 ### Search for "Luicy Info Files" on Subdomains of the Company's Website
 
-![Juicy info files search](images/juicyinfo_search.png)
+![Juicy info files search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/juicyinfo_search.png)
 
 
 Metagoofil has been a popular tool among OSINT practitioners for many years. It searches Google for document files on a company's website (pdf, xlsx, docx etc) and analyses their metadata.
@@ -1188,7 +1187,7 @@ curl -X 'GET' \
 **Code example (Netlas Python Library)**
 
 
-![Juicy info search](images/juicyinfo_search_python.png)
+![Juicy info search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/juicyinfo_search_python.png)
 
 Run in command line:
 
@@ -1232,7 +1231,7 @@ We single out this task as a separate example, because searching for a phone num
 
 **Search query example**  
 
-![Phone number search example](images/osint_phone_number_search.png)
+![Phone number search example](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_phone_number_search.png)
 
 
 
@@ -1276,7 +1275,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Phone number search example Python](images/osint_phonenumber_search_python.png)
+![Phone number search example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_phonenumber_search_python.png)
 
 
 
@@ -1320,7 +1319,7 @@ Let's imagine that you are a musician and you want to find all the sites where y
 
 **Search query example**  
 
-![Title/body search example](images/osint_file_mentions.png)
+![Title/body search example](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_file_mentions.png)
 
 
 
@@ -1360,7 +1359,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![File mentions search example Python](images/osint_file_mentions_search_python.png)
+![File mentions search example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_file_mentions_search_python.png)
 
 
 
@@ -1406,7 +1405,7 @@ WHOIS is a worldwide public database that stores information about all registere
 
 **Search query example**  
 
-![Title/body search example](images/osint_whois.png)
+![Title/body search example](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_whois.png)
 
 Use [WHOIS Domain search](https://app.netlas.io/whois_domains/)
 
@@ -1441,7 +1440,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![WHOIS example Python](images/osint_whois_search_python.png)
+![WHOIS example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_whois_search_python.png)
 
 
 
@@ -1483,7 +1482,7 @@ for response in netlas_query['items']:
 
 **Search query example**  
 
-![Author meta search](images/osint_contacts_search.png)
+![Author meta search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_contacts_search.png)
 
 
 
@@ -1525,7 +1524,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Contacts address search Python](images/osint_contacts_search_python.png)
+![Contacts address search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_contacts_search_python.png)
 
 
 
@@ -1570,7 +1569,7 @@ Searching for nickname and name/surname by meta tags (http.meta) allows you to f
 
 **Search query example**  
 
-![Author meta search](images/osint_author_search.png)
+![Author meta search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_author_search.png)
 
 
 
@@ -1608,7 +1607,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Author meta search Python](images/osint_author_meta_search_python.png)
+![Author meta search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_author_meta_search_python.png)
 
 
 
@@ -1665,7 +1664,7 @@ Another important step in finding information about a person or company is to lo
 **Search query example**  
 
 
-![Search CVE by tag name](images/ftp_banner_search.png)
+![Search CVE by tag name](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/ftp_banner_search.png)
 
 
 ```
@@ -1708,7 +1707,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Favicon hash search Python](images/ftp_banner_search_python.png)
+![Favicon hash search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/ftp_banner_search_python.png)
 
 
 
@@ -1746,7 +1745,7 @@ for response in netlas_query['items']:
 
 ### Search for Contact Information in SSL Certificates
 
-![Certificates search](images/certificates_search.png)
+![Certificates search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/certificates_search.png)
 
 An SSL Certificate is a digital certificate that authenticates a website and allows the use of an encrypted connection. It may contain information about it owner: name of the contact person, name of the organisation, country and sometimes even the address and postcode. You can search this information using the following filters (and many others):
 
@@ -1793,7 +1792,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Certificates search Python](images/certificates_search_python.png)
+![Certificates search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/certificates_search_python.png)
 
 
 
@@ -1850,22 +1849,22 @@ host:github.com
 
 ```
 
-![Select scan](images/select_scan.png)
+![Select scan](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/select_scan.png)
 
 
 If you click on the outermost icon on the right next to the field for entering search queries, you will see a menu for selecting a scan date. You can use it to filter the html codes of sites saved on a specific date.
 
-![Copy response body](images/response_body_copy.png)
+![Copy response body](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/response_body_copy.png)
 
 To see how the site looks, copy the contents of the "body" field (response tab) into any text editor and delete the \t\r\n characters from the html code.
 
-![HTML viewer](images/html_viewer.png)
+![HTML viewer](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/html_viewer.png)
 
 After that, copy the code into one of the online html promoters, such as [Code beautify](https://codebeautify.org/htmlviewer). Or just save the file in html format and then open it in browser.
 
 ### 9 Ways to Search Related Websites
 
-![Search related websites](images/search_related_websites.png)
+![Search related websites](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_related_websites.png)
 
 
 When gathering information about a person or company, it can be important to find as many sites as possible that can be related to them in some way. There are at least 5 ways to do this with Netlas.
@@ -1928,7 +1927,7 @@ ref_id=
 
 3. Search by organization name in Domain Whois Netlas search
 
-![Search organization in WHOIS](images/search_organization_whois.png)
+![Search organization in WHOIS](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_organization_whois.png)
 
 ```
 "GitHub, Inc."
@@ -1938,7 +1937,7 @@ ref_id=
 
 4. Search by mail servers in DNS Netlas search
 
-![Search mail servers in DNS](images/search_mail_servers_dns.png)
+![Search mail servers in DNS](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_mail_servers_dns.png)
 
 
 ```
@@ -1949,7 +1948,7 @@ mx:*.parklogic.com
 
 5. Search by name servers in DNS Netlas search
 
-![Search name servers in DNS](images/search_name_servers_dns.png)
+![Search name servers in DNS](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_name_servers_dns.png)
 
 ```
 ns:ns?.parklogic.com
@@ -2001,7 +2000,7 @@ And Run scripts/osint/scraping_beatifulsoup.py:
 python scripts/osint/scraping_beatifulsoup.py
 ```
 
-![Beatiful soup scraping](images/scraping_beatifulsoup.png)
+![Beatiful soup scraping](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/scraping_beatifulsoup.png)
 
 
 
@@ -2056,7 +2055,7 @@ Run scripts/osint/scraping_re.py:
 python scripts/osint/scraping_re.py
 ```
 
-![Re scraping](images/scraping_re.png)
+![Re scraping](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/scraping_re.png)
 
 Source code of scripts/osint/scraping_re.py:
 
@@ -2127,7 +2126,7 @@ Second, it can be used to search for vulnerable mining farms, nodes and other se
 
 ### Search Mining Farms
 
-![Search mining farms](images/search_mining_farms.png)
+![Search mining farms](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_mining_farms.png)
 
 Antminer mining farms, which were first released by Bitmain back in 2013, are one of the most popular line of mining farm models in the world. You can find them by the presence of the word "antMiner" in the www_authenticate header.
 
@@ -2170,7 +2169,7 @@ curl -X 'GET' \
 **Code example (Netlas Python Library)**
 
 
-![Maining farms search Python](images/maining_farms_search_python.png)
+![Maining farms search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/maining_farms_search_python.png)
 
 Run in command line:
 
@@ -2203,7 +2202,7 @@ for response in netlas_query['items']:
 
 ### Search for Websites Infected with Cryptominers
 
-![Search website injected with miners](images/search_sites_injected_with_miners.png)
+![Search website injected with miners](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_sites_injected_with_miners.png)
 
 
 Coinhive, a service that allows websites (mostly hacked) to use their visitor's computers to mine cryptocurrencies, is shutting down in 2019. But nevertheless, links to it are still embedded in many sites around the world. Let's try to find them:
@@ -2241,7 +2240,7 @@ curl -X 'GET' \
 **Code example (Netlas Python Library)**
 
 
-![Maining farms search Python](images/search_sites_injected_with_miners_python.png)
+![Maining farms search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_sites_injected_with_miners_python.png)
 
 Run in command line:
 
@@ -2274,7 +2273,7 @@ for response in netlas_query['items']:
 
 
 ### Search Vulnerable Bitcoin Nodes
-![Search bitcoin nodes](images/search_bitcoin_nodes.png)
+![Search bitcoin nodes](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_bitcoin_nodes.png)
 
 
 Bitcoin nodes use port 8333 for TCP connection. Therefore, it is easy to find them using the "port:" search filter.
@@ -2308,7 +2307,7 @@ curl -X 'GET' \
 **Code example (Netlas Python Library)**
 
 
-![Search bitcoin nodes Python](images/search_bitcoin_nodes_python.png)
+![Search bitcoin nodes Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_bitcoin_nodes_python.png)
 
 Run in command line:
 
@@ -2371,7 +2370,7 @@ By using asterisks in search queries, you can find all subdomains of different l
 
 **Search query example**  
 
-![Subdomain search example](images/osint_subdomain_search.png)
+![Subdomain search example](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_subdomain_search.png)
 
 
 
@@ -2412,7 +2411,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Subdomain search example Python](images/osint_subdomain_search_python.png)
+![Subdomain search example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_subdomain_search_python.png)
 
 
 
@@ -2457,7 +2456,7 @@ for response in netlas_query['items']:
 
 **Search query example**  
 
-![CVE search](images/pentest_cve_search.png)
+![CVE search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/pentest_cve_search.png)
 
 
 
@@ -2495,7 +2494,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![CVE search example Python](images/pentest_cve_search_python.png)
+![CVE search example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/pentest_cve_search_python.png)
 
 
 
@@ -2541,7 +2540,7 @@ To filter out sites that have exploits published for vulnerabilities, use cve.ha
 
 **Search query example**  
 
-![CVE description search](images/pentest_cve_description_search.png)
+![CVE description search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/pentest_cve_description_search.png)
 
 
 
@@ -2579,7 +2578,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![CVE description search Python](images/pentest_cve_description_search_python.png)
+![CVE description search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/pentest_cve_description_search_python.png)
 
 
 
@@ -2624,7 +2623,7 @@ This method allows you to find devices manufactured by a specific company.
 **Search query example**  
 
 
-![Search by server software](images/server_name_search.png)
+![Search by server software](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/server_name_search.png)
 
 
 ```
@@ -2666,7 +2665,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Http headers server search Python](images/server_name_search_python.png)
+![Http headers server search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/server_name_search_python.png)
 
 
 
@@ -2706,7 +2705,7 @@ for response in netlas_query['items']:
 One practical application of searching by software name in server headers is to search for devices from a particular vendor. This may be necessary both when searching for devices with specific vulnerabilities and for devices with standard logins and passwords.
 
 
-![Default passwords](images/default_passwords.png)
+![Default passwords](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/default_passwords.png)
 
 
 Standard logins and passwords for different device models can be found in special lists. For example:
@@ -2731,7 +2730,7 @@ One way to find web servers exposed to a particular vulnerability is to search f
 **Search query example**  
 
 
-![Search CVE by favicon hash](images/search_favicon_hash.png)
+![Search CVE by favicon hash](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_favicon_hash.png)
 
 
 ```
@@ -2771,7 +2770,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Favicon hash search Python](images/search_favicon_hash_python.png)
+![Favicon hash search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_favicon_hash_python.png)
 
 
 
@@ -2829,7 +2828,7 @@ You can search by tags using the "tag.name:" filter. You can also search by tag 
 **Search query example**  
 
 
-![Search CVE by tag name](images/search_tag_name.png)
+![Search CVE by tag name](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_tag_name.png)
 
 
 ```
@@ -2870,7 +2869,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Favicon hash search Python](images/search_tag_name_python.png)
+![Favicon hash search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_tag_name_python.png)
 
 
 
@@ -2908,7 +2907,7 @@ for response in netlas_query['items']:
 
 ### Search for Vulnerable Servers and Devices Near You (or Any Other Location)
 
-![CVE location search](images/cve_location_search.png)
+![CVE location search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/cve_location_search.png)
 
 
 Do you want to know how many vulnerable sites and devices are around you? Simply search for all IP addresses that have the CVE field populated in a specific geolocation.
@@ -2951,7 +2950,7 @@ curl -X 'GET' \
 **Code example (Netlas Python Library)**
 
 
-![Location CVE search Python](images/cve_location_search_python.png)
+![Location CVE search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/cve_location_search_python.png)
 
 Run in command line:
 
@@ -2983,7 +2982,7 @@ for response in netlas_query['items']:
 
 
 ### Search for Login/Admin Panels
-![Admin panels search](images/admin_panels_search.png)
+![Admin panels search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/admin_panels_search.png)
 
 
 Many sites and servers have login and password web pages that can be used to gain access to full control of the site or server (through the use of default passwords, bruteforce, or vulnerability exploitation).
@@ -3016,7 +3015,7 @@ tag.wordpress:*
 
 
 ### Search for Vulnerable Database Admin Panels
-![Database admin panels search](images/database_admin_panels_search.png)
+![Database admin panels search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/database_admin_panels_search.png)
 
 Let's try to search vulnerable [phpMyAdmin](https://www.phpmyadmin.net/) admin panel (the one of most popular software for administering MySQL databases):
 
@@ -3060,7 +3059,7 @@ Searching for admin panels for servers found in this way may not be the easiest 
 
 ### Search for Sites Vulnerable to SQL Injection
 
-![SQL Injection search](images/sql_injection_search.png)
+![SQL Injection search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/sql_injection_search.png)
 
 SQL injection is a type of vulnerability that allows database queries to be made by manipulating URL parameters (this can be possible due to misconfigurations and poor quality code). 
 
@@ -3108,7 +3107,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![SQL Injection search Python](images/sql_injection_search_python.png)
+![SQL Injection search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/sql_injection_search_python.png)
 
 
 
@@ -3160,7 +3159,7 @@ There are four main ways to find these devices.
 
 ### Search by Title
 
-![Iot Title Search](images/iot_title.png)
+![Iot Title Search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_title.png)
 
 
 The easiest way is to simply search for the vendor's name or device type in the http title of the answer.
@@ -3189,7 +3188,7 @@ The second is that a lot of IoT devices don't have any information in the http t
 
 ### Search Inside Body
 
-![Iot Body Search](images/iot_body.png)
+![Iot Body Search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_body.png)
 
 Similarly, you can try searching for keywords in the body of the http response. To filter out at least some of the common websites, use the NOT domain:* filter. Let's try to search Reolink cameras:
 
@@ -3202,7 +3201,7 @@ The example isn't quite right, so these cameras can be found using tags (more on
 
 ### Search by Port
 
-![Iot port search](images/iot_port.png)
+![Iot port search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_port.png)
 
 
 Different IoT devices use different ports for communication. And by the open port number, you can hypothetically assume that the IP address belongs to a certain type of device (**often the assumption is correct, but there can be inaccuracies and coincidences**).
@@ -3226,7 +3225,7 @@ port:7547
 [Try in Netlas](https://app.netlas.io/responses/?q=port%3A7547&page=1&indices=)
 
 ### Search by Banner
-![Iot banner search](images/iot_banner.png)
+![Iot banner search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_banner.png)
 
 Let's look for routers that use the Telnet protocol (you could also filter them with port:23):
 
@@ -3245,7 +3244,7 @@ Or search banners for all protocols:
 [Try in Netlas](https://app.netlas.io/responses/?q=%5C*.banner%3Arouter&page=1&indices=)
 
 ### Search by Favicon
-![Iot favicon search](images/iot_favicon.png)
+![Iot favicon search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_favicon.png)
 
 One of the easiest ways to find devices that have certain software installed is to search by favicon. Let's try to find where different Cisco products are used: 
 
@@ -3263,7 +3262,7 @@ There are three main ways to search by favicon in Netlas:
 
 
 ### Search by Server Headers
-![Iot headers search](images/iot_headers.png)
+![Iot headers search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_headers.png)
 
 Sometimes it happens that there is no identifying dev information in the http title, but it may be in other headers. For example, in http.server.header:
 
@@ -3278,7 +3277,7 @@ Netlas supports searching across several dozen header types. Try different varia
 
 ### Search by Cookies
 
-![Iot cookie search](images/iot_headers_cookie.png)
+![Iot cookie search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_headers_cookie.png)
 
 
 Search Eco JS Parking lots:
@@ -3290,7 +3289,7 @@ http.headers.set_cookie:(regist_carNo=)
 [Try in Netlas](https://app.netlas.io/responses/?q=http.headers.set_cookie%3Aregist_carNo%3D&page=1&indices=)
 
 ### Search by Tag
-![Iot tag search](images/iot_tag.png)
+![Iot tag search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_tag.png)
 
 *This method may require a paid subscription.* [See the pricing](https://app.netlas.io/plans/)
 
@@ -3376,7 +3375,7 @@ Run scripts/darknet/tor_nodes.py:
 python scripts/darknet/tor_nodes.py
 ```
 
-![Tor exit nodes information gathering](images/tor_exit_nodes.png)
+![Tor exit nodes information gathering](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/tor_exit_nodes.png)
 
 Source code of scripts/darknet/tor_nodes.py:
 
@@ -3431,7 +3430,7 @@ Run scripts/darknet/onion_links.py:
 python scripts/darknet/onion_links.py
 ```
 
-![Onion links collecting](images/onion_links.png)
+![Onion links collecting](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/onion_links.png)
 
 Source code of scripts/darknet/onion_links.py:
 
@@ -3484,7 +3483,7 @@ http.body:*.i2p
 
 ## Files, Backups and Logs Directories Search
 
-![Directory search](images/directory_search.png)
+![Directory search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/directory_search.png)
 
 
 There are a huge number of sites and servers that leave their file directories open due to a configuration error (and sometimes deliberately). Here are some examples of queries that will help you find them.
@@ -3563,7 +3562,7 @@ Netlas allows you to get information about an SMTP server as well as about any o
 
 **Search query example**  
 
-![SMTP banner search](images/smtp_banner_search.png)
+![SMTP banner search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/smtp_banner_search.png)
 
 
 ```
@@ -3594,7 +3593,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![SMTP banner search Python](images/smtp_banner_search_python.png)
+![SMTP banner search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/smtp_banner_search_python.png)
 
 
 
@@ -3638,7 +3637,7 @@ One of the popular methods of scammers is to use domains that are very similar i
 
 You can find such domains for a certain company using Netlas and fuzzy search.
 
-![Domain fuzzy search](images/domain_fuzzy_search.png)
+![Domain fuzzy search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/domain_fuzzy_search.png)
 
 
 Open Whois domain search and enter company domain name + ~. For example:
@@ -3650,13 +3649,13 @@ domain:facebook.com~
 [Try in Netlas](https://app.netlas.io/whois_domains/?q=domain%3Afacebook.com~&page=1&indices=)
 
 
-![Domain fuzzy search import](images/domain_fuzzy_search_import.png)
+![Domain fuzzy search import](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/domain_fuzzy_search_import.png)
 
 
 After that click on the left icon, select the export file type, file names and the fields you want to save to the file. Click "Download" and wait for a while.
 
 
-![Domain fuzzy search csv](images/domain_fuzzy_search_csv.png)
+![Domain fuzzy search csv](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/domain_fuzzy_search_csv.png)
 
 
 For example, you can select the CSV file format and the domain, expiration_date, status fields. Such a table can be conveniently viewed in Excel, Numbers or Google Docs.
@@ -3666,7 +3665,7 @@ For example, you can select the CSV file format and the domain, expiration_date,
 
 ### Favicon Search
 
-![Favicon search](images/favicon_search.png)
+![Favicon search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/favicon_search.png)
 
 Searching for favicon.ico has three main uses. 
 
@@ -3728,7 +3727,7 @@ http.favicon.path:
 ### Search for Domains Associated with a Specific Subnet
 
 
-![Subnet search](images/subnet_search.png)
+![Subnet search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/subnet_search.png)
 
 
 Netlas domain search allows to get a complete list of domains associated with a specific IP address or range of addresses. Fox example:
@@ -3762,7 +3761,7 @@ curl -X 'GET' \
 **Code example (Netlas Python Library)**
 
 
-![Subnet search](images/subnet_search_python.png)
+![Subnet search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/subnet_search_python.png)
 
 Run in command line:
 
@@ -3795,7 +3794,7 @@ for response in netlas_query['items']:
 
 ### Search for Servers with Malicious Software
 
-![Malware search](images/malware_search.png)
+![Malware search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/malware_search.png)
 
 
 Netlas allows you to find servers that have various malware installed on them. You can find it by the presence of certain words in http.title or http.body, favicon hash, ssl and other parameters.
@@ -3840,7 +3839,7 @@ curl -X 'GET' \
 
 **Code example (Netlas Python Library)**
 
-![Malware search Python](images/malware_search_python.png)
+![Malware search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/malware_search_python.png)
 
 
 
@@ -3882,7 +3881,7 @@ for response in netlas_query['items']:
 
 ## Search for Technologies and Code Examples
 
-![Netlas for web designers](images/search_for_technologies_and_code_examples.png)
+![Netlas for web designers](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_for_technologies_and_code_examples.png)
 
 Netlas, unlike conventional search engines, allows you to search the entire HTML code rather than the text of the page. This allows you to find sites that use certain JavaScript libraries. This can help you find code samples suitable for your tasks and save your time.
 
@@ -3928,7 +3927,7 @@ telnet.banner:library
 ```
 
 
-![Telnet banner](images/telnet_banner.png)
+![Telnet banner](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/telnet_banner.png)
 
 Search by text of FTP servers banners:
 
@@ -3965,7 +3964,7 @@ Keep in mind that Netlas does not censor the content it stores in its database i
 ### Error 429 - Too Frequent Requests
 
 
-![Request limit](images/request_limit.png)
+![Request limit](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/request_limit.png)
 
 If your application includes multiple requests to the Netlas API, you may encounter this error:
 
@@ -4016,7 +4015,7 @@ If you really need to make more than one enquiry per second, you can write to th
 
 ### KeyError
 
-![Key error](images/key_error.png)
+![Key error](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/key_error.png)
 
 
 Another common problem is the lack of a specific key in response for some servers. For example, ['data']['http']['title'] is quite often missing.
@@ -4083,7 +4082,7 @@ An example of searching IP addresses from a URL-loaded list can be found in [Tor
 
 ### Saving Data in CSV Format
 
-![Save data in CSV](images/save_data_in_csv.png)
+![Save data in CSV](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/save_data_in_csv.png)
 
 
 By default, the Netlas Python Library returns data of type Dictionary (which is very similar to JSON). If you want to export the data to MS Excel or Google Sheets, one easy way to do it is to save it in CSV format.
@@ -4151,7 +4150,7 @@ Using Python, you can generate a wide variety of documents based on data from Ne
 ### Decoding Punycode Domains
 
 
-![ Decoding Punycode domains](images/punycode.png)
+![ Decoding Punycode domains](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/punycode.png)
 
 
 
@@ -4225,7 +4224,7 @@ http.body:(hello AND world)
 
 ### Removing HTML Tags from HTTP Body
 
-![Certificates search](images/htmltotext.png)
+![Certificates search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/htmltotext.png)
 
 Key ['data']['http']['body'] by default returns the full body text of the web page, including all html tags. This format is not very easy to read. But you can easily remove them with the Python package [Html2text](https://pypi.org/project/html2text/).
 
@@ -4269,7 +4268,7 @@ for response in netlas_query['items']:
 
 ### Working with Very Large Amounts of Data
 
-![Datastore](images/datastore.png)
+![Datastore](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/datastore.png)
 
 If you have a really big challenge ahead of you. For example, you need to collect data on hundreds of thousands of domains, then perhaps a more rational solution in terms of time and financial costs will be to buy a dataset (csv/json) and work with it on your own server.
 
