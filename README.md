@@ -147,11 +147,11 @@ You can also integrate Netlas.io services into your applications using **API** [
 You can read short articles about general use-cases here:
 
 - [Attack Surface Discovery](https://netlas.io/use-cases/attack_surface_discovery)
-- [Non-intrusive security assessment](https://netlas.io/use-cases/security-assessment)
-- [Uncover shadow IT and phishing threats using](https://netlas.io/use-cases/shadow-it-and-phishing-threats)
+- [Non-intrusive security assessment](https://netlas.io/use-cases/non-intrusive_security_assessment)
+- [Uncover shadow IT and phishing threats using](https://netlas.io/use-cases/shadow_it_and_phishing_threats)
 - [OSINT investigations](https://netlas.io/use-cases/osint_investigations)
-- [Vulnerable devices search](https://netlas.io/use-cases/vulnerable_devices)
-- [Security of IoT & industrial devices](https://netlas.io/use-cases/industrial-security)
+- [Vulnerable devices search](https://netlas.io/use-cases/vulnerable_devices_search)
+- [Security of IoT & industrial devices](https://netlas.io/use-cases/iot_and_industrial_devices)
 - [Reputation scoring](https://netlas.io/use-cases/reputation_scoring)
 - [Threat hunting](https://netlas.io/use-cases/threat_hunting)
 
