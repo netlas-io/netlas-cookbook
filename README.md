@@ -1821,7 +1821,7 @@ Run in command line:
 python scripts/crypto/search_sites_injected_with_miners.py
 ```
 
-Source code of scripts/crypto/search_sites_injected_with_miners.py:
+Source code:
 
 ```python
 import netlas
