@@ -3250,7 +3250,11 @@ Here is an example of its use in code (limit of no more than 60 requests per min
 pip install ratelimit
 ```
 
-And run scripts/common_problems/rate_limit.py:
+And run rate_limit.py:
+
+```bash
+python scripts/common_problems/rate_limit.py
+```
 
 ```python
 import netlas
@@ -3307,7 +3311,7 @@ Run in command line:
 python scripts/common_problems/domain_list_search.py
 ```
 
-Source code of scripts/common_problems/domain_list_search.py:
+Source code of domain_list_search.py:
 
 ```python
 import netlas
@@ -3347,7 +3351,11 @@ An example of searching IP addresses from a URL-loaded list can be found in [Tor
 
 By default, the Netlas Python Library returns data of type Dictionary (which is very similar to JSON). If you want to export the data to MS Excel or Google Sheets, one easy way to do it is to save it in CSV format.
 
-Here's an example using the [CSV](https://docs.python.org/3/library/csv.html) package. Run scripts/common_problems/csv_export.py:
+Here's an example using the [CSV](https://docs.python.org/3/library/csv.html) package. Run csv_export.py:
+
+```bash
+python scripts/common_problems/csv_export.py
+```
 
 ```python
 import netlas
@@ -3415,7 +3423,11 @@ pip install idna
 ```
 
 
-And run scripts/common_problems/punycode.py in command line:
+And run punycode.py in command line:
+
+```bash
+python scripts/common_problems/punycode.py
+```
 
 ```python
 import netlas
@@ -3471,7 +3483,7 @@ Run in command line:
 python scripts/common_problems/htmltotext.py
 ```
 
-Source code of scripts/common_problems/htmltotext.py:
+Source code of htmltotext.py:
 
 ```python
 import netlas
