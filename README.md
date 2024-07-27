@@ -304,7 +304,7 @@ For more information on using regular expressions, see the examples in the Netla
 
 [Regex Syntax Manual in Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/regexp-syntax.html)
 
-[How regular expressions can be useful in OSINT. Theory and some practice using Google Sheets](https://medium.com/p/31d31efabd5)
+[How regular expressions can be useful in OSINT. Theory and some practice using Google Sheets](https://publication.osintambition.org/this-article-consists-of-three-short-parts-31d31efabd5)
 
 ### Other Netlas.io Search Features
 
@@ -362,7 +362,7 @@ This is the very first place to start with the API. You don't even have to pay f
 
 ![Swagger](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/netlas_shema.png)
 
-You don't have to write scripts or create applications to start using the Netlas API. You can simply test it using [Swagger](https://app.netlas.io/schema).
+You don't have to write scripts or create applications to start using the Netlas API. You can simply test it using [Swagger](https://app.netlas.io/schema/).
 
 Firstly, click "Authorize" and enter API key. Secondly, select API method, click "Try it out/", enter search query (and other parameters) and click "Execute".
 
@@ -620,7 +620,7 @@ Enter in the command line:
 node scripts/node_example.js
 ```
 
-If you are not using Gitpod, you should have [NodeJS](https://nodejs.org/en/download) installed on your device.
+If you are not using Gitpod, you should have [NodeJS](https://nodejs.org/en/download/package-manager) installed on your device.
 
 Source code of nodejs_example.js:
 
@@ -734,7 +734,7 @@ You can read more about JQ here (I recommend paying special attention to data fi
 
 If you encounter any problems when customising the Netlas Cookbook examples, we recommend that you seek help from AI tools for improving and writing code. For example:
 
-[ChatGPT](https://chat.openai.com/)  
+[ChatGPT](https://chatgpt.com)  
 [Code Llama](https://huggingface.co/spaces/codellama/codellama-playground)  
 [You.com](https://you.com/)  
 
@@ -747,7 +747,6 @@ When working with such services, you just need to describe in words the task you
 When you rework the Netlas Cookbook examples to suit your purposes, you may find that the code will not execute from some errors. Special online tools can help you find and fix them:  
 
 [ExtendsClass Python Tester](https://extendsclass.com/python-tester.html)
-[PythonChecker](https://www.pythonchecker.com)
 [Snyk](https://snyk.io/code-checker/python/)
 
 If you don't want to copy your code to third-party services, you can check it for errors on your device using the Pylint (static code analyser):
