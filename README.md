@@ -767,7 +767,7 @@ It can also be used to find old versions of web pages (as an analogue of the Way
 
 Most often WHOIS data contains only the contact information of the company registering the domains. But sometimes there may be personal contacts of persons of interest. This query will help you find them.  
 
-*This method may require a paid subscription.* [See the pricing](https://app.netlas.io/plans/)
+*This method may require a paid subscription.* [See the pricing](https://netlas.io/pricing/)
 
 **Search query example**  
 
@@ -2675,7 +2675,7 @@ http.headers.set_cookie:(regist_carNo=)
 
 ![Iot tag search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_tag.png)
 
-*This method may require a paid subscription.* [See the pricing](https://app.netlas.io/plans/)
+*This method may require a paid subscription.* [See the pricing](https://netlas.io/pricing/)
 
 You can also try searching for devices by tags (categories). 
 
