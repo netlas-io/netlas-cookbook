@@ -1907,7 +1907,7 @@ You can track the most recently published CVEs (Common Vulnerabilities and Expos
 
 * [CVE Details](https://www.cvedetails.com/)
 * [VulDB](https://vuldb.com/)
-* [OpenCVE](https://www.opencve.io/cve)
+* [OpenCVE](https://www.opencve.io/)
 
 We also regularly post most relevant queries to search vulnerable devices and software on our [Twitter](https://twitter.com/Netlas_io), [Telegram](https://t.me/netlas) and [Discord](https://nt.ls/discord) feeds, as well as [Netlas Dorks](https://github.com/netlas-io/netlas-dorks) Github repository.
 
