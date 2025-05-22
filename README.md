@@ -349,7 +349,7 @@ It can be implemented both in simple Python or Bash scripts of a few lines in le
 You can read more about using the Netlas API in the Netlas Cookbook (what you're reading now) or in the official documentation:
 
 
-[API Documentation &rarr;](https://docs.netlas.io/automation/)
+[API Documentation &rarr;](https://docs.netlas.io/api-reference/)
 
 
 ### How to Find the API-key?
