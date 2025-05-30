@@ -360,18 +360,7 @@ This is the very first place to start with the API. You don't even have to pay f
 
 ### Tools for Debugging API Requests
 
-![Swagger](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/netlas_shema.png)
-
-You don't have to write scripts or create applications to start using the Netlas API. You can simply test it using [Swagger](https://app.netlas.io/schema/).
-
-Firstly, click "Authorize" and enter API key. Secondly, select API method, click "Try it out/", enter search query (and other parameters) and click "Execute".
-
-You may find analogs designed for testing different APIs more convenient:
-
-- [httpie](https://httpie.io)
-- [postman](https://www.postman.com/downloads/)
-- [reqbin](https://reqbin.com/)
-
+You don't have to write scripts or create applications to start using the Netlas API. You can simply test it using your favorite API client. See [instructions here](https://docs.netlas.io/api-reference/).
 
 ### Structure of Netlas API JSON Response 
 
@@ -690,9 +679,6 @@ curl -X 'GET' \
   -H 'accept: application/json' \
   -H 'X-API-Key: YOUR_API_KEY' | jq .items[0].data.last_updated
 ```
-
-Don't forget that [Netlas Schema](https://app.netlas.io/schema/) automatically generates sample bash scripts (with curl command) for each request. 
-
 
 ### JQ Utility
 
