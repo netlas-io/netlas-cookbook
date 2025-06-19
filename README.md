@@ -295,10 +295,22 @@ http.title:Joseph~
 
 Regular expression is a sequence of characters that allows you to search for, retrieve and replace pieces of text in a source document that match certain patterns. For example:
 
-* `([a-zA-Z0–9+._-]+@[a-zA-Z0–9._-]+\.[a-zA-Z0–9_-]+)` - any email address
-* `<.*?>` - any html tag
-* `^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?c{4,6}$` - any phone number
-* `^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$` - any Bitcoin address
+* Any email address:
+  ```text
+  ([a-zA-Z0–9+._-]+@[a-zA-Z0–9._-]+\.[a-zA-Z0–9_-]+)
+  ```
+* Any HTML tag:
+  ```text
+  <.*?>
+  ```
+* Any phone number:
+  ```text
+  ^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$
+  ```
+* Any Bitcoin address:
+  ```text
+  ^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$
+  ```
 
 For more information on using regular expressions, see the examples in the Netlas Cookbook (what you're reading now) and the links below:
 
