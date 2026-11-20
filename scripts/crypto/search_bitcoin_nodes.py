@@ -1,16 +1,14 @@
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+api_key = os.getenv("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+connection = netlas.Netlas(api_key=api_key)
+query = 'ip:"192.0.2.0/24" AND prot4:tcp AND port:8333'
+results = connection.search(query=query, fields="uri")
 
-# retrieve data from responses by query `port:8333 cve:*`
-netlas_query = netlas_connection.query(query='port:8333 cve:*')
-
-
-# iterate over data and print: uri, CVE name and description
-for response in netlas_query['items']: 
-    print (response['data']['uri'])
-    print (response['data']['cve'][0]['name'])
-    print (response['data']['cve'][0]['description'])
+for item in results["items"]:
+    print(item["data"]["uri"])

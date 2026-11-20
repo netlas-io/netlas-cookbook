@@ -1,17 +1,15 @@
-import netlas
+import os
+
 import idna
-
-apikey = "YOUR_API_KEY"
-
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `domain:*.中国  OR host:*.中国 `
-netlas_query = netlas_connection.query(query="domain:*.xn--fiqs8s OR host:*.xn--fiqs8s")
+import netlas
 
 
-# iterate over data and print: ip, domain (decoded from punycode)
-for response in netlas_query['items']:
-    print (response['data']['ip'])
-    decoded_domain = idna.decode(str(response['data']['domain'][0]))
-    print (decoded_domain)
+suffix = idna.encode("中国").decode("ascii")
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+result = client.search(query=f"domain:*.{suffix}", datatype="domain", fields="domain")
+for item in result.get("items", []):
+    domain = item["data"]["domain"]
+    try:
+        print(idna.decode(domain))
+    except idna.IDNAError:
+        print(domain)

@@ -1,21 +1,15 @@
-import netlas
+import os
 import re
 
-apikey = "YOUR_API_KEY"
+import netlas
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+email_pattern = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+")
+results = netlas_connection.search('host:example.com AND http.body:*')
 
-# retrieve data from responses by query `http.body:shop`
-netlas_query = netlas_connection.query(query="http.body:shop")
-
-
-# iterate over data and print: URL, emails from body
-for response in netlas_query['items']:
-    print (response['data']['uri'])
-    emails = re.findall("[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_.]+", response['data']['http']['body'])
-    try:
-        print(emails)
-    except Exception:
-        print("no emails")
-pass
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["uri"])
+    body = (data.get("http") or {}).get("body") or ""
+    for email in email_pattern.findall(body):
+        print(email)

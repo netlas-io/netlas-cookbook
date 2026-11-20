@@ -1,16 +1,12 @@
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('whois.related_nets.contacts.emails:"hostmaster@example.com"')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `whois.related_nets.contacts.emails:sweetwater`
-netlas_query = netlas_connection.query(query="whois.related_nets.contacts.emails:sweetwater*")
-
-
-# iterate over data and print: URL, Country, Related nets data
-for response in netlas_query['items']:
-    print (response['data']['uri'])
-    print (response['data']['geo']['country'])
-    print (response['data']['whois']['related_nets'])
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["uri"])
+    print((data.get("geo") or {}).get("country"))
+    print((data.get("whois") or {}).get("related_nets", []))

@@ -13,13 +13,13 @@
     <!--img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fnetlas-io%2Fnetlas-cookbook&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/-->
     <br><br>
 </span>
-    
+
 The **goal** of this guide is to teach anyone interested in cybersecurity, regardless of their knowledge level, how to make the most of Netlas Search Tools. This is a long read. We have collected as many simple use cases as possible and demonstrated how to automate them.
 
 ⭐️ Give us a star to show your appreciation   
 👁️ Subscribe for updates
 
-**Netlas** is a search engine designed to find and analyze information about all IP addresses and domains available on the Internet. Netlas has some attack surface management features, but this guide focuses mostly on Netlas Search Tools and how to use them in automations.
+**Netlas** is a search engine designed to find and analyze indexed information about internet-facing IP addresses and domains. Netlas has some attack surface management features, but this guide focuses mostly on Netlas Search Tools and how to use them in automations.
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -52,38 +52,38 @@ The **goal** of this guide is to teach anyone interested in cybersecurity, regar
   - [AI Tools for Writing Code](#ai-tools-for-writing-code)
   - [Code Checkers](#code-checkers)
 - [Using Netlas.io for OSINT (Open Source Intelligence)](#using-netlasio-for-osint-open-source-intelligence)
-  - [Search Person's Nickname or Email in WHOIS Contacts](#search-persons-nickname-or-email-in-whois-contacts)
+  - [Search IP WHOIS Contact Emails](#search-ip-whois-contact-emails)
   - [Search for Person's Nickname or Email in Title and Body of Web Page](#search-for-persons-nickname-or-email-in-title-and-body-of-web-page)
-  - [Search for "Juicy Info Files" on Subdomains of the Company's Website](#search-for-juicy-info-files-on-subdomains-of-the-companys-website)
+  - [Search Your Site for Public Document Mentions](#search-your-site-for-public-document-mentions)
   - [Phone Number Mentions Search](#phone-number-mentions-search)
   - [Search File Mentions (Looking for Content That May be Infringing on Copyrights)](#search-file-mentions-looking-for-content-that-may-be-infringing-on-copyrights)
   - [Domain WHOIS Information Gathering](#domain-whois-information-gathering)
-  - [Search Location in \<address\> Tag](#search-location-in-address-tag)
+  - [Search Extracted Contact Addresses](#search-extracted-contact-addresses)
   - [Search Author Name in Meta Tags](#search-author-name-in-meta-tags)
   - [What Other Interesting Things Can Be Found in the Meta Tags of HTML Document?](#what-other-interesting-things-can-be-found-in-the-meta-tags-of-html-document)
   - [Search by FTP Server's Banners Text](#search-by-ftp-servers-banners-text)
-  - [Search for Contact Information in SSL Certificates](#search-for-contact-information-in-ssl-certificates)
-  - [Using Netlas as an Alternative to the WayBack Machine](#using-netlas-as-an-alternative-to-the-wayback-machine)
+  - [Search for Contact Information in TLS Certificates](#search-for-contact-information-in-tls-certificates)
+  - [Inspect Historical HTTP Responses](#inspect-historical-http-responses)
   - [9 Ways to Search Related Websites](#9-ways-to-search-related-websites)
 - [Scraping (Extract Data from Web Page Body)](#scraping-extract-data-from-web-page-body)
-  - [Beatifulsoup Package](#beatifulsoup-package)
+  - [Beautiful Soup Package](#beautiful-soup-package)
   - [Re Package](#re-package)
   - [Other Python Packages for Scraping](#other-python-packages-for-scraping)
 - [Using Netlas.io for Crypto Investigations](#using-netlasio-for-crypto-investigations)
   - [Search Mining Farms](#search-mining-farms)
-  - [Search for Websites Infected with Cryptominers](#search-for-websites-infected-with-cryptominers)
-  - [Search Vulnerable Bitcoin Nodes](#search-vulnerable-bitcoin-nodes)
-- [Using Neltas for Pentest](#using-neltas-for-pentest)
+  - [Search for Historical Cryptomining References](#search-for-historical-cryptomining-references)
+  - [Inventory Potential Bitcoin Nodes](#inventory-potential-bitcoin-nodes)
+- [Using Netlas for Pentest](#using-netlas-for-pentest)
   - [Subdomain Search](#subdomain-search)
   - [Search for Sites with Specific Vulnerabilities](#search-for-sites-with-specific-vulnerabilities)
   - [Search for Sites with Vulnerabilities That Contain a Certain Word in Their Descriptions](#search-for-sites-with-vulnerabilities-that-contain-a-certain-word-in-their-descriptions)
   - [Search by Server HTTP Header](#search-by-server-http-header)
-  - [Search for Vulnerable Servers by Favicon Hash](#search-for-vulnerable-servers-by-favicon-hash)
-  - [Search for Vulnerable Servers by Tag Name](#search-for-vulnerable-servers-by-tag-name)
-  - [Search for Vulnerable Servers and Devices Near You (or Any Other Location)](#search-for-vulnerable-servers-and-devices-near-you-or-any-other-location)
+  - [Match an Inventory Favicon by Hash](#match-an-inventory-favicon-by-hash)
+  - [Search by Technology Tag](#search-by-technology-tag)
+  - [Filter CVE Annotations by IP Geolocation](#filter-cve-annotations-by-ip-geolocation)
   - [Search for Login/Admin Panels](#search-for-loginadmin-panels)
-  - [Search for Vulnerable Database Admin Panels](#search-for-vulnerable-database-admin-panels)
-  - [Search for Sites Vulnerable to SQL Injection](#search-for-sites-vulnerable-to-sql-injection)
+  - [Inventory Database Administration Interfaces](#inventory-database-administration-interfaces)
+  - [Check for Database Error Text](#check-for-database-error-text)
 - [IoT Search: 9 Basic Ways](#iot-search-9-basic-ways)
   - [Search by Title](#search-by-title)
   - [Search Inside Body](#search-inside-body)
@@ -103,9 +103,8 @@ The **goal** of this guide is to teach anyone interested in cybersecurity, regar
   - [Search for Domains That Could Potentially Be Used for Phishing](#search-for-domains-that-could-potentially-be-used-for-phishing)
   - [Favicon Search](#favicon-search)
   - [Search for Domains Associated with a Specific Subnet](#search-for-domains-associated-with-a-specific-subnet)
-  - [Search for Servers with Malicious Software](#search-for-servers-with-malicious-software)
+  - [Check an Incident Host for a Title Indicator](#check-an-incident-host-for-a-title-indicator)
 - [Search for Technologies and Code Examples](#search-for-technologies-and-code-examples)
-- [Using Netlas.io for Fun or Netstalking](#using-netlasio-for-fun-or-netstalking)
 - [Common Problems](#common-problems)
   - [Error 429 - Too Frequent Requests](#error-429---too-frequent-requests)
   - [KeyError](#keyerror)
@@ -119,7 +118,6 @@ The **goal** of this guide is to teach anyone interested in cybersecurity, regar
 - [Working with Very Large Amounts of Data](#working-with-very-large-amounts-of-data)
 - [Acknowledgments](#acknowledgments)
 
-
 ## Simple Usage Examples
 
 Netlas includes several search tools:
@@ -131,7 +129,7 @@ Netlas includes several search tools:
 - **Domain WHOIS search** [→](https://app.netlas.io/whois_domains/)   
 - **Certificates search** [→](https://app.netlas.io/certs/)  
 
-We will mostly use Responses search (internet scan results), but all the tools works in the same way. If you understand how to use Responses Search Tool, you can handle any other.
+We will mostly use Responses search (internet scan results), and the other search tools have a similar interface. Each collection has its own fields.
 
 Before we get into the technical details, let's see how [Netlas.io](https://app.netlas.io/) works with a few simple examples.
 
@@ -139,187 +137,158 @@ Before we get into the technical details, let's see how [Netlas.io](https://app.
 
 ![Domain information gathering](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/domain_information_gathering.png)
 
-Open [Netlas.io IP/Domain info](https://app.netlas.io/host/netlas.io/) and enter the domain name or IP. The following information will be displayed as a result:
+Open [Netlas.io IP/Domain info](https://app.netlas.io/host/netlas.io/) and enter the domain name or IP. Depending on the input, data, and plan, you may see fields such as these.
 
 * whois data (registrant, location, emails, phones)
 * related domains
 * MX and NS records
-* exposed ports & software (sometimes additionally displays information about vulnerabilities)
+* exposed ports and detected software for IP addresses, plus any available CVE annotations
 
 ### Search for Non-Latin Domains
 
 ![Punycode convert](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/punycode_convert.jpeg)
 
-If you need to find Chinese or other internationalised domain names, then convert them to Punycode. For example:
+Use the ASCII form of an internationalized domain name in DNS Search. This example uses the Punycode form of `.中国`.
 
-```
+```text
 domain:*.xn--fiqs8s
 ```
 
-You can do this with the help of special online tools. For example - [Charset.org](https://www.charset.org/punycode)
+Python can convert the label locally with `"中国".encode("idna").decode("ascii")`. [Try in Netlas](https://app.netlas.io/domains/?q=domain%3A%2A.xn--fiqs8s) · [Punycode specification](https://www.rfc-editor.org/rfc/rfc3492)
 
 ### Looking for Websites That Contain a Certain Word in Their Title
 
 ![Search by http title](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/http_title_simple_example.png)
 
-Open [Netlas.io response search](https://app.netlas.io/responses/) and enter:
+Open [Netlas.io response search](https://app.netlas.io/responses/) and enter the following query.
 
-```
+```text
 http.title:g*thub
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3Ag*thub&page=1&indices=)
+[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3Ag%2Athub)
 
-This will find all servers whose HTTP titles contain the word starts with "g" and ends to "thub". Read more about using asterisks below.
-
+This will find titles containing a word that starts with `g` and ends with `thub`. Read more about [using asterisks](#wildcards) below.
 
 ## Search Query Syntax
 
-Now let's learn more about how search queries work in [Netlas.io](https://app.netlas.io/). 
+Now let's learn more about how search queries work in [Netlas.io](https://app.netlas.io/).
 
-Netlas.io based on [Elasticsearch](https://github.com/elastic/elasticsearch), free and open, distributed, RESTful search engine. And the search methods in Netlas.io are very similar to those of other Elasticsearch-based databases. 
-
+Netlas uses Apache Lucene query syntax. The field type determines which operators apply and how the value is matched. [Netlas Search Query Language](https://docs.netlas.io/knowledge-base/query-language/)
 
 ### Filters (Fields)
 
 ![Search filters](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_filters.png)
 
-Response, DNS, IP and Certificates search allow you to use filters (fields) in search queries. For example:
+The search collections allow you to use filters (fields) in search queries.
 
-```
+```text
 http.body:netlas
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=http.body%3Anetlas&page=1&indices=)
+You can use this query to find indexed HTTP responses that contain the word `netlas` in the body.
 
-You can use this query to find pages which contain the word "netlas" inside their <body> html tag.
-
-A list of available filters for each search type is displayed on the right side of the page.
+You can find a list of available filters for each search type in the Mapping tab of the search sidebar.
 
 ![Filters Mapping Images](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/filters.png)
 
+Filters allow you to search for servers based on parameters such as these.
 
-Filters allow you to search for servers based on many different parameters. For example:
+* `host`, `ip`, `protocol`, and `geo.city` in Responses
+* `domain` in DNS and Domain WHOIS
+* Certificate, CVE, and contact fields where your plan supports them
 
-* `domain`
-* `ip`
-* `protocol`
-* `certificate`
-* `cve`
-* `geolocation` (`city`, `continent`, `country`)
-
-and many others.
-
+[Netlas Search Tools](https://docs.netlas.io/quick-start/search-tools/#mapping)
 
 ### Logical Operators
 
-You can use multiple filters in a single query and combine them using logical operators `AND`, `OR`, `NOT`. For example:
+You can use multiple filters in a single query and combine them using logical operators `AND`, `OR`, `NOT`. Use uppercase operators. Adjacent conditions use `AND` by default.
 
-```
-http.title:netlas NOT port:443
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3Anetlas%20NOT%20port%3A443&page=1&indices=)
-
-
-If you want to combine multiple conditions in your query, use parentheses:
-
-```
-http.title:(netlas OR shodan) NOT port:443
+```text
+http.title:netlas AND NOT port:443
 ```
 
-[Try in Netlas](https://nt.ls/OrFOY)
+[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3Anetlas%20AND%20NOT%20port%3A443)
 
+If you want to combine multiple conditions in your query, use parentheses.
+
+```text
+http.title:(netlas OR shodan) AND NOT port:443
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3A%28netlas%20OR%20shodan%29%20AND%20NOT%20port%3A443)
 
 ### Ranges
 
-If you use a numeric value as the value of a field, you can designate it as a value from and to (extreme limits of the value range):
+For numeric, date, and IP fields, use square brackets for a range that includes both endpoints.
 
-```
-ip:[173.194.222.0 TO 173.194.222.255] 
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=ip%3A%5B173.194.222.0%20TO%20173.194.222.255%5D%20&page=1&indices=)
-
-Or mark only the upper or only the lower limit of the value:
-
-```
-host:"1.1.1.1" port:<=1000
+```text
+ip:[173.194.222.0 TO 173.194.222.255]
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=host%3A%221.1.1.1%22%20port%3A%3C%3D1000&page=1&indices=)
+[Try in Netlas](https://app.netlas.io/responses/?q=ip%3A%5B173.194.222.0%20TO%20173.194.222.255%5D)
 
+You can also specify only the upper or lower limit.
+
+```text
+host:1.1.1.1 AND port:<=1000
+```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=host%3A1.1.1.1%20AND%20port%3A%3C%3D1000)
 
 ### Wildcards
 
-If you don't know the exact description of a certain character in your query (for example, you don't know the exact zone for a domain or the spelling of a name), you can replace it with an asterisk:
+In DNS search, use an asterisk when part of the domain is unknown.
 
-```
+```text
 domain:google.*
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=domain%3Agoogle.*&page=1&indices=)
+[Try in Netlas](https://app.netlas.io/domains/?q=domain%3Agoogle.%2A)
 
-You can also use question mark:
+You can also use a question mark.
 
+```text
+domain:google.??
 ```
-domain:google.?
-```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=domain%3Agoogle.%3F&page=1&indices=)
+[Try in Netlas](https://app.netlas.io/domains/?q=domain%3Agoogle.%3F%3F)
 
-`*` - many symbols, `?` - one symbol.
+`*` matches zero or more characters and `?` matches one character.
 
-You can also use asterisks in filters. For example:
+You can also use an escaped asterisk in a field name.
 
-```
+```text
 \*.banner:database
 ```
 
-This query do a search on all banner types simultaneously and replaces several filters: `amqp.banner:`, `ftp.banner:`, `dns.banner:`, `telnet.banner:`, etc.
-
+This query searches banner fields for multiple protocols. Keep wildcard patterns unquoted.
 
 ### Fuzziness
 
-![Fuzzines](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/fuziness.png)
+![Fuzziness](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/fuziness.png)
 
-If you need to search not by exact, but by approximate value of a field (for example, pages whose titles contain all names consonant with Joseph), just add `~` to the query:
+Use `~` to find terms within an edit distance of the supplied spelling. Netlas supports `~1` and `~2` and defaults to a distance of two when the number is omitted.
 
+```text
+http.title:joseph~1
 ```
-http.title:Joseph~
-```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3AJoseph~&page=1&indices=)
+[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3Ajoseph~1) · [Fuzzy search](https://docs.netlas.io/knowledge-base/query-language/#fuzzy-search)
 
 ### Regular Expressions
 
-Regular expression is a sequence of characters that allows you to search for, retrieve and replace pieces of text in a source document that match certain patterns. For example:
+Regular expression is a sequence of characters that allows you to search for, retrieve and replace pieces of text in a source document that match certain patterns.
 
-* Any email address:
-  ```text
-  ([a-zA-Z0–9+._-]+@[a-zA-Z0–9._-]+\.[a-zA-Z0–9_-]+)
-  ```
-* Any HTML tag:
-  ```text
-  <.*?>
-  ```
-* Any phone number:
-  ```text
-  ^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$
-  ```
-* Any Bitcoin address:
-  ```text
-  ^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$
-  ```
+Wrap a Lucene regular expression in forward slashes. In Responses Search, this pattern matches `www.example.com` or `www.example.net`.
 
-For more information on using regular expressions, see the examples in the Netlas Cookbook (what you're reading now) and the links below:
+```text
+host:/www\.example\.(com|net)/
+```
 
-[Regex Syntax Manual in Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/regexp-syntax.html)
-
-[How regular expressions can be useful in OSINT. Theory and some practice using Google Sheets](https://publication.osintambition.org/this-article-consists-of-three-short-parts-31d31efabd5)
+On a whole-value field such as `host`, the pattern must match the entire value. On a text field such as `http.title`, the pattern matches indexed terms. Lucene regex does not support anchors such as `^` and `$`. [Netlas regex reference](https://docs.netlas.io/knowledge-base/query-language/#regex)
 
 ### Other Netlas.io Search Features
-
 
 #### Download Results <!-- omit in toc -->
 
@@ -327,71 +296,61 @@ For more information on using regular expressions, see the examples in the Netla
 
 You can save your results (all or selected fields) in JSON and CSV format to view them in a format you like or automatically analyse them with different tools.
 
+Your plan determines the export limit.
 
 #### Group Results <!-- omit in toc -->
 
 ![Group results](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/group_results.png)
 
-
-You can group results by different field values to speed up the search time. For example, by domain name or geolocation.
-
+Use facet analysis to group matching documents by an available field such as `port` and compare the counts. [Facet analysis](https://docs.netlas.io/quick-start/search-tools/#facet-analysis)
 
 #### Share Results <!-- omit in toc -->
 
 ![Share results](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/share_results.png)
 
-You can freely share links to search results (no registration is required to open them, unless the user has exceeded the free limit of 50 requests).
+The Share control generates a short link and QR code for the current query. What the recipient can see depends on their account access and available indices. [Download and share](https://docs.netlas.io/quick-start/search-tools/#download-and-share)
 
-#### Search History <!-- omit in toc -->
+<a id="search-history"></a>
 
-![Request history](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/request_history.png)
+#### Saved Searches <!-- omit in toc -->
 
-
-Also remember that all the quiries you have made can be viewed on your profile page (link in the top right corner).
-
+Use Add to favorites beside the search bar to save a query you plan to run again. [Favorites](https://docs.netlas.io/quick-start/search-tools/#favorites)
 
 ## API Requests
 
-
-Netlas.io's most important function is to help people conduct cybersecurity research faster and more efficiently. The service has an API (application programming interface) that allows you to automate the execution of various requests. 
+Netlas.io's most important function is to help people conduct cybersecurity research faster and more efficiently. The service has an API (application programming interface) that allows you to automate the execution of various requests.
 
 It can be implemented both in simple Python or Bash scripts of a few lines in length and in complex multifunctional applications.
 
-
-You can read more about using the Netlas API in the Netlas Cookbook (what you're reading now) or in the official documentation:
-
-
-[API Documentation &rarr;](https://docs.netlas.io/api-reference/)
-
+The Netlas HTTP API is available at `https://app.netlas.io`. The API reference includes request examples and downloadable OpenAPI specifications. [Netlas API reference](https://docs.netlas.io/api-reference/)
 
 ### How to Find the API-key?
 
-This is the very first place to start with the API. You don't even have to pay for a subscription (50 requests per day are free). Just go to [profile page](https://app.netlas.io/profile/).
+Get your personal API key from your Netlas profile and export it in the terminal where you will run the examples. For direct HTTP requests, pass the key as a bearer token in the `Authorization` header. [Netlas profile](https://app.netlas.io/profile/) · [API authentication](https://docs.netlas.io/api-reference/#authentication)
 
-![Profile page](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/profile.png)
+```bash
+export NETLAS_API_KEY='YOUR_API_KEY'
+```
 
 ### Tools for Debugging API Requests
 
 You don't have to write scripts or create applications to start using the Netlas API. You can simply test it using your favorite API client. See [instructions here](https://docs.netlas.io/api-reference/).
 
-### Structure of Netlas API JSON Response 
+### Structure of Netlas API JSON Response
 
 ![JSON API response](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/json_api_response.png)
 
-Similar to other APIs, the Netlas API response consists of headers and a response body in JSON (JavaScript Object Notation) format. JSON files contain data in key-value format and can be analysed using almost any programming language.
+An HTTP search response has a status, headers, and a JSON body. A successful search puts its documents in an `items` array, with each document's fields under `data`. An empty `items` array means the query returned no documents. Other operations, such as Count and Host Summary, have their own response structures. [Netlas API reference](https://docs.netlas.io/api-reference/)
 
 If you use Swagger, you can copy or download the response body and view it in any text editor or JSON analyser.
 
-
 ### Tools for Working with Data in JSON Format
 
-![JSON Eveluator](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/json_evaluator.png)
+![JSON evaluator](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/json_evaluator.png)
 
-A little tip that will come in handy when writing code using the Netlas API. In order to understand the structure of a JSON file faster and find the path to get a certain value, use special tools such as:
+A little tip that will come in handy when writing code using the Netlas API. To understand the structure of a JSON file faster and find the path to a value, use a JSON viewer.
 
-- [JSON Path Online Evaluator](https://jsonpath.com)
-- [JSON Path Finder](https://jsonpathfinder.com)
-
+To inspect a saved search response locally, run `python3 -m json.tool results.json` or use the [jq utility](#jq-utility).
 
 ### Netlas Python Library
 
@@ -399,210 +358,125 @@ The easiest way to automate requests to the Netlas API is to use a specially des
 
 [Netlas-Python library Github repo](https://github.com/netlas-io/netlas-python)
 
-Let's see how it works with a simple example. All code samples from Netlas Cookbook are located in the **scripts** folder. You can clone this repository and run them on your device:
+Let's see how it works with a simple example. All code samples from Netlas Cookbook are located in the **scripts** folder. Clone this repository and install the SDK to run them on your device.
 
-```shell
-git clone https://github.com/netlas-io/netlas-cookbook
-```
-
-If you haven't run a Python scripts before today and don't know how to do it, you can start by open Netlas CookBook repository in Gitpod.
-Gitpod is a cloud development environment based on Ubuntu (Linux distribution). Just open this link in your browser (log in with your Github account):
-
-[Run Netlas Cookbook in Gitpod](https://gitpod.io#https://github.com/netlas-io/netlas-cookbook)
-
-![Netlas Github](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/netlas_python_example_py.png)
-
-
-Install Netlas Python library using pip (package installer for Python). Enter in the command line:
-
-
-```shell
-pip install netlas
-```
-
-Check the installation. Enter in the command line:
-
-```shell
+```bash
+git clone https://github.com/netlas-io/netlas-cookbook.git
+cd netlas-cookbook
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install netlas
 netlas --help
 ```
 
-Run netlas_python_example.py:
-
-```shell
-python3 scripts/netlas_python_example.py
-```
-
-And of course, you can just copy the code and save to files. Here is the code of the first example:
+Run `python scripts/netlas_python_example.py` with `NETLAS_API_KEY` set. Here is the code of the first example.
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR API KEY"
+api_key = os.environ.get("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+connection = netlas.Netlas(api_key=api_key)
+results = connection.search(query="host:netlas.io")
 
-# retrieve data from responses by query `port:7001`
-netlas_query = netlas_connection.query(query="port:7001")
-
-# iterate over data and print: IP address, port, path and protocol
-for response in netlas_query['items']:
-    print(f"{response['data']['ip']}:{response['data']['port']}{response['data']['path']} [{response['data']['protocol']}]")
-
+for item in results["items"]:
+    uri = item.get("data", {}).get("uri")
+    if uri:
+        print(uri)
 ```
 
 ### Examples of Response Keys for Getting Useful Data
 
-It's mentioned above that in order to find JSON patches of API response to get the data you need, you can use special online applications (JSON-evaluators). To make your life even better, here is a small list of examples of Python library response keys that are needed most often.
+These are examples of fields inside a Responses search item's `data` object. Fields vary by protocol, plan, and document. The field mapping shows paths used in search queries. In returned JSON, some intermediate values can be arrays, such as `cve`.
 
-```python
-# Main domain/ip info
-response['data']['uri']
-response['data']['ip']
-response['data']['http']['title']
-response['data']['http']['meta']
-response['data']['http']['body']
+| Data | Example paths inside `data` |
+| --- | --- |
+| Network and service | `uri`, `ip`, `host`, `port`, `protocol` |
+| HTTP | `http.title`, `http.meta`, `http.body`, `http.status_code`, `http.favicon.path` |
+| Approximate IP location | `geo.continent`, `geo.country`, `geo.city`, `geo.location` |
+| IP WHOIS | `whois.net.country`, `whois.net.address`, `whois.net.contacts.emails` |
+| CVE metadata | `cve.name`, `cve.description`, `cve.base_score` |
 
-# Geo info
-response['data']['geo']['continent']
-response['data']['geo']['country']
-response['data']['geo']['city']
-response['data']['geo']['location']['lat']
-response['data']['geo']['location']['long']
-
-# Whois geo info
-response['data']['whois']['net']['country']
-response['data']['whois']['net']['address']
-response['data']['whois']['net']['city']
-response['data']['whois']['net']['contacts']['emails']
-response['data']['whois']['net']['contacts']['phones']
-
-# Http status and favicon ico info
-response['data']['port']
-response['data']['http']['status_code']
-response['data']['http']['status_line']
-response['data']['http']['favicon']['image']
-response['data']['http']['favicon']['path']
-
-# Basic CVE info
-response['data']['cve'][0]['name']
-response['data']['cve'][0]['description']
-response['data']['cve'][0]['base_score']
-response['data']['cve'][0]['has_exploit']
-response['data']['cve'][0]['exploit_links']
-```
-
+Read each item's `data` key and account for missing fields before traversing nested objects. [Responses field reference](https://docs.netlas.io/knowledge-base/field-reference/responses/)
 
 ### Netlas Python Response Datatypes
 
-![Python Netlas datatypes](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/datatypes.jpeg)
-
 When working with the Netlas Python Library, it is very important to correctly specify the type of data you want to retrieve. By default, the `response` type is returned and many Netlas CookBook examples use it.
 
-But for some tasks, like getting whoois information about a domain or searching for domains in a subnet you need to use a different data type. For example:
+| SDK and CLI datatype | Collection |
+| --- | --- |
+| `response` | [Responses](https://app.netlas.io/responses/) |
+| `domain` | [DNS](https://app.netlas.io/domains/) |
+| `whois-domain` | [Domain WHOIS](https://app.netlas.io/whois_domains/) |
+| `whois-ip` | [IP WHOIS](https://app.netlas.io/whois_ip/) |
+| `cert` | [Certificates](https://app.netlas.io/certs/) |
+
+For example, using the SDK connection from above, query `domain` in the DNS collection.
 
 ```python
-netlas_query = netlas_connection.query(query='a:"163.114.132.0/24"',datatype="domain")
+results = connection.search(query="domain:netlas.io", datatype="domain")
 ```
-
-If you think some query is not returning results when it should - just try changing the value of the **datatype** parameter. It is very likely that this will help.
-
-Available datatypes:
-
-- **datatype="response"** corresponds to the results that can be obtained in [Netlas Responses Search](https://app.netlas.io/responses/).
-- **datatype="domain"** corresponds to the results that can be obtained in [Netlas DNS search](https://app.netlas.io/domains/)
-- **datatype="domain-whois"** corresponds to the results that can be obtained in [Netlas Domain Whois Search](https://app.netlas.io/whois_domains/).
-- **datatype="ip-whois"** corresponds to the results that can be obtained in [Netlas IP Whois Search](https://app.netlas.io/whois_ip/).
-- **datatype="cert"** corresponds to the results that can be obtained in [Netlas Certificates Search](https://app.netlas.io/certs/).
-
 
 ### Netlas CLI Tools
 
 ![Netlas CLI Tools](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/netlas_cli_tools.png)
 
-You can also use the Netlas Python Library directly from the command line. For example:
+You can also use the Netlas Python Library directly from the command line.
+
+Use `netlas --help` to list commands and `netlas search --help` to see search options. To save your key locally and write one page of Responses results as JSON, run the following commands. [Netlas CLI usage](https://github.com/netlas-io/netlas-python#cli-usage)
 
 ```bash
-netlas search "http.title:johnsmith" -f json >results.json
+netlas savekey "$NETLAS_API_KEY"
+netlas search 'host:netlas.io' --format json > results.json
 ```
-
-This simple command searches for all servers that have the word johnsmith in their header, returns the results in JSON format, and stores the results in the resutls.json file.
-
-All other features of the Netlas API can be used in the same way. You can learn more about this from the help (-h command) and examples in the Netlas Cookbook (what you are reading now).
-
-```
-Usage: netlas [OPTIONS] COMMAND [ARGS]...
-
-Options:
-  -h, --help  Show this message and exit.
-
-Commands:
-  count           Calculate count of query results.
-  download        Download data.
-  host            Host (ip or domain) information.
-  indices         Get available data indices.
-  profile         Get user profile data.
-  savekey         Save API key to the local system.
-  search (query)  Search query.
-  stat            Get statistics for query.
-```
-
-Before running different Netlas CLI Tools commands, save the API key in the settings:
-
-```bash
-netlas savekey YOUR_API_KEY
-```
-
-We also have a Github repository with a couple of examples of automating various tasks using bash script and Netlas CLI tools:
-
-[Netlas Scripts](https://github.com/netlas-io/netlas-scripts)
-
 
 ### Search vs Download vs Host Methods
 
 The Netlas API has many methods, but the most commonly used methods are search and download. They are very similar to each other, but still have some differences.
 
-The search method loads one page of results (20 items) at a time and allows a maximum of 200 pages to be loaded (20*200=4000 items). The download method downloads all results (but requires more resources to execute).
+- **Search** returns up to 20 results per request. The API supports offsets up to 9,980, and your subscription can cap the number of available pages below the API maximum.
+- **Download** retrieves a larger batch without paging through Search. Download size and account usage limits still apply.
+- **Host Summary** returns the latest available summary for one IP address or domain. For example, run `netlas host netlas.io` after configuring the CLI.
 
-There is also a host method that simply returns the most basic information about a particular domain or IP (datatype (like other methods) does not need to be specified):
-
-```bash
-netlas host "51.159.153.170"
-```
-
+[Netlas API reference](https://docs.netlas.io/api-reference/) · [Plan comparison](https://netlas.io/pricing/)
 
 ### Additional Request Parameters
 
-The Netlas API allows you to flexibly adjust the data returned by requests with additional parameters. For example:
+The Netlas API allows you to flexibly adjust the data returned by requests with additional parameters.
 
-* indices - id that corresponds to a specific indexing date. To find out the id for a specific date, open app.netlas.io, click on the calendar to the right of the search query entry bar, select the date you are interested in and see how the indices parameter in the URL in the browser address bar changes.
-* start - result page number (default 0)
-* fields - names of fields to be included in the results (all fields by default). It will be useful for speeding up and optimizing code with a large number of requests.
+- `start` is the zero-based REST result offset. Request `start=20` for the second page. The SDK uses a zero-based `page` argument instead.
+- `indices` is one index label or a comma-separated string of labels. Use `netlas indices` or the Get Indices API endpoint to find available labels. Omitting `indices` uses the endpoint's default selection.
+- `fields` limits which document fields come back. Use it with `source_type=include` or `source_type=exclude`.
 
+[Netlas API reference](https://docs.netlas.io/api-reference/)
 
 ### Make Requests with Python (without Netlas Python Library)
 
-
-You may find it easier in some cases not to use the Netlas Python Library, but to use the standard Python request package, which is familiar to many developers:
-
-Enter in the command line:
-
-```bash
-python scripts/python_example.py
-```
-
-Source code of python_example.py:
+Install the `requests` package with `python -m pip install requests` and run `python scripts/python_example.py`. This example prints the decoded DNS Search response. [Source script](scripts/python_example.py)
 
 ```python
+import os
+
 import requests
 
-response = requests.get("https://app.netlas.io/api/domains/?q=ivanov.com&source_type=include&start=0&fields=*",{'X-API-Key': 'YOUR API KEY'})
+api_key = os.environ.get("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
+
+response = requests.get(
+    "https://app.netlas.io/api/domains/",
+    params={"q": "domain:netlas.io"},
+    headers={"Authorization": f"Bearer {api_key}"},
+    timeout=30,
+)
+response.raise_for_status()
 
 print(response.json())
 ```
-
-But Netlas Python Library is still preferable as it is designed to deal with different problems with query processing (errors, long waits, etc.).
-
 
 ### Examples for Other Programming Languages
 
@@ -610,228 +484,179 @@ While we recommend using our Python Library to automate Netlas search, it's wort
 
 Here are some examples in different popular programming languages.
 
-
 #### NodeJS <!-- omit in toc -->
 
-![Node JS Netlas](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/netlas_nodejs.png)
-
-Enter in the command line:
-
-```bash
-node scripts/node_example.js
-```
-
-If you are not using Gitpod, you should have [NodeJS](https://nodejs.org/en/download/package-manager) installed on your device.
-
-Source code of nodejs_example.js:
+Run `node scripts/nodejs_example.js` with a Node.js release that supports built-in `fetch` and `AbortSignal.timeout`. [Source script](scripts/nodejs_example.js) · [Node.js global APIs](https://nodejs.org/api/globals.html)
 
 ```javascript
-fetch('https://app.netlas.io/api/domains/?q=ivanov.com&source_type=include&start=0&fields=*', {
-  headers: {
-      "X-API-Key": "YOUR_API_KEY",
-  },
+const apiKey = process.env.NETLAS_API_KEY;
+if (!apiKey) {
+    console.error('Set NETLAS_API_KEY to your Netlas API key.');
+    process.exit(1);
+}
+
+const url = new URL('https://app.netlas.io/api/domains/');
+url.searchParams.set('q', 'domain:netlas.io');
+
+fetch(url, {
+    headers: { Authorization: `Bearer ${apiKey}` },
+    signal: AbortSignal.timeout(30_000),
 })
-    .then((response) => response.text())
-    .then((body) => {
-        var jsonArray = JSON.parse(body);
-        console.log(jsonArray['items'][0]);
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`Netlas returned HTTP ${response.status}`);
+        }
+        return response.json();
+    })
+    .then((body) => console.log(body.items[0] ?? 'No results.'))
+    .catch((error) => {
+        console.error(error.message);
+        process.exitCode = 1;
     });
 ```
 
-
 #### Ruby <!-- omit in toc -->
 
-![Ruby Netlas](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/netlas_ruby.png)
-
-Enter in the command line:
-
-```bash
-ruby scripts/ruby_example.rb
-```
-
-If you are not using Gitpod, you should have [Ruby](https://www.ruby-lang.org/en/documentation/installation/) installed on your device.
-
-Source code of ruby_example.rb:
-
+Run `ruby scripts/ruby_example.rb`. [Source script](scripts/ruby_example.rb)
 
 ```ruby
 require 'net/http'
 require 'uri'
 require 'json'
 
-uri = URI("https://app.netlas.io/api/domains/?q=ivanov.com&source_type=include&start=0&fields=*")
-req = Net::HTTP::Get.new(uri)
-req['X-API-Key'] = "YOUR_API_KEY"
+api_key = ENV['NETLAS_API_KEY']
+abort 'Set NETLAS_API_KEY to your Netlas API key.' if api_key.nil? || api_key.empty?
 
-res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') { |http|
-  http.request(req)
-}
+uri = URI('https://app.netlas.io/api/domains/')
+uri.query = URI.encode_www_form(q: 'domain:netlas.io')
+request = Net::HTTP::Get.new(uri)
+request['Authorization'] = "Bearer #{api_key}"
 
-jsonArray = JSON.parse(res.body)
+response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true, open_timeout: 30, read_timeout: 30) do |http|
+  http.request(request)
+end
+abort "Netlas returned HTTP #{response.code}" unless response.is_a?(Net::HTTPSuccess)
 
-puts jsonArray['items'][0]['data']['domain']
+result = JSON.parse(response.body)
+puts result.dig('items', 0, 'data', 'domain') || 'No results.'
 ```
-
 
 #### Bash <!-- omit in toc -->
 
-![Bash Netlas](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/netlas_bash.png)
-
-Enter in the command line:
+Install `curl` and `jq`, then run `bash scripts/bash_example.sh`. [Source script](scripts/bash_example.sh)
 
 ```bash
-bash scripts/bash_example.sh
-```
+#!/usr/bin/env bash
+set -euo pipefail
 
-Source code of bash_example.sh:
+: "${NETLAS_API_KEY:?Set NETLAS_API_KEY to your Netlas API key}"
 
-```
-curl -X 'GET' \
-  'https://app.netlas.io/api/domains/?q=ivanov.com&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' | jq .items[0].data.last_updated
+curl --fail --silent --show-error --max-time 30 --get \
+  'https://app.netlas.io/api/domains/' \
+  --data-urlencode 'q=domain:netlas.io' \
+  -H 'Accept: application/json' \
+  -H "Authorization: Bearer $NETLAS_API_KEY" |
+  jq -r '.items[0].data."@timestamp" // empty'
 ```
 
 ### JQ Utility
 
-Note that in the example above, the JQ utility was used to extract fields from JSON data. 
+Note that in the example above, the JQ utility was used to extract fields from JSON data.
 
-It is sometimes referred to as "like sed for JSON data".  It is a surprisingly handy tool for working with any JSON data. Here are some syntax examples.
+It is sometimes referred to as "like sed for JSON data".  It is a surprisingly handy tool for working with any JSON data.
 
-Print firt item of JSON-array:
+Use `jq` to inspect and extract fields from a saved Search response such as `results.json`. When piping a request to `jq` in Bash, use `set -o pipefail` so a failed `curl` request sets a nonzero exit status for the pipeline.
 
-```
-.items[0] 
-```
-
-Print all items of JSON-array:
-
-```
-.items[]
+```bash
+jq '.items[0]' results.json
+jq '.items[]' results.json
+jq '.items[0].data' results.json
+jq -r '.items[] | .data.uri // empty' results.json
 ```
 
-Print all 'data' subitems of first item of JSON-array:
-
-```
-.['items'][0]['data'][]
-```
-
-
-Print all sub-subitems for each item of JSON-array:
-
-```
-.items[].data.technical[]
-```
-
-You can read more about JQ here (I recommend paying special attention to data filtering): [JQ utility documentation](https://jqlang.github.io/jq/)
-
+The last command prints available URIs from a Responses search. [jq manual](https://jqlang.org/manual/)
 
 ### AI Tools for Writing Code
 
-![You.com](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/you_com.png)
-
-If you encounter any problems when customising the Netlas Cookbook examples, we recommend that you seek help from AI tools for improving and writing code. For example:
+If you encounter any problems when customising the Netlas Cookbook examples, you can ask an AI tool to explain an error or suggest a change. Describe what you want the script to do and use sample data with the API key replaced by a placeholder. Check the suggested code against the Netlas documentation before running it.
 
 [ChatGPT](https://chatgpt.com)  
-[Code Llama](https://huggingface.co/spaces/codellama/codellama-playground)  
-[You.com](https://you.com/)  
-
-When working with such services, you just need to describe in words the task you want to solve with the help of code.
-
+[Code Llama](https://huggingface.co/spaces/codellama/codellama-playground)
 
 ### Code Checkers
-![Python code check](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/python_code_check.png)
 
-When you rework the Netlas Cookbook examples to suit your purposes, you may find that the code will not execute from some errors. Special online tools can help you find and fix them:  
+If you run into errors while adapting the examples, use a syntax checker before testing against the API.
 
-[ExtendsClass Python Tester](https://extendsclass.com/python-tester.html)
-[Snyk](https://snyk.io/code-checker/python/)
-
-If you don't want to copy your code to third-party services, you can check it for errors on your device using the Pylint (static code analyser):
-
-[Pylint Python Package](https://pypi.org/project/pylint/)
-
-
+Run `python3 -m py_compile path/to/script.py` locally to catch Python syntax errors. To catch runtime and response-shape errors, also run the script with a small query and check both matching and empty responses. [Python py_compile documentation](https://docs.python.org/3/library/py_compile.html)
 
 ## Using Netlas.io for OSINT (Open Source Intelligence)
 
 ![OSINT Flowchart](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_flowchart.png)
 
-Netlas.io can help you gather data about a domain or company, as well as find mentions of a person (or anyone) in internet. 
+Netlas.io can help you gather data about a domain or company, as well as find mentions in indexed pages. It can also help you inspect historical HTTP responses.
 
-It can also be used to find old versions of web pages (as an analogue of the Wayback Machine).
+Set `NETLAS_API_KEY` for the API and Python examples. The CLI uses the key configured with `netlas savekey`. Each search returns the first page by default.
 
-### Search Person's Nickname or Email in WHOIS Contacts
+<a id="search-persons-nickname-or-email-in-whois-contacts"></a>
 
-Most often WHOIS data contains only the contact information of the company registering the domains. But sometimes there may be personal contacts of persons of interest. This query will help you find them.  
+### Search IP WHOIS Contact Emails
 
-*This method may require a paid subscription.* [See the pricing](https://netlas.io/pricing/)
+The Responses field `whois.related_nets.contacts.emails` searches contact emails from IP network registration records associated with a response. Use the separate [Domain WHOIS collection](#domain-whois-information-gathering) for domain registration contacts. The example uses a reserved domain and may return no results. [IANA example domains](https://www.iana.org/help/example-domains)
 
-**Search query example**  
-
-![Whois email search example](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_email_search.png)
+**Search query example**
 
 ```
-whois.related_nets.contacts.emails:sweetwater
+whois.related_nets.contacts.emails:"hostmaster@example.com"
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=whois.related_nets.contacts.emails%3Asweetwater&page=1&indices=)
+[Try in Netlas](https://app.netlas.io/responses/?q=whois.related_nets.contacts.emails%3A%22hostmaster%40example.com%22)
 
 **API request example**
 
-
-Netlas CLI Tools:
+Netlas CLI Tools.
 
 ```bash
-netlas search "whois.related_nets.contacts.emails:sweetwater*" -f json
+netlas search --format json 'whois.related_nets.contacts.emails:"hostmaster@example.com"'
 ```
 
-Curl:
+Curl.
 
 ```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=whois.related_nets.contacts.emails%3Asweetwater*&fields=' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: aqkd8L4MR93Tkcaz2UXDXrRleV8Vlvbv' | jq .items[].data.uri
+curl --fail-with-body -sS --get 'https://app.netlas.io/api/responses/' \
+  -H "Authorization: Bearer ${NETLAS_API_KEY}" \
+  --data-urlencode 'q=whois.related_nets.contacts.emails:"hostmaster@example.com"' | jq '.items[].data.uri'
 ```
 
 **Code example (Netlas Python Library)**
 
-![Whois email search example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_email_search_python.png)
-
-Run in command line:
+Run in the command line.
 
 ```bash
 python scripts/osint/whois_email_search.py
 ```
 
-Source code of scripts/osint/whois_email_search.py:
+Source code of [scripts/osint/whois_email_search.py](scripts/osint/whois_email_search.py).
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('whois.related_nets.contacts.emails:"hostmaster@example.com"')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `whois.related_nets.contacts.emails:sweetwater`
-netlas_query = netlas_connection.query(query="whois.related_nets.contacts.emails:sweetwater*")
-
-
-# iterate over data and print: URL, Country, Related nets data
-for response in netlas_query['items']:
-    print (response['data']['uri'])
-    print (response['data']['geo']['country'])
-    print (response['data']['whois']['related_nets'])
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["uri"])
+    print((data.get("geo") or {}).get("country"))
+    print((data.get("whois") or {}).get("related_nets", []))
 ```
-
 
 ### Search for Person's Nickname or Email in Title and Body of Web Page
 
-Netlas allows you to search for mentions of certain words in headings and in the html code of web pages. You can search for words by exact match, by approximate match (see the fuzzy queries section) and replace characters you are not sure of with asterisks.
+Netlas allows you to search for mentions of certain words in headings and in the HTML body of web pages. You can look for a phrase in quotes, use [fuzziness](#fuzziness) for approximate matches, or use [wildcards](#wildcards) when you are unsure about some characters.
 
-**Search query example**  
+**Search query example**
 
 ![Title/body search example](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_title_body_search.png)
 
@@ -839,406 +664,325 @@ Netlas allows you to search for mentions of certain words in headings and in the
 http.title:sweetwater OR http.body:sweetwater
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3Asweetwater%20OR%20http.body%3Asweetwater&page=1&indices=)
+[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3Asweetwater+OR+http.body%3Asweetwater)
 
 **API request example**
 
-Netlas CLI Tools:
+Netlas CLI Tools.
 
 ```bash
-netlas search "http.title:sweetwater OR http.body:sweetwater" -f json
+netlas search --format json 'http.title:sweetwater OR http.body:sweetwater'
 ```
 
-Curl:
+Curl.
 
 ```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=whois.related_nets.contacts.emails%3Asweetwater*&fields=' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.uri
+curl --fail-with-body -sS --get 'https://app.netlas.io/api/responses/' \
+  -H "Authorization: Bearer ${NETLAS_API_KEY}" \
+  --data-urlencode 'q=http.title:sweetwater OR http.body:sweetwater' | jq '.items[].data.uri'
 ```
 
 **Code example (Netlas Python Library)**
 
-![Whois email search example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_title_body_search_python.png)
-
-Run in command line:
+Run in the command line.
 
 ```bash
 python scripts/osint/title_body_search.py
 ```
 
-Source code of scripts/osint/title_body_search.py:
+Source code of [scripts/osint/title_body_search.py](scripts/osint/title_body_search.py).
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('http.title:sweetwater OR http.body:sweetwater')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `http.title:sweetwater OR http.body:sweetwater`
-netlas_query = netlas_connection.query(query="http.title:sweetwater OR http.body:sweetwater*")
-
-
-# iterate over data and print: IP,URL,web page title
-for response in netlas_query['items']:
-    print (response['data']['ip'])
-    print (response['data']['uri'])
-    print (response['data']['http']['title'])
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["ip"])
+    print(data["uri"])
+    print((data.get("http") or {}).get("title"))
 ```
 
+<a id="search-for-juicy-info-files-on-subdomains-of-the-companys-website"></a>
 
-### Search for "Juicy Info Files" on Subdomains of the Company's Website
+### Search Your Site for Public Document Mentions
 
-![Juicy info files search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/juicyinfo_search.png)
+Replace `example.com` with a domain you manage. This search finds indexed HTTP responses that mention PDF files on the domain or one of its subdomains. Inspect the page for links and verify the destination before treating a match as a document. Netlas indexes service responses, including the HTTP index page. [Netlas file search FAQ](https://docs.netlas.io/faq/#file-search)
 
-Metagoofil has been a popular tool among OSINT practitioners for many years. It searches Google for document files on a company's website (pdf, xlsx, docx etc) and analyses their metadata.
-
-And what is not indexed by Google can be found with Netlas and then downloaded to your computer and analysed with the [MetaDetective](https://github.com/franckferman/MetaDetective) tool.
-
-```
-uri:*lidl.* AND http.body:pdf
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=uri%3A*lidl.*%20AND%20http.body%3A.pdf&page=1&indices=)
-
-You can replace the uri: filter with domain: and host: (I recommend always comparing the results when using these three filters). 
-
-You can also search for a wide variety of file extensions, depending on what you want to find. For example:
+**Search query example**
 
 ```
-http.body:xls
-http.body:xlsx
-http.body:doc
-http.body:docx
-http.body:ppt
-http.body:pptx
-http.body:mdb
-http.body:csv
-http.body:sql
-http.body:sqlite
+host:(example.com OR *.example.com) AND http.body:pdf
 ```
+
+[Try in Netlas](https://app.netlas.io/responses/?q=host%3A%28example.com+OR+%2A.example.com%29+AND+http.body%3Apdf)
 
 **API request example**
 
-Netlas CLI Tools:
+Netlas CLI Tools.
 
 ```bash
-netlas search "uri:*lidl.* AND http.body:pdf"
+netlas search --format json 'host:(example.com OR *.example.com) AND http.body:pdf'
 ```
 
-Curl:
+Curl.
 
 ```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=uri%3A*lidl.*%20AND%20http.body%3Apdf&source_type=include&start=0&fields=*' \
-   -H 'accept: application/json' \
-   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.domain
- ```
+curl --fail-with-body -sS --get 'https://app.netlas.io/api/responses/' \
+  -H "Authorization: Bearer ${NETLAS_API_KEY}" \
+  --data-urlencode 'q=host:(example.com OR *.example.com) AND http.body:pdf' | jq '.items[].data.uri'
+```
 
 **Code example (Netlas Python Library)**
 
-![Juicy info search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/juicyinfo_search_python.png)
-
-Run in command line:
+Run in the command line.
 
 ```bash
 python scripts/osint/juicyinfo_search.py
 ```
 
-Source code of scripts/osint/juicyinfo_search.py:
+Source code of [scripts/osint/juicyinfo_search.py](scripts/osint/juicyinfo_search.py).
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('host:(example.com OR *.example.com) AND http.body:pdf')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `uri:*lidl.* AND http.body:pdf`
-netlas_query = netlas_connection.query(query='uri:*lidl.* AND http.body:pdf')
-
-
-# iterate over data and print: uri, body
-for response in netlas_query['items']: 
-    print (response['data']['uri'])
-    print (response['data']['http']['body'])
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["uri"])
+    print((data.get("http") or {}).get("body", ""))
 ```
-
-In order to automate links to PDF documents from the web page body you can use the Python [Re](https://docs.python.org/3/library/re.html) package.
-
 
 ### Phone Number Mentions Search
 
-As with nicknames and emails, you can also look for mentions of a phone number in the code of web pages or WHOIS contact information. 
+We single out this task as a separate example, because phone numbers can be written in different formats.
 
-We single out this task as a separate example, because searching for a phone number is complicated by the fact that it can be written in different formats.
+Search for compact and separated forms of a published business phone number. `http.body` is tokenized, and `?` matches one character within a term. Use the field `whois.related_nets.contacts.phones` for IP WHOIS telephone contacts or `contacts.tel` for extracted response contacts where your plan allows access. This example uses a fictional number. [Netlas query language](https://docs.netlas.io/knowledge-base/query-language/#text-fields) · [NANPA reserved 555 numbers](https://nanpa.com/numbering/555-line-numbers)
 
-**Search query example**  
-
-![Phone number search example](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_phone_number_search.png)
+**Search query example**
 
 ```
-http.body:1?234?567?89?99 OR http.body:12345678999 OR http.body:1234?5678?999
+http.body:(2025550142 OR "202 555 0142")
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=http.body%3A1%3F234%3F567%3F89%3F99%20OR%20http.body%3A12345678999%20OR%20http.body%3A1234%3F5678%3F999&page=1&indices=)
-
-When making a request, you should take into account the format of telephone number recording, which is accepted in the country, which owns the phone number you are interested in.
+[Try in Netlas](https://app.netlas.io/responses/?q=http.body%3A%282025550142+OR+%22202+555+0142%22%29)
 
 **API request example**
 
-Netlas CLI Tools:
+Netlas CLI Tools.
 
 ```bash
-netlas search "http.body:1?234?567?89?99 OR http.body:12345678999 OR http.body:1234?5678?999" -f json
+netlas search --format json 'http.body:(2025550142 OR "202 555 0142")'
 ```
 
-Don't forget that you can search for phone numbers not only in the body of the page, but also in the WHOIS contact information. This can be done using the filter **whois.related_nets.contacts.phones:**
-
-Curl:
+Curl.
 
 ```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=http.body%3A1%3F234%3F567%3F89%3F99%20OR%20http.body%3A12345678999%20OR%20http.body%3A1234%3F5678%3F999&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' jq .items[].data.uri
+curl --fail-with-body -sS --get 'https://app.netlas.io/api/responses/' \
+  -H "Authorization: Bearer ${NETLAS_API_KEY}" \
+  --data-urlencode 'q=http.body:(2025550142 OR "202 555 0142")' | jq '.items[].data.uri'
 ```
-
 
 **Code example (Netlas Python Library)**
 
-![Phone number search example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_phonenumber_search_python.png)
-
-Run in command line:
+Run in the command line.
 
 ```bash
 python scripts/osint/phonenumber_search.py
 ```
 
-Source code of scripts/osint/phonenumber_search.py:
+Source code of [scripts/osint/phonenumber_search.py](scripts/osint/phonenumber_search.py).
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('http.body:(2025550142 OR "202 555 0142")')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `http.body:1?234?567?89?99 OR http.body:12345678999 OR http.body:1234?5678?999`
-netlas_query = netlas_connection.query(query="http.body:1?234?567?89?99 OR http.body:12345678999 OR http.body:1234?5678?999")
-
-
-# iterate over data and print: ip, url
-for response in netlas_query['items']:
-    print (response['data']['ip'])
-    print (response['data']['uri'])
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["ip"])
+    print(data["uri"])
 ```
-
 
 ### Search File Mentions (Looking for Content That May be Infringing on Copyrights)
 
-Let's imagine that you are a musician and you want to find all the sites where your tracks are posted. You can do this by searching for pages that mention your name and have links to files with the .mp3 extension.
+Let’s imagine that you are a musician and you want to find sites where your tracks may have been posted. Search for pages that mention both an artist name and an MP3 reference.
 
-**Search query example**  
+The tokenized body search can find plain-text mentions and miss some links. Inspect the matching page to see where the file reference leads.
 
-![Title/body search example](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_file_mentions.png)
-
-```
-(http.title:alla OR http.body:alla) AND http.body:*.mp3
+**Search query example**
 
 ```
+(http.title:alla OR http.body:alla) AND http.body:mp3
+```
 
-[Try in Netlas](https://nt.ls/HEhJj)
+[Try in Netlas](https://app.netlas.io/responses/?q=%28http.title%3Aalla+OR+http.body%3Aalla%29+AND+http.body%3Amp3)
 
 **API request example**
 
-Netlas CLI Tools:
+Netlas CLI Tools.
 
 ```bash
-netlas search "(http.title:alla OR http.body:alla) AND http.body:*.mp3" -f json
+netlas search --format json '(http.title:alla OR http.body:alla) AND http.body:mp3'
 ```
 
-
-Curl:
+Curl.
 
 ```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=(http.title%3Aalla%20OR%20http.body%3Aalla)%20AND%20http.body%3A*.mp3&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' |  jq .items[].data.http.title
+curl --fail-with-body -sS --get 'https://app.netlas.io/api/responses/' \
+  -H "Authorization: Bearer ${NETLAS_API_KEY}" \
+  --data-urlencode 'q=(http.title:alla OR http.body:alla) AND http.body:mp3' | jq '.items[].data.http.title'
 ```
 
 **Code example (Netlas Python Library)**
 
-![File mentions search example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_file_mentions_search_python.png)
-
-Run in command line:
+Run in the command line.
 
 ```bash
 python scripts/osint/file_mentions_search.py
 ```
 
-Source code of scripts/osint/file_mentions_search.py:
+Source code of [scripts/osint/file_mentions_search.py](scripts/osint/file_mentions_search.py).
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('(http.title:alla OR http.body:alla) AND http.body:mp3')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `(http.title:alla OR http.body:alla) AND http.body:*.mp3`
-netlas_query = netlas_connection.query(query="(http.title:alla OR http.body:alla) AND http.body:*.mp3")
-
-
-# iterate over data and print: IP, URL,web page title
-for response in netlas_query['items']:
-    print (response['data']['ip'])
-    print (response['data']['uri'])
-    print (response['data']['http']['title'])
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["ip"])
+    print(data["uri"])
+    print((data.get("http") or {}).get("title"))
 ```
-
 
 ### Domain WHOIS Information Gathering
 
-WHOIS is a worldwide public database that stores information about all registered domains in the world. 
+The Netlas Domain WHOIS collection contains indexed domain registration records. The fields available depend on the source, applicable redactions, and the plan. For a current gTLD registration lookup directly from registries and registrars, use ICANN's RDAP-based Lookup service. [ICANN RDAP overview](https://www.icann.org/en/contracted-parties/registry-operators/resources/registration-data-access-protocol) · [ICANN Lookup](https://lookup.icann.org/en)
 
-**Search query example**  
-
-![Title/body search example](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_whois.png)
-
-Use [WHOIS Domain search](https://app.netlas.io/whois_domains/)
+**Search query example**
 
 ```
-github.com
+domain:github.com
 ```
+
+[Try in Netlas](https://app.netlas.io/whois_domains/?q=domain%3Agithub.com)
 
 **API request example**
 
-Netlas CLI Tools:
+Netlas CLI Tools.
 
 ```bash
-netlas host github.com -f json
+netlas search --datatype whois-domain --format json 'domain:github.com'
 ```
 
-Curl:
+Curl.
 
 ```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/whois_domains/?q=github.com&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' |  jq .items[].data.technical.street
+curl --fail-with-body -sS --get 'https://app.netlas.io/api/whois_domains/' \
+  -H "Authorization: Bearer ${NETLAS_API_KEY}" \
+  --data-urlencode 'q=domain:github.com' | jq '.items[].data | {domain, organization: .registrant.organization}'
 ```
 
 **Code example (Netlas Python Library)**
 
-![WHOIS example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_whois_search_python.png)
-
-Run in command line:
+Run in the command line.
 
 ```bash
 python scripts/osint/whois_search.py
 ```
 
-Source code of scripts/osint/whois_search.py:
+Source code of [scripts/osint/whois_search.py](scripts/osint/whois_search.py).
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('domain:github.com', datatype='whois-domain')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from whois for google.com domain
-netlas_query = netlas_connection.query(query="google.com",datatype="whois-domain")
-
-
-# iterate over data and print: owner name
-for response in netlas_query['items']:
-    print (response['data']['technical']['name'])  
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["domain"])
+    print((data.get("registrant") or {}).get("organization"))
 ```
 
+<a id="search-location-in-address-tag"></a>
 
-### Search Location in \<address\> Tag
+### Search Extracted Contact Addresses
 
-`<address>` tag is located inside the `<head>` tag of a web page and may contain physical addresses. With a search using this tag, you can find sites associated with a particular street, and sometimes even a particular building.
+The HTML `<address>` element can contain contact information for a document or article. In Netlas, `contacts.address` contains physical addresses extracted from different parts of service responses, including web pages. Filter by `prot7:http` to include HTTP and HTTPS results. Use `contacts.email` to search extracted email addresses. [HTML standard](https://html.spec.whatwg.org/multipage/sections.html#the-address-element) · [Responses field reference](https://docs.netlas.io/knowledge-base/field-reference/responses/#contacts-address)
 
-**Search query example**  
-
-![Author meta search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_contacts_search.png)
+**Search query example**
 
 ```
-http.contacts.address:kirby
+prot7:http AND host:(example.com OR *.example.com) AND contacts.address:*
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=http.contacts.address%3Akirby&page=1&indices=)
-
-You can also use http.contacts.email: for email search.
+[Try in Netlas](https://app.netlas.io/responses/?q=prot7%3Ahttp+AND+host%3A%28example.com+OR+%2A.example.com%29+AND+contacts.address%3A%2A)
 
 **API request example**
 
-Netlas CLI Tools:
+Netlas CLI Tools.
 
 ```bash
-netlas search "http.contacts.address:kirby" -f json
+netlas search --format json 'prot7:http AND host:(example.com OR *.example.com) AND contacts.address:*'
 ```
 
-Curl:
+Curl.
 
 ```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=http.contacts.address%3Akirby&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.http.contacts
+curl --fail-with-body -sS --get 'https://app.netlas.io/api/responses/' \
+  -H "Authorization: Bearer ${NETLAS_API_KEY}" \
+  --data-urlencode 'q=prot7:http AND host:(example.com OR *.example.com) AND contacts.address:*' | jq '.items[].data.contacts.address'
 ```
 
 **Code example (Netlas Python Library)**
 
-![Contacts address search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_contacts_search_python.png)
-
-Run in command line:
+Run in the command line.
 
 ```bash
 python scripts/osint/contacts_search.py
 ```
 
-Source code of scripts/osint/contacts_search.py:
+Source code of [scripts/osint/contacts_search.py](scripts/osint/contacts_search.py).
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('prot7:http AND host:(example.com OR *.example.com) AND contacts.address:*')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `http.contacts.address:kirby`
-netlas_query = netlas_connection.query(query="http.contacts.address:kirby")
-
-
-# iterate over data and print: URL, Contacts
-for response in netlas_query['items']:
-    print (response['data']['uri'])
-    print (response['data']['http']['contacts'])
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["uri"])
+    print((data.get("contacts") or {}).get("address"))
 ```
 
+### Search Author Name in Meta Tags
 
+`<meta>` tags are located inside the `<head>` of a web page and may contain keywords, a description, service information, and the author’s name.
 
-###  Search Author Name in Meta Tags
+The `http.meta` field searches metadata extracted from HTML `<meta>` elements. This query matches the term in any indexed meta content. Inspect the original response to see whether it appears in `<meta name="author">`.
 
-`<meta>` tags are located inside the `<head>` tag of a web page and contain the most important keywords, description, miscellaneous service information and the author's name. 
-
-Searching for nickname and name/surname by meta tags (http.meta) allows you to find sites associated with a particular person faster than searching the entire html code (http.body).
-
-
-**Search query example**  
+**Search query example**
 
 ![Author meta search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_author_search.png)
 
@@ -1246,1642 +990,885 @@ Searching for nickname and name/surname by meta tags (http.meta) allows you to f
 http.meta:nazar
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=http.meta%3Anazar&page=1&indices=)
+[Try in Netlas](https://app.netlas.io/responses/?q=http.meta%3Anazar)
 
 **API request example**
 
-Netlas CLI Tools:
+Netlas CLI Tools.
 
 ```bash
-netlas search "http.meta:nazar" -f json
+netlas search --format json 'http.meta:nazar'
 ```
 
-
-Curl:
+Curl.
 
 ```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=http.meta%3Anazar&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.http.meta
+curl --fail-with-body -sS --get 'https://app.netlas.io/api/responses/' \
+  -H "Authorization: Bearer ${NETLAS_API_KEY}" \
+  --data-urlencode 'q=http.meta:nazar' | jq '.items[].data.http.meta'
 ```
 
 **Code example (Netlas Python Library)**
 
-![Author meta search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_author_meta_search_python.png)
-
-Run in command line:
+Run in the command line.
 
 ```bash
 python scripts/osint/author_meta_search.py
 ```
 
-Source code of scripts/osint/author_meta_search.py:
+Source code of [scripts/osint/author_meta_search.py](scripts/osint/author_meta_search.py).
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('http.meta:nazar')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `http.meta:nazar`
-netlas_query = netlas_connection.query(query="http.meta:nazar")
-
-
-# iterate over data and print: ip, url
-for response in netlas_query['items']:
-    print (response['data']['uri'])
-    print (response['data']['http']['title'])
-    print (response['data']['http']['meta'])
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["uri"])
+    http = data.get("http") or {}
+    print(http.get("title"))
+    print(http.get("meta"))
 ```
-
-
 
 ### What Other Interesting Things Can Be Found in the Meta Tags of HTML Document?
 
-In addition to the author's name, meta tags can contain a variety of information: encoding, language, permission to index the page by search engine robots, text for link cards in social networks, OpenGraph metadata, and much more. Here are some more examples of meta tags that may contain useful information for investigations:
-
+In addition to the author’s name, HTML metadata can contain information about a document’s encoding, summaries, and social sharing previews. Here are some examples.
 
 *  `<meta name="description">` - description of web page content.
 *  `<meta name="keywords">`  - keywords that describe the content of the web page.
 *  `<meta name="generator">`  - name of the tool that was used to generate the page content (useful for searching CMS and hosting platforms)
-*  `<meta name="copyright">`  - the name of the person or company who owns the copyright to the content of the web page.
 
-
+HTML documents can include `<meta name="description">` for a page summary, `<meta name="keywords">` for descriptive keywords, and `<meta name="generator">` for the software that generated the page. The `charset` attribute declares the encoding, and the `lang` attribute on the HTML element declares the language of the document. [HTML standard](https://html.spec.whatwg.org/multipage/semantics.html#standard-metadata-names)
 
 ### Search by FTP Server's Banners Text
 
+A banner can identify a service or contain a term associated with its operator. This example looks for Pure-FTPd in the recorded FTP banner. Use `prot7:ftp` to filter by application protocol when combining FTP with other filters.
 
-Another important step in finding information about a person or company is to look for its mention in the text of FTP server banners. It is possible that the IP address of the found servers will be the key to finding other sites related to the person or company you are interested in. And in case of very strong luck to find something interesting in the files posted there (if the FTP server is open).
-
-**Search query example**  
-
-![Search CVE by tag name](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/ftp_banner_search.png)
+**Search query example**
 
 ```
-ftp.banner:"Collado" 
+ftp.banner:"pure-ftpd"
 ```
 
-If you need to search for FTP servers by some other parameter (such as city or IP address range), then use the prot7:ftp filter.
-
-[Try in Netlas](https://app.netlas.io/responses/?q=ftp.banner%3A%22Collado%22%20&page=1&indices=)
+[Try in Netlas](https://app.netlas.io/responses/?q=ftp.banner%3A%22pure-ftpd%22)
 
 **API request example**
 
-Netlas CLI Tools:
-
+Netlas CLI Tools.
 
 ```bash
-netlas search 'ftp.banner:"Collado"' -f json
+netlas search --format json 'ftp.banner:"pure-ftpd"'
 ```
 
-Note that when double quotes are used in queries, the query itself is written inside single quotes.
-
-Curl:
+Curl.
 
 ```bash
-curl -X 'GET' \
-    'https://app.netlas.io/api/responses/?q=ftp.banner%3A%22Collado%22&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.uri
+curl --fail-with-body -sS --get 'https://app.netlas.io/api/responses/' \
+  -H "Authorization: Bearer ${NETLAS_API_KEY}" \
+  --data-urlencode 'q=ftp.banner:"pure-ftpd"' | jq '.items[].data.uri'
 ```
 
 **Code example (Netlas Python Library)**
 
-![Favicon hash search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/ftp_banner_search_python.png)
-
-Run in command line:
+Run in the command line.
 
 ```bash
 python scripts/osint/ftp_banner_search.py
 ```
 
-Source code of scripts/osint/ftp_banner_search.py:
+Source code of [scripts/osint/ftp_banner_search.py](scripts/osint/ftp_banner_search.py).
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('ftp.banner:"pure-ftpd"')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `ftp.banner:"Collado"`
-netlas_query = netlas_connection.query(query='ftp.banner:"Collado"')
-
-
-# iterate over data and print: IP, URL, ftp banner text
-for response in netlas_query['items']:
-    print (response['data']['ip'])
-    print (response['data']['uri'])
-    print (response['data']['ftp']['banner'])
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["ip"])
+    print(data["uri"])
+    print((data.get("ftp") or {}).get("banner"))
 ```
 
-### Search for Contact Information in SSL Certificates
+<a id="search-for-contact-information-in-ssl-certificates"></a>
 
-![Certificates search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/certificates_search.png)
+### Search for Contact Information in TLS Certificates
 
-An SSL Certificate is a digital certificate that authenticates a website and allows the use of an encrypted connection. It may contain information about it owner: name of the contact person, name of the organisation, country and sometimes even the address and postcode. You can search this information using the following filters (and many others):
+A TLS certificate can contain details about the subject and the issuer. Use `certificate.subject.*` for attributes of the certificate holder, and `certificate.issuer.*` for attributes of the issuing authority. Subject fields such as `organization`, `email_address`, or `street_address` are populated only when present in the certificate. This query matches responses whose leaf certificate includes a subject street address. [RFC 5280](https://www.rfc-editor.org/rfc/rfc5280#section-4.1.2.6) · [Responses field reference](https://docs.netlas.io/knowledge-base/field-reference/responses/#certificate)
 
-- `certificate.issuer.email_address`
-- `certificate.issuer.given_name`
-- `certificate.issuer.organization`
-- `certificate.issuer.postal_code`
-- `certificate.issuer.street_address`
-- `certificate.issuer.surname`
-
-Let's try to find IP addresses that have a certain word in the street address in their certificate:
+**Search query example**
 
 ```
-certificate.issuer.street_address:*mcgill*
+certificate.subject.street_address:*
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=certificate.issuer.street_address%3A*mcgill*&page=1&indices=)
+[Try in Netlas](https://app.netlas.io/responses/?q=certificate.subject.street_address%3A%2A)
 
 **API request example**
 
-Netlas CLI Tools:
+Netlas CLI Tools.
 
 ```bash
-netlas search "certificate.issuer.street_address:*mcgill*" -f json
+netlas search --format json 'certificate.subject.street_address:*'
 ```
 
-Curl:
+Curl.
 
 ```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=certificate.issuer.street_address%3A*mcgill*&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' jq .items[].data.uri
+curl --fail-with-body -sS --get 'https://app.netlas.io/api/responses/' \
+  -H "Authorization: Bearer ${NETLAS_API_KEY}" \
+  --data-urlencode 'q=certificate.subject.street_address:*' | jq '.items[].data.certificate.subject'
 ```
 
 **Code example (Netlas Python Library)**
 
-![Certificates search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/certificates_search_python.png)
-
-Run in command line:
+Run in the command line.
 
 ```bash
 python scripts/osint/certificates_search.py
 ```
 
-Source code of scripts/osint/certificates_search.py:
+Source code of [scripts/osint/certificates_search.py](scripts/osint/certificates_search.py).
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('certificate.subject.street_address:*')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `certificate.issuer.street_address:*mcgill*`
-netlas_query = netlas_connection.query(query="certificate.issuer.street_address:*mcgill*")
-
-
-print (type(netlas_query))
-
-# iterate over data and print: ip, url, cetificate issuer 
-for response in netlas_query['items']:
-    print (response['data']['uri'])
-    print (response['data']['certificate']['issuer'])  
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["uri"])
+    print((data.get("certificate") or {}).get("subject"))
 ```
 
+<a id="using-netlas-as-an-alternative-to-the-wayback-machine"></a>
 
-### Using Netlas as an Alternative to the WayBack Machine
+### Inspect Historical HTTP Responses
 
-Archive.org has been used by OSINT specialists to search old versions of websites and social media profiles pages to find now deleted contact and other information.
+Archive.org has been used by OSINT specialists to search old versions of websites. Netlas can also provide a record of individual HTTP responses from earlier scans.
 
-But, unfortunately, archive.org does not save copies of all sites and does not do it very often (for some sites only a couple of times a year or less).
+Netlas retains historical indices for its search tools. In Responses, select the calendar button next to the search bar and choose an available index. Use a query such as the following to find stored responses for a domain. [Historical data FAQ](https://docs.netlas.io/faq/#historical-data)
 
-But Netlas is saving old versions of sites from 2021 too!
-
-Following filters are most often used to search for sites:
-
-```
-http.title:"github.com"
-```
-```
-domain:github.com
-```
 ```
 host:github.com
 ```
 
 ![Select scan](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/select_scan.png)
 
-If you click on the outermost icon on the right next to the field for entering search queries, you will see a menu for selecting a scan date. You can use it to filter the html codes of sites saved on a specific date.
-
-![Copy response body](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/response_body_copy.png)
-
-To see how the site looks, copy the contents of the "body" field (response tab) into any text editor and delete the \t\r\n characters from the html code.
-
-![HTML viewer](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/html_viewer.png)
-
-After that, copy the code into one of the online html promoters, such as [Code beautify](https://codebeautify.org/htmlviewer). Or just save the file in html format and then open it in browser.
-
+Open a result and inspect the `http.body` field in the response. Netlas stores up to the first 100 KB of each response and follows up to five HTTP redirects. Treat the capture as a record of the response at scan time. [Scanning technology](https://docs.netlas.io/knowledge-base/scanning-technology/#extended-http-support)
 
 ### 9 Ways to Search Related Websites
 
 ![Search related websites](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_related_websites.png)
 
-When gathering information about a person or company, it can be important to find as many sites as possible that can be related to them in some way. There are at least 5 ways to do this with Netlas.
+Use several independent signals before attributing sites to the same organization. Shared providers, integrations, templates, and identifiers can give unrelated sites matching values.
 
+1. **Tracking identifiers.** Use the corresponding extracted field in Responses.
 
-1. ID for various services (analytics, advertising systems, applications for integration with social networks and publishing systems). Their overlap may indicate that one person or team was involved. Few examples:
+   ```
+   http.tracker.google_analytics:"G-EM4LHS2YB5"
+   http.tracker.google_tag_manager:"GTM-MQJS9PH"
+   http.tracker.facebook_pixel:"1006261009491006"
+   http.tracker.yandex_metrica:"38648545"
+   ```
 
-Google Analytics:
+   These IDs were observed in Netlas responses. To find a fresh sample, run an existence query such as `http.tracker.google_analytics:*` and copy an ID from a matching response.
 
-```
-http.tracker.google_analytics:"G-X82FSVSMTV"
-```
+2. **Affiliate links.** Extract a public partner identifier from a link and search for its value in `http.body`. Verify the parameter name and value together in the response because the query is tokenized.
 
-Google Tag Manager:
+3. **Registrant organization.** Open Domain WHOIS and search the registration field.
 
-```
-http.tracker.google_analytics:"GTM-N6462KFQ"
-```
+   ```
+   registrant.organization:"GitHub, Inc."
+   ```
 
-AddThis:
+   [Try in Netlas](https://app.netlas.io/whois_domains/?q=registrant.organization%3A%22GitHub%2C%20Inc.%22)
 
-```
-http.body:"AT-ra-500bcd681b192302"
-```
+4. **Mail servers.** Open DNS Search and search for domains listing an MX record.
 
-Facebook Pixel:
+   ![Search mail servers in DNS](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_mail_servers_dns.png)
 
-```
-http.tracker.facebook_pixel:317853189093681
-```
+   ```
+   mx:*.parklogic.com
+   ```
 
-Yandex Metrika
+   [Try in Netlas](https://app.netlas.io/domains/?q=mx%3A*.parklogic.com)
 
-```
-http.tracker.yandex_metrica:89723437
-```
-       
-Amazon Publisher Servies:
+5. **Name servers.** Open DNS Search and search for domains listing an NS record.
 
-```
-http.body:APS-XXXX
-```
+   ![Search name servers in DNS](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_name_servers_dns.png)
 
-Yes, it's all found in the code on some sites.
- 
-And a host of other indetifiers that can most often be found at the top of the html code (but sometimes all over the code).
+   ```
+   ns:ns?.parklogic.com
+   ```
 
-[Try in Netlas](https://nt.ls/BCrw9)
+   [Try in Netlas](https://app.netlas.io/domains/?q=ns%3Ans%3F.parklogic.com)
 
+6. **File references.** Search for distinctive filenames or assets in page content. [Search MP3 Mentions](#search-file-mentions-looking-for-content-that-may-be-infringing-on-copyrights)
 
-2. ID of affiliate programmes (also use http.body for search it). You can find them in affiliate links that a person publishes on other sites or in social networks. These can be the following URL parameters (and their like):
+7. **Subdomains.** Search for hostnames under the same domain. [Subdomain Search](#subdomain-search)
 
-```
-aff_fcid=
-user_id=
-partner_id=
-ref_id=
-```
+8. **IP WHOIS contacts.** Look for a shared contact in the network registration records. [Search IP WHOIS Contact Emails](#search-ip-whois-contact-emails)
 
-3. Search by organization name in Domain Whois Netlas search
-
-![Search organization in WHOIS](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_organization_whois.png)
-
-```
-"GitHub, Inc."
-```
-
-[Try in Netlas](https://app.netlas.io/whois_domains/?q=%22GitHub%2C%20Inc.%22&page=1&indices=)
-
-4. Search by mail servers in DNS Netlas search
-
-![Search mail servers in DNS](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_mail_servers_dns.png)
-
-```
-mx:*.parklogic.com
-```
-
-[Try in Netlas](https://app.netlas.io/domains/?q=mx%3A*.parklogic.com&page=1&indices=)
-
-5. Search by name servers in DNS Netlas search
-
-![Search name servers in DNS](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_name_servers_dns.png)
-
-```
-ns:ns?.parklogic.com
-```
-
-[Try in Netlas](https://app.netlas.io/domains/?q=mx%3A*.parklogic.com&page=1&indices=)
-
-6. Files (primarily user logos and avatars) mentions search [->](https://github.com/netlas-io/netlas-cookbook#search-file-mentions-looking-for-content-that-may-be-infringing-on-copyrights)
-
-
-7. Subdomain search [->](https://github.com/netlas-io/netlas-cookbook#search-subdomains)
-
-8. Whois contacts search (in Netlas response search) [->](https://github.com/netlas-io/netlas-cookbook#search-persons-nickname-or-email-in-whois-contacts)
-
-9. Favicon search [->](https://github.com/netlas-io/netlas-cookbook#favicon-search)
-
+9. **Favicons.** Compare the bytes or visual appearance of site icons. [Favicon Search](#favicon-search)
 
 ## Scraping (Extract Data from Web Page Body)
 
-Netlas API is a great tool for collecting contact and other website data. First, it allows you to do it quickly. Second, it does not require the use of proxy. Third, it allows you to collect data from sites that are currently unavailable.
+Use `http.body` to parse the HTML recorded for an indexed response. Netlas requests the HTTP index page and stores up to the first 100 KB of each response. The recorded body may lack content loaded later by a browser. [Netlas scanning technology](https://docs.netlas.io/knowledge-base/scanning-technology/#http-body) · [Netlas file search FAQ](https://docs.netlas.io/faq/#file-search)
 
-However, there are some disadvantages: Netlas scans only the main pages of sites and some rare sites are not included in its database due to protection.  But it can still be of great use.
+<a id="beatifulsoup-package"></a>
 
-There are three main approaches to scraping: collecting information from html tags and CSS selectors, extracting data using regular expressions, and AI scraping. Let's take a closer look at the first two. 
+### Beautiful Soup Package
 
+Use Beautiful Soup to extract `<h1>` headings from a captured page. Install the package with `python -m pip install beautifulsoup4`. [Beautiful Soup documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 
-### Beatifulsoup Package
+**Python SDK**
 
-[Beatifulsoup](https://pypi.org/project/beautifulsoup4/) is one of the world's most popular Python packages for parsing HTML code and XML files. Let's try using it to extract page titles (from \<h1> tags, NOT \<title> tages).
-
-First, install package:
-
-```bash
-pip install beautifulsoup4
-```
-
-And Run scripts/osint/scraping_beatifulsoup.py:
+Run [`scraping_beatifulsoup.py`](scripts/osint/scraping_beatifulsoup.py) from the repository root.
 
 ```bash
 python scripts/osint/scraping_beatifulsoup.py
 ```
 
-![Beatiful soup scraping](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/scraping_beatifulsoup.png)
-
-Source code of scripts/osint/scraping_beatifulsoup.py:
-
 ```python
+import os
+
 import netlas
 from bs4 import BeautifulSoup
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('host:example.com AND http.body:*')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `http.body:shop`
-netlas_query = netlas_connection.query(query="http.body:shop")
-
-# iterate over data and print: URL, h1 tags from body
-for response in netlas_query['items']:
-    print (response['data']['uri'])
-    soup = BeautifulSoup(response['data']['http']['body'], "html.parser")
-    try:
-        print(soup.find("h1").get_text())
-    except Exception:
-        print("no h1 tags")
-pass
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["uri"])
+    body = (data.get("http") or {}).get("body") or ""
+    soup = BeautifulSoup(body, "html.parser")
+    for heading in soup.find_all("h1"):
+        print(heading.get_text(" ", strip=True))
 ```
 
-You can extract data from other elements of web pages in a similar way:
+Use `soup.find(id="loginform")`, `soup.find(class_="forms")`, or `soup.find("a", href="https://example.com")` to select an element by an attribute. Check whether `find()` returned an element before calling `get_text()`. [Beautiful Soup search methods](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#searching-the-tree)
 
-```
-soup.find("h3").get_text()
-soup.find("id='loginform'").get_text()
-soup.find("class='forms'").get_text()
-soup.find("href='https://example.com'").get_text()
-```
-
-If you want to find all elements of a certain type use the find_all() method.
-
+If you want to find all elements of a certain type use the `find_all()` method.
 
 ### Re Package
 
-[Re](https://docs.python.org/3/library/re.html) is a pre-installed Python package for searching and retrieving data using regular expressions. It is useful for extracting contact information from web pages and many other tasks. Let's look at an example of how it works.
+The standard Python `re` module can extract email-like strings from a captured body. Replace `example.com` with a site you manage to check published contact details. The pattern identifies candidates for review. [Python regular expressions documentation](https://docs.python.org/3/library/re.html)
 
-Run scripts/osint/scraping_re.py:
+**Python SDK**
+
+Run [`scraping_re.py`](scripts/osint/scraping_re.py) from the repository root.
 
 ```bash
 python scripts/osint/scraping_re.py
 ```
 
-![Re scraping](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/scraping_re.png)
-
-Source code of scripts/osint/scraping_re.py:
-
 ```python
-import netlas
+import os
 import re
 
-apikey = "YOUR_API_KEY"
+import netlas
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+email_pattern = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+")
+results = netlas_connection.search('host:example.com AND http.body:*')
 
-# retrieve data from responses by query `http.body:shop`
-netlas_query = netlas_connection.query(query="http.body:shop")
-
-# iterate over data and print: URL, emails from body
-for response in netlas_query['items']:
-    print (response['data']['uri'])
-    emails = re.findall("[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_.]+", response['data']['http']['body'])
-    try:
-        print(emails)
-    except Exception:
-        print("no emails")
-pass
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["uri"])
+    body = (data.get("http") or {}).get("body") or ""
+    for email in email_pattern.findall(body):
+        print(email)
 ```
-
-Similarly, you can extract links, phone numbers, cryptocurrency wallet addresses and more. Ready patterns can be found in regular expression libraries:
-
-[Regex Lib](https://regexlib.com/)
-[UI Bakery Regex Library](https://uibakery.io/regex-library)
-[Regex 101](https://regex101.com/)
-
 
 ### Other Python Packages for Scraping
 
-Beaitiful soup and Re packages are just one of the many tools for scraping data from web pages using Python. Here are some more examples of such packages:
-
+Beautiful Soup and regular expressions are two ways to extract data from web pages. Here are some other Python packages.
 
 * [Scrapy](https://pypi.org/project/Scrapy/): It is primarily a crawler (a tool for traversing website pages using links found on other pages) and, in addition, it has extensive capabilities for extracting data from web pages.
-* [Selenium](https://pypi.org/project/selenium/): A tool for automating your browser experience. Allows you to extract data from contentthat is generated by JavaScript.
-* [Lxml](https://pypi.org/project/lxml/): Tool for scraping and validate XML files. 
+* [Selenium](https://pypi.org/project/selenium/): A tool for automating your browser experience. Allows you to extract data from content that is generated by JavaScript.
+* [Lxml](https://pypi.org/project/lxml/): Tool for scraping and validating XML files.
 * [PDFtoText](https://pypi.org/project/pdftotext/) - tool for extracting text content from PDF files.
-* [pyChatGPT](https://pypi.org/project/pyChatGPT/) - unofficial package for interaction with CHATGP (does not require OpenAI API key), which allows analyzing text information with AI.
-
 
 ## Using Netlas.io for Crypto Investigations
 
-Netlas provides a great opportunity for researchers who specialise in cryptocurrency crime. Firstly, it can be used to search for references to wallet addresses and transaction numbers.  Second, it can be used to search for vulnerable mining farms, nodes and other servers associated with crypto infrastructure.
-
+These examples use `example.com` and `192.0.2.0/24`, which are reserved for documentation. The example scope may return no matching records. For an inventory review, substitute the domains or network ranges you are authorized to assess. [IANA example domains](https://www.iana.org/help/example-domains) · [RFC 5737](https://datatracker.ietf.org/doc/html/rfc5737)
 
 ### Search Mining Farms
 
-![Search mining farms](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_mining_farms.png)
+If a mining device in your inventory advertises its product name in the HTTP `WWW-Authenticate` header, you can search for that text. Use the value observed on your equipment. The header is a product-identification clue that can vary by model or firmware.
 
-Antminer mining farms, which were first released by Bitmain back in 2013, are one of the most popular line of mining farm models in the world. You can find them by the presence of the word "antMiner" in the www_authenticate header.
-
-```
-http.headers.www_authenticate:antMiner
+```text
+ip:"192.0.2.0/24" AND http.headers.www_authenticate:antminer
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=http.headers.www_authenticate%3AantMiner&page=1&indices=)
-
-You can also search for other types of mining farms. For examples:
-
-```
-http.headers.www_authenticate:XMR-Stak-Miner
-```
-
-Experiment by combining different filters, the words "miner/mining" and cryptocurrency names.
-
-**API request example**
-
-Netlas CLI Tools:
+Use the same query with the Netlas CLI or Responses API. The commands use the `NETLAS_API_KEY` environment variable configured in [API Requests](#api-requests). [Responses API reference](https://docs.netlas.io/api-reference/)
 
 ```bash
-netlas search "http.headers.www_authenticate:antMiner"
+netlas search 'ip:"192.0.2.0/24" AND http.headers.www_authenticate:antminer' \
+  -a "$NETLAS_API_KEY" -i uri,http.headers.www_authenticate -f json
 ```
 
-Curl:
-
 ```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=http.headers.www_authenticate%3AantMiner&source_type=include&start=0&fields=*' \
-   -H 'accept: application/json' \
-   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.uri
- ```
-
-**Code example (Netlas Python Library)**
-
-![Maining farms search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/maining_farms_search_python.png)
-
-Run in command line:
-
-```bash
-python scripts/crypto/mining_farms_search.py
+curl --fail-with-body --silent --show-error --get 'https://app.netlas.io/api/responses/' \
+  --header "Authorization: Bearer $NETLAS_API_KEY" \
+  --data-urlencode 'q=ip:"192.0.2.0/24" AND http.headers.www_authenticate:antminer' \
+  --data-urlencode 'fields=uri,http.headers.www_authenticate'
 ```
 
-Source code of scripts/crypto/mining_farms_search.py:
+The Python example uses the Netlas SDK. [mining_farms_search.py](scripts/crypto/mining_farms_search.py)
+
+Source code.
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+api_key = os.getenv("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+connection = netlas.Netlas(api_key=api_key)
+query = 'ip:"192.0.2.0/24" AND http.headers.www_authenticate:antminer'
+results = connection.search(query=query, fields="uri,http.headers.www_authenticate")
 
-# retrieve data from responses by query `http.headers.www_authenticate:antMiner`
-netlas_query = netlas_connection.query(query='http.headers.www_authenticate:antMiner')
-
-# iterate over data and print: uri, http headers
-for response in netlas_query['items']: 
-    print (response['data']['uri'])
-    print (response['data']['http']['headers'])
+for item in results["items"]:
+    data = item["data"]
+    headers = ((data.get("http") or {}).get("headers") or {})
+    print(data["uri"], headers.get("www_authenticate", ""), sep="\t")
 ```
 
+<a id="search-for-websites-infected-with-cryptominers"></a>
 
-### Search for Websites Infected with Cryptominers
+### Search for Historical Cryptomining References
 
-![Search website injected with miners](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_sites_injected_with_miners.png)
+Coinhive stopped its mining service in March 2019. A match for its name in an archived or recent response could be a historical script reference or an ordinary text mention. Review the observed response and the asset's source code to determine what the reference means. [USENIX research on Coinhive's shutdown](https://www.usenix.org/system/files/sec19-bijmans.pdf)
 
-Coinhive, a service that allows websites (mostly hacked) to use their visitor's computers to mine cryptocurrencies, is shutting down in 2019. But nevertheless, links to it are still embedded in many sites around the world. Let's try to find them:
-
-```
-http.body:coinhive.min.js domain:*
-```
-
-Note that we use the domain:* filter to find sites specifically, not all devices.
-
-
-Similarly, you can search for sites infected with other cryptominers (as well as other malicious code that executes on the user's side).
-
-**API request example**
-
-Netlas CLI Tools:
-
-```bash
-netlas search "http.body:coinhive.min.js domain:*"
+```text
+host:(example.com OR *.example.com) AND http.body:coinhive
 ```
 
-Curl:
+The Python example prints matching response URIs. [search_sites_injected_with_miners.py](scripts/crypto/search_sites_injected_with_miners.py)
 
-```bash
-curl -X 'GET' \
-   'https://app.netlas.io/api/responses/?q=http.body%3Acoinhive.min.js%20domain%3A*&source_type=include&start=0&fields=*' \
-   -H 'accept: application/json' \
-   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.uri
- ```
-
-**Code example (Netlas Python Library)**
-
-![Maining farms search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_sites_injected_with_miners_python.png)
-
-Run in command line:
-
-```bash
-python scripts/crypto/search_sites_injected_with_miners.py
-```
-
-Source code:
+Source code.
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+api_key = os.getenv("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+connection = netlas.Netlas(api_key=api_key)
+query = 'host:(example.com OR *.example.com) AND http.body:coinhive'
+results = connection.search(query=query, fields="uri")
 
-# retrieve data from responses by query `http.body:coinhive.min.js domain:*`
-netlas_query = netlas_connection.query(query='http.body:coinhive.min.js domain:*')
-
-
-# iterate over data and print: uri
-for response in netlas_query['items']: 
-    print (response['data']['uri'])
+for item in results["items"]:
+    print(item["data"]["uri"])
 ```
 
+<a id="search-vulnerable-bitcoin-nodes"></a>
 
-### Search Vulnerable Bitcoin Nodes
-![Search bitcoin nodes](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_bitcoin_nodes.png)
+### Inventory Potential Bitcoin Nodes
 
-Bitcoin nodes use port 8333 for TCP connection. Therefore, it is easy to find them using the "port:" search filter.
+Bitcoin mainnet peers listen on TCP port `8333` by default. A port match shows that Netlas recorded a service on that port. Verify the protocol or running software against your inventory. [Bitcoin P2P network reference](https://developer.bitcoin.org/reference/p2p_networking.html#constants-and-defaults)
 
-```
-port:8333 cve:*
-```
-
-Note that we use the "cve:*" filter to look for servers with vulnerabilities.
-
-**API request example**
-
-Netlas CLI Tools:
-
-```bash
-netlas search "port:8333 cve:*"
+```text
+ip:"192.0.2.0/24" AND prot4:tcp AND port:8333
 ```
 
-Curl:
+The Python example prints matching service URIs. [search_bitcoin_nodes.py](scripts/crypto/search_bitcoin_nodes.py)
 
-```bash
-curl -X 'GET' \
-    'https://app.netlas.io/api/responses/?q=port%3A8333%20cve%3A*&source_type=include&start=0&fields=*' \
-   -H 'accept: application/json' \
-   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.uri
- ```
-
-**Code example (Netlas Python Library)**
-
-![Search bitcoin nodes Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_bitcoin_nodes_python.png)
-
-Run in command line:
-
-```bash
-python scripts/crypto/search_bitcoin_nodes.py
-```
-
-Source code of scripts/crypto/search_bitcoin_nodes.py:
+Source code.
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+api_key = os.getenv("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+connection = netlas.Netlas(api_key=api_key)
+query = 'ip:"192.0.2.0/24" AND prot4:tcp AND port:8333'
+results = connection.search(query=query, fields="uri")
 
-# retrieve data from responses by query `port:8333 cve:*`
-netlas_query = netlas_connection.query(query='port:8333 cve:*')
-
-# iterate over data and print: uri, CVE name and description
-for response in netlas_query['items']: 
-    print (response['data']['uri'])
-    print (response['data']['cve'][0]['name'])
-    print (response['data']['cve'][0]['description'])
+for item in results["items"]:
+    print(item["data"]["uri"])
 ```
 
+<a id="using-neltas-for-pentest"></a>
 
-## Using Neltas for Pentest
+## Using Netlas for Pentest
 
-Netlas.io allows you to search for sites with many different types of vulnerabilities. This can be done by vulnerability number (CVE-...), the name of the software installed on the server, certain words in page headers, and other parameters.
+Use the examples in this section to review domains or IP ranges you are authorized to assess. The examples use documentation ranges and may return zero matches.
 
-You can track the most recently published CVEs (Common Vulnerabilities and Exposures) on these sites:
+CVE annotations associate detected software with published advisories. Netlas can match by product and version (`cve.match_type:cpe`) or by product family (`cve.match_type:product`). Check the installed version, vendor advisory, configuration, and patch status when triaging a result. Software detection and backported fixes can affect the accuracy of a match. [Netlas vulnerability detection](https://docs.netlas.io/knowledge-base/software-and-vulnerabilities/#how-netlas-links-vulnerabilities)
 
-* [CVE Details](https://www.cvedetails.com/)
-* [VulDB](https://vuldb.com/)
-* [OpenCVE](https://www.opencve.io/)
-
-We also regularly post most relevant queries to search vulnerable devices and software on our [Twitter](https://twitter.com/Netlas_io), [Telegram](https://t.me/netlas) and [Discord](https://nt.ls/discord) feeds, as well as [Netlas Dorks](https://github.com/netlas-io/netlas-dorks) Github repository.
-
-In this section, we will simply cover the general principles of searching for sites and servers with vulnerabilities.
-
+CVE and tag filter availability depends on your subscription. [Netlas plan FAQ](https://docs.netlas.io/faq/#freelancer-cve-search)
 
 ### Subdomain Search
 
-By using asterisks in search queries, you can find all subdomains of different levels (whose name ends with the name of a particular first-level domain (.com) or second-level domain (google.com).
+In **Responses Search**, `host` is the IP address or domain used in the request that returned the indexed response. Use a wildcard to match subdomains. Include the apex explicitly if you also want it in the results. [Netlas query language](https://docs.netlas.io/knowledge-base/query-language/#fields-and-search-terms)
 
-**Search query example**  
-
-![Subdomain search example](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_subdomain_search.png)
-
-```
-domain:*.github.com OR host:*.github.com
+```text
+host:*.example.com
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=domain%3A*.github.com%20OR%20host%3A*.github.com&page=1&indices=)
+For DNS records, use **DNS Search** and its `domain` field. Coverage depends on Netlas’s scans and DNS data sources. [Netlas search tools](https://docs.netlas.io/quick-start/search-tools/)
 
-**API request example**
-
-Netlas CLI Tools:
-
-```bash
-netlas search "domain:*.github.com OR host:*.github.com" -f json
+```text
+domain:*.example.com
 ```
 
-Curl:
+The Python example uses Responses Search. [subdomain_search.py](scripts/pentest/subdomain_search.py)
 
-```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=domain%3A*.github.com%20OR%20host%3A*.github.com&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.uri
-```
-
-**Code example (Netlas Python Library)**
-
-![Subdomain search example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/osint_subdomain_search_python.png)
-
-Run in command line:
-
-```bash
-python scripts/pentest/subdomain_search.py
-```
-
-Source code of scripts/pentest/subdomain_search.py:
+Source code.
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+api_key = os.getenv("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+connection = netlas.Netlas(api_key=api_key)
+query = 'host:*.example.com'
+results = connection.search(query=query, fields="ip,uri")
 
-# retrieve data from responses by query `domain:*.github.com OR host:*.github.com`
-netlas_query = netlas_connection.query(query="domain:*.github.com OR host:*.github.com")
-
-
-# iterate over data and print: ip, url
-for response in netlas_query['items']:
-    print (response['data']['ip'])
-    print (response['data']['uri'])
+for item in results["items"]:
+    data = item["data"]
+    print(data["ip"], data["uri"], sep="\t")
 ```
-
 
 ### Search for Sites with Specific Vulnerabilities
 
-**Search query example**  
+On the documentation network, filter for an exact CVE identifier. This example uses the Spring Framework advisory CVE-2022-22965. Consult the vendor's advisory for affected versions and mitigations. [Spring advisory](https://spring.io/security/cve-2022-22965/)
 
-![CVE search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/pentest_cve_search.png)
-
-```
-cve.name:CVE-2022-22965
+```text
+ip:"192.0.2.0/24" AND cve.name:"CVE-2022-22965"
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=cve.name%3ACVE-2022-22965&page=1&indices=)
+The Python example prints the URI and match type for annotations with the requested CVE identifier. [cve_search.py](scripts/pentest/cve_search.py)
 
-**API request example**
-
-Netlas CLI Tools:
-
-```bash
-netlas search "cve.name:CVE-2022-22965" -f json
-```
-
-CVE-2022-22965 - Spring MVC or Spring WebFlux application running on JDK 9+ may be vulnerable to remote code execution (RCE) via data binding. [Details](https://nvd.nist.gov/vuln/detail/cve-2022-22965)
-
-Curl:
-
-```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=http.body%3A1%3F234%3F567%3F89%3F99%20OR%20http.body%3A12345678999%20OR%20http.body%3A1234%3F5678%3F999&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' jq .items[].data.uri
-```
-
-**Code example (Netlas Python Library)**
-
-![CVE search example Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/pentest_cve_search_python.png)
-
-Run in command line:
-
-```bash
-python scripts/pentest/cve_search.py
-```
-
-Source code of scripts/pentest/cve_search.py:
+Source code.
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+api_key = os.getenv("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+connection = netlas.Netlas(api_key=api_key)
+cve_id = "CVE-2022-22965"
+query = f'ip:"192.0.2.0/24" AND cve.name:"{cve_id}"'
+results = connection.search(query=query, fields="uri,cve.name,cve.match_type")
 
-# retrieve data from responses by query `cve.name:CVE-2022-22965`
-netlas_query = netlas_connection.query(query="cve.name:CVE-2022-22965")
-
-
-# iterate over data and print: ip, url
-for response in netlas_query['items']:
-    print (response['data']['ip'])
-    print (response['data']['uri'])
+for item in results["items"]:
+    data = item["data"]
+    for annotation in data.get("cve") or []:
+        if annotation.get("name") == cve_id:
+            print(data["uri"], cve_id, annotation.get("match_type", ""), sep="\t")
 ```
 
 ### Search for Sites with Vulnerabilities That Contain a Certain Word in Their Descriptions
 
-If you don't need to investigate servers with a specific type of vulnerability, but just want to see vulnerable servers in a specific group (such as Oracle WebLogic Server or WordPress sites), you can search for them using keywords and the cve.description: filter. 
+`cve.description` is a full-text field. A search for `spring` retrieves records with that term in a vulnerability description. The same response can also carry other CVE annotations. [Netlas query language](https://docs.netlas.io/knowledge-base/query-language/#text-fields)
 
-To filter out sites that have exploits published for vulnerabilities, use cve.has_exploit:true.
-
-**Search query example**  
-
-![CVE description search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/pentest_cve_description_search.png)
-
-```
-cve.description:weblogic AND cve.has_exploit:true
+```text
+ip:"192.0.2.0/24" AND cve.description:spring
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=cve.description%3Aweblogic%20AND%20cve.has_exploit%3Atrue&page=1&indices=)
+The Python example prints matching response URIs. [cve_description_search.py](scripts/pentest/cve_description_search.py)
 
-**API request example**
-
-Netlas CLI Tools:
-
-```bash
-netlas search "cve.description:weblogic AND cve.has_exploit:true" -f json
-```
-
-Curl:
-
-```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=cve.description%3Aweblogic%20AND%20cve.has_exploit%3Atrue&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY | jq .items[].data.uri
-```
-
-**Code example (Netlas Python Library)**
-
-![CVE description search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/pentest_cve_description_search_python.png)
-
-Run in command line:
-
-```bash
-python scripts/pentest/cve_description_search.py
-```
-
-Source code of scripts/pentest/cve_description_search.py:
+Source code.
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+api_key = os.getenv("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+connection = netlas.Netlas(api_key=api_key)
+query = 'ip:"192.0.2.0/24" AND cve.description:spring'
+results = connection.search(query=query, fields="uri")
 
-# retrieve data from responses by query `cve.description:weblogic AND cve.has_exploit:true`
-netlas_query = netlas_connection.query(query="cve.description:weblogic AND cve.has_exploit:true")
-
-# iterate over data and print:  url, first CVE name first CVE description
-for response in netlas_query['items']:
-    print (response['data']['uri'])
-    print (response['data']['cve'][0]['name'])
-    print (response['data']['cve'][0]['description'])
+for item in results["items"]:
+    print(item["data"]["uri"])
 ```
-
 
 ### Search by Server HTTP Header
 
-This method allows you to find devices manufactured by a specific company.
+The HTTP `Server` header can identify advertised web server or proxy software. Operators can change or omit it, and a proxy can differ from the application behind it. [HTTP semantics, Server header](https://www.rfc-editor.org/rfc/rfc9110.html#section-10.2.4)
 
-**Search query example**  
-
-![Search by server software](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/server_name_search.png)
-
-```
-http.headers.server:"yawcam"
+```text
+host:(example.com OR *.example.com) AND http.headers.server:nginx
 ```
 
-Search YawCam web cams.
+The Python example prints the URI and observed header value. [server_name_search.py](scripts/pentest/server_name_search.py)
 
-[Try in Netlas](https://app.netlas.io/responses/?q=http.headers.server%3A%22yawcam%22&page=1&indices=)
-
-**API request example**
-
-Netlas CLI Tools:
-
-```bash
-netlas search 'http.headers.server:"yawcam"' -f json
-```
-
-Note that when double quotes are used in queries, the query itself is written inside single quotes.
-
-Curl:
-
-```bash
-curl -X 'GET' \
-     'https://app.netlas.io/api/responses/?q=http.headers.server%3A%22yawcam%22&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.uri
-```
-
-**Code example (Netlas Python Library)**
-
-![Http headers server search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/server_name_search_python.png)
-
-Run in command line:
-
-
-```bash
-python scripts/pentest/server_name_search.py
-```
-
-Source code of scripts/pentest/server_name_search.py:
+Source code.
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+api_key = os.getenv("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+connection = netlas.Netlas(api_key=api_key)
+query = 'host:(example.com OR *.example.com) AND http.headers.server:nginx'
+results = connection.search(query=query, fields="uri,http.headers.server")
 
-# retrieve data from responses by query `http.headers.server:"yawcam"`
-netlas_query = netlas_connection.query(query='http.headers.server:"yawcam"')
-
-# iterate over data and print: IP, URL, server name
-for response in netlas_query['items']:
-    print (response['data']['ip'])
-    print (response['data']['http']['headers']['server'])
+for item in results["items"]:
+    data = item["data"]
+    headers = ((data.get("http") or {}).get("headers") or {})
+    print(data["uri"], headers.get("server", ""), sep="\t")
 ```
 
+<a id="search-for-vulnerable-servers-by-favicon-hash"></a>
 
-#### Default Logins and Passwords <!-- omit in toc -->
+### Match an Inventory Favicon by Hash
 
-One practical application of searching by software name in server headers is to search for devices from a particular vendor. This may be necessary both when searching for devices with specific vulnerabilities and for devices with standard logins and passwords.
+The `http.favicon.hash_sha256` field matches the exact bytes of a favicon. Different services can share a favicon, and the hash changes when the file bytes change. Netlas also supports perceptual hash searches when visual similarity is the goal. [Netlas favicon search](https://docs.netlas.io/knowledge-base/scanning-technology/#favicon-search)
 
-![Default passwords](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/default_passwords.png)
-
-Standard logins and passwords for different device models can be found in special lists. For example:
-
-* [Default Router Login Password For Top Router Models (2023 List)](https://www.softwaretestinghelp.com/default-router-username-and-password-list/)
-* [Default Username – Password – IP Address for Security Cameras](https://www.a1securitycameras.com/blog/default-username-passwords-ip-addresses-for-surveillance-cameras/)
-* [The Default Passwords of Nearly Every IP Camera](https://www.hackers-arise.com/post/the-default-passwords-of-nearly-every-ip-camera)
-* [List of default passwords from Datarecovery](https://datarecovery.com/rd/default-passwords/)
-
-Remember that using standard logins and passwords to log into other people's systems violates ethics rules and may be illegal in your country.
-
-
-### Search for Vulnerable Servers by Favicon Hash
-
-One way to find web servers exposed to a particular vulnerability is to search for favicon ico of a particular web server software. 
-
-**Search query example**  
-
-![Search CVE by favicon hash](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_favicon_hash.png)
-
-```
-http.favicon.hash_sha256:ebaaed8ab7c21856f888117edaf342f6bc10335106ed907f95787b69878d9d9e
+```text
+host:(example.com OR *.example.com) AND http.favicon.hash_sha256:41b986fa07a964750db98c7d4195812ea87da7f300b9dabb3f046c2dcd730728
 ```
 
-This query search SecurePoint favicon (CVE-2023-22620).
-
-[Try in Netlas](https://app.netlas.io/responses/?q=http.favicon.hash_sha256%3Aebaaed8ab7c21856f888117edaf342f6bc10335106ed907f95787b69878d9d9e&page=1&indices=)
-
-**API request example**
-
-Netlas CLI Tools:
+The example digest represents placeholder bytes. Pass the path to a local icon to compute its digest and search within the example domain scope. [favicon_hash_search.py](scripts/pentest/favicon_hash_search.py)
 
 ```bash
-netlas search "http.favicon.hash_sha256:ebaaed8ab7c21856f888117edaf342f6bc10335106ed907f95787b69878d9d9e" -f json
+python scripts/pentest/favicon_hash_search.py path/to/favicon.ico
 ```
 
-Curl:
-
-```bash
-curl -X 'GET' \
-   'https://app.netlas.io/api/responses/?q=http.favicon.hash_sha256%3Aebaaed8ab7c21856f888117edaf342f6bc10335106ed907f95787b69878d9d9e&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.uri
-```
-
-**Code example (Netlas Python Library)**
-
-![Favicon hash search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_favicon_hash_python.png)
-
-Run in command line:
-
-```bash
-python scripts/pentest/favicon_hash_search.py
-```
-
-Source code of scripts/pentest/favicon_hash_search.py:
+Source code.
 
 ```python
+import argparse
+import hashlib
+import os
+from pathlib import Path
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+parser = argparse.ArgumentParser(description="Search for an exact favicon match in the example domain scope.")
+parser.add_argument("favicon", type=Path, help="Path to a local favicon file.")
+args = parser.parse_args()
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+api_key = os.getenv("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# retrieve data from responses by query `http.favicon.hash_sha256:ebaaed8ab7c21856f888117edaf342f6bc10335106ed907f95787b69878d9d9e`
-netlas_query = netlas_connection.query(query="http.favicon.hash_sha256:ebaaed8ab7c21856f888117edaf342f6bc10335106ed907f95787b69878d9d9e")
+try:
+    digest = hashlib.sha256(args.favicon.read_bytes()).hexdigest()
+except OSError as error:
+    parser.error(str(error))
 
+connection = netlas.Netlas(api_key=api_key)
+query = f"host:(example.com OR *.example.com) AND http.favicon.hash_sha256:{digest}"
+results = connection.search(query=query, fields="uri,http.title")
 
-# iterate over data and print: IP,URL,web page title
-for response in netlas_query['items']:
-    print (response['data']['ip'])
-    print (response['data']['uri'])
-    print (response['data']['http']['title'])
+for item in results["items"]:
+    data = item["data"]
+    print(data["uri"], (data.get("http") or {}).get("title", ""), sep="\t")
 ```
 
+<a id="search-for-vulnerable-servers-by-tag-name"></a>
 
-### Search for Vulnerable Servers by Tag Name
+### Search by Technology Tag
 
-To simplify searching across servers running different software, Netlas automatically tags search results with specific tags.
+Netlas applies technology tags using signals such as HTTP headers, HTML, and protocol banners. Some rules also report a version. `tag.name` searches for a technology, and `tag.category` searches for a category. The **Search by Tag** button in Responses Search lists technologies. [Netlas technology detection](https://docs.netlas.io/knowledge-base/software-and-vulnerabilities/#technology-detection)
 
-Examples of tags:
-
-* Blogs - medium, wordpress, tumblr
-* CDN - google_cloud, cloudflare, keycdn
-* CMS - ucoz, joomla, pyrocms
-* Ecommerce - opencart, magento, wix
-
-You can search by tags using the "tag.name:" filter. You can also search by tag category using the "tag.category:" filter. A list of all available tags and categories is displayed when you click on the icon to the right of the search query entry box on the Netlas homepage. 
-
-*Note*: Not all pricing plans support the use of tags.
-
-**Search query example**  
-
-![Search CVE by tag name](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_tag_name.png)
-
-```
-tag.name:"adobe_coldfusion"
+```text
+host:(example.com OR *.example.com) AND tag.name:wordpress
 ```
 
-This query search Adobe ColdFusion (CVE-2023-26359).
+The Python example prints matching response URIs. [search_tag_name.py](scripts/pentest/search_tag_name.py)
 
-[Try in Netlas](https://app.netlas.io/responses/?q=tag.name%3A%22adobe_coldfusion%22&page=1&indices=)
-
-**API request example**
-
-Netlas CLI Tools:
-
-```bash
-netlas search 'tag.name:"adobe_coldfusion"' -f json
-```
-
-Note that when double quotes are used in queries, the query itself is written inside single quotes.
-
-Curl:
-
-```bash
-curl -X 'GET' \
-    'https://app.netlas.io/api/responses/?q=tag.name%3A%22adobe_coldfusion%22&source_type=include&start=0&fields=*'  \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' | jq .items[].data.uri
-```
-
-**Code example (Netlas Python Library)**
-
-![Favicon hash search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_tag_name_python.png)
-
-Run in command line:
-
-```bash
-python scripts/pentest/search_tag_name.py
-```
-
-Source code of scripts/pentest/search_tag_name.py:
+Source code.
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+api_key = os.getenv("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+connection = netlas.Netlas(api_key=api_key)
+query = 'host:(example.com OR *.example.com) AND tag.name:wordpress'
+results = connection.search(query=query, fields="uri")
 
-# retrieve data from responses by query `tag.name:"adobe_coldfusion"`
-netlas_query = netlas_connection.query(query='tag.name:"adobe_coldfusion"')
-
-# iterate over data and print: IP,URL 
-for response in netlas_query['items']:
-    print (response['data']['ip'])
-    print (response['data']['uri'])
+for item in results["items"]:
+    print(item["data"]["uri"])
 ```
 
+<a id="search-for-vulnerable-servers-and-devices-near-you-or-any-other-location"></a>
 
-### Search for Vulnerable Servers and Devices Near You (or Any Other Location)
+### Filter CVE Annotations by IP Geolocation
 
-![CVE location search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/cve_location_search.png)
+You can restrict the results to a city within the network range under review. Geolocation describes the IP address and can differ from the asset's physical location. `geo.country` takes a two-letter country code.
 
-Do you want to know how many vulnerable sites and devices are around you? Simply search for all IP addresses that have the CVE field populated in a specific geolocation.
-
-```
-geo.city:London AND cve:*
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=geo.city%3ALondon%20AND%20cve%3A*&page=1&indices=)
-
-You can also use other geolocation filters.
-
-- `geo.continent`
-- `geo.country`
-- `geo.location`
-
-**API request example**
-
-Netlas CLI Tools:
-
-```
-geo.city:London AND cve:*
+```text
+ip:"192.0.2.0/24" AND geo.city:London AND cve.name:*
 ```
 
-Curl:
+The Python example prints the response URI, mapped city, and each available CVE identifier. [cve_location_search.py](scripts/pentest/cve_location_search.py)
 
-```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=geo.city%3ALondon%20AND%20cve%3A*&source_type=include&start=0&fields=*' \
-   -H 'accept: application/json' \
-   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.domain
- ```
-
-**Code example (Netlas Python Library)**
-
-![Location CVE search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/cve_location_search_python.png)
-
-Run in command line:
-
-```bash
-python scripts/pentest/cve_location_search.py
-```
-
-Source code of scripts/pentest/cve_location_search.py:
+Source code.
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+api_key = os.getenv("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+connection = netlas.Netlas(api_key=api_key)
+query = 'ip:"192.0.2.0/24" AND geo.city:London AND cve.name:*'
+results = connection.search(query=query, fields="uri,geo.city,cve.name")
 
-# retrieve data from responses by query `geo.city:London AND cve:*`
-netlas_query = netlas_connection.query(query='geo.city:London AND cve:*')
-
-
-# iterate over data and print: uri, cve name, location
-for response in netlas_query['items']: 
-    print (response['data']['uri'])
-    print (response['data']['cve'][0]['name'])
-    print (response['data']['geo']['city'])
+for item in results["items"]:
+    data = item["data"]
+    city = (data.get("geo") or {}).get("city", "")
+    for annotation in data.get("cve") or []:
+        if annotation.get("name"):
+            print(data["uri"], city, annotation["name"], sep="\t")
 ```
-
 
 ### Search for Login/Admin Panels
-![Admin panels search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/admin_panels_search.png)
 
-Many sites and servers have login and password web pages that can be used to gain access to full control of the site or server (through the use of default passwords, bruteforce, or vulnerability exploitation).
+The indexed page title can help identify expected sign-in surfaces in your own inventory. Netlas requests the service's main page and follows redirects, so a search covers only the responses collected that way. [Netlas scanning technology](https://docs.netlas.io/knowledge-base/scanning-technology/#http-redirects)
 
-You can find them by using the `uri:` or/and `http.title` filter:
-
-```
-uri:*login.php*
-uri:*login.aspx*
-uri:*user* http.title:login
-uri:*admin* http.title:login
-http.title:admin http.title:panel
+```text
+host:(example.com OR *.example.com) AND http.title:"Admin sign in"
 ```
 
-There are so many combinations. To find only panels of vulnerable servers use filter `cve:*`.
+<a id="search-for-vulnerable-database-admin-panels"></a>
 
-Also, don't forget that you can filter servers by installed software using tags. For example:
+### Inventory Database Administration Interfaces
 
-```
-tag.1c_bitrix:*
-tag.Cisco:
-tag.amazon_s3:*
-tag.drupal:*
-tag.wordpress:*
+A known title is one clue that an administration interface appears in the indexed responses for your domain. Compare matches against your approved service inventory.
+
+```text
+host:(example.com OR *.example.com) AND http.title:phpMyAdmin
 ```
 
-### Search for Vulnerable Database Admin Panels
-![Database admin panels search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/database_admin_panels_search.png)
+<a id="search-for-sites-vulnerable-to-sql-injection"></a>
 
-Let's try to search vulnerable [phpMyAdmin](https://www.phpmyadmin.net/) admin panel (the one of most popular software for administering MySQL databases):
+### Check for Database Error Text
 
-```
-http.title:phpMyAdmin cve:*
-```
+A public response containing database error text can indicate that the application exposes diagnostics. SQL injection is a separate code-level issue in which untrusted input changes a SQL statement's structure. Review how queries are constructed and use parameter binding. The old PHP `mysql_*` extension was removed in PHP 7.0, so its function names have limited value as modern diagnostics. [OWASP SQL injection prevention](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html) · [PHP MySQL extension documentation](https://www.php.net/manual/en/book.mysql.php)
 
-And here are some examples for other popular database administration tools:
-
-[Adminer](https://www.adminer.org/):
-
-```
-http.title:adminer http.title:login cve:*
+```text
+host:(example.com OR *.example.com) AND http.body:"database connection failed"
 ```
 
-[PostgreSQL](https://www.postgresql.org/)
+Replace the phrase with an error message used by your application. The Python example reports matching URIs for review. [sql_injection_search.py](scripts/pentest/sql_injection_search.py)
 
-```
-http.title:(phpPgAdmin OR pgadmin) cve:*
-```
-
-You can also search for servers that have installed software for different databases by using the tags or special filters:
-
-```
-tag.adminer:*
-tag.phpMyAdmin:*
-tag.elastic:*
-mongodb:*
-mssql:*
-mysql:*
-django:*
-```
-
-Searching for admin panels for servers found in this way may not be the easiest thing to do, as site administrators often change standard links to more secure ones. 
-
-
-### Search for Sites Vulnerable to SQL Injection
-
-![SQL Injection search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/sql_injection_search.png)
-
-SQL injection is a type of vulnerability that allows database queries to be made by manipulating URL parameters (this can be possible due to misconfigurations and poor quality code). 
-
-One of the oldest techniques for finding pages potentially vulnerable to SQL Injection is to search for pages that have enabled error message display in MySQl queries using Google Dorks. 
-
-A similar search can be done in Netlas:
-
-```
-http.body:mysql_fetch_array http.body:warning
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=http.body%3Amysql_fetch_array%20http.body%3Awarning&page=1&indices=)
-
-Few other examples:
-
-```
-http.body:mysql_num_rows http.body:warning
-http.body:mysql_connect http.body:denied
-http.body:mysql_query http.body:warning
-http.body:pg_connect http.body:fatal
-```
-
-**API request example**
-
-Netlas CLI Tools:
-
-```bash
-netlas search "http.body:mysql_fetch_array http.body:warning" -f json
-```
-
-Curl:
-
-```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=http.body%3Amysql_fetch_array%20http.body%3Awarning&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' jq .items[].data.uri
-```
-
-**Code example (Netlas Python Library)**
-
-![SQL Injection search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/sql_injection_search_python.png)
-
-Run in command line:
-
-```bash
-python scripts/pentest/sql_injection_search.py
-```
-
-Source code of scripts/pentest/sql_injection_search.py:
+Source code.
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
- 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+api_key = os.getenv("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# search in Netlas "http.body:mysql_fetch_array http.body:warning"
-netlas_query = netlas_connection.query(query="http.body:mysql_fetch_array http.body:warning")
+connection = netlas.Netlas(api_key=api_key)
+query = 'host:(example.com OR *.example.com) AND http.body:"database connection failed"'
+results = connection.search(query=query, fields="uri")
 
-# iterate over data and print: uri, web page body
-for response in netlas_query['items']:
-    print (response['data']['uri'])  
-    print (response['data']['http']['body'])    
+for item in results["items"]:
+    print(item["data"]["uri"])
 ```
-
-You may also use the following filters to search for vulnerable MySQL servers:
-
-
-- `mysql.error_code`
-- `mysql.error_id`
-- `mysql.error_message`
-- 
 
 ## IoT Search: 9 Basic Ways
 
-Netlas searches not only websites and servers, but all devices connected to the Internet: smart home appliances, surveillance cameras, printers, routers, traffic lights, medical equipment, and more. 
-
-There are four main ways to find these devices.
+Responses Search covers services Netlas has observed, including exposed services on some IoT devices. Combine indicators from your own inventory to identify a device with more confidence. [Netlas IoT Search Engine](https://netlas.io/features/iot_search_engine/)
 
 ### Search by Title
 
-![Iot Title Search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_title.png)
+Search for a title phrase used by a device's web interface. Quoting matches the phrase's analyzed terms in order. [Netlas phrase searches](https://docs.netlas.io/knowledge-base/query-language/#exact-match)
 
-The easiest way is to simply search for the vendor's name or device type in the http title of the answer.
-
-Try to search Jeedom home automation devices:
-
+```text
+ip:"192.0.2.0/24" AND http.title:"Device status"
 ```
-http.title:Jeedom
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3AJeedom&page=1&indices=)
-
-Or Avigilon webcams:
-
-```
-http.title:"Avigilon"
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=http.title%3A%22Avigilon%22&page=1&indices=)
-
-There are two disadvantages to this method. The first is the large number of inappropriate results (just websites with relevant words in the title). But when using quotation marks and additional search filters like port:, there are fewer of them.
-
-The second is that a lot of IoT devices don't have any information in the http title by which they can be identified. So, other search filters can be useful too.
-
 
 ### Search Inside Body
 
-![Iot Body Search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_body.png)
+Look for known interface text in the indexed HTTP response body. Search terms are tokenized, which limits exact punctuation or markup matching. [Netlas text field searches](https://docs.netlas.io/knowledge-base/query-language/#text-fields)
 
-Similarly, you can try searching for keywords in the body of the http response. To filter out at least some of the common websites, use the NOT domain:* filter. Let's try to search Reolink cameras:
-
+```text
+ip:"192.0.2.0/24" AND http.body:"Device status"
 ```
-http.body:(clip-status) NOT domain:*
-```
-
-The example isn't quite right, so these cameras can be found using tags (more on that below).
-
 
 ### Search by Port  Number
 
-![Iot port search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_port.png)
+A port number describes the observed connection. Add a content or protocol filter to help distinguish services that share the port.
 
-Different IoT devices use different ports for communication. And by the open port number, you can hypothetically assume that the IP address belongs to a certain type of device (**often the assumption is correct, but there can be inaccuracies and coincidences**).
-
-Try to search Internet radio (port 8000):
-
+```text
+ip:"192.0.2.0/24" AND port:8000 AND http.title:radio
 ```
-port:8000 http.title:radio
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=port%3A8000%20http.title%3Aradio&page=1&indices=)
-
-Or all devices with opened port 7547 (it's used to remotely manage routers via CWMP):
-
-```
-port:7547
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=port%3A7547&page=1&indices=)
-
 
 ### Search by Banner
 
-![Iot banner search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_banner.png)
+Protocol banners can contain product names, login prompts, or other device strings. This example searches the Telnet banner in the documentation network.
 
-Let's look for routers that use the Telnet protocol (you could also filter them with port:23):
-
+```text
+ip:"192.0.2.0/24" AND telnet.banner:router
 ```
-telnet.banner:router
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=telnet.banner%3Arouter&page=1&indices=)
-
-Or search banners for all protocols:
-
-```
-\*.banner:router
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=%5C*.banner%3Arouter&page=1&indices=)
-
 
 ### Search by Favicon
 
-![Iot favicon search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_favicon.png)
-
-One of the easiest ways to find devices that have certain software installed is to search by favicon. Let's try to find where different Cisco products are used: 
-
-```
-http.favicon.hash_sha256:62a8461e328d5bace3780ff738d0b58f6502592c04afa564e0a8a792583a7bfb
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=http.favicon.hash_sha256%3A62a8461e328d5bace3780ff738d0b58f6502592c04afa564e0a8a792583a7bfb&page=1&indices=)
-
-There are three main ways to search by favicon in Netlas:
-
-1. Click on the icon to the left of the search result.
-2. Click on the favicon search button to the right of the search bar and paste the favicon link into the pop-up window.
-3. Click on the favicon search button to the right of the search bar and upload the favicon file.
-
+Use [the favicon recipe](#match-an-inventory-favicon-by-hash) with a known device icon. The **Favicon Search** button in Responses Search also accepts a file upload. [Netlas favicon search](https://docs.netlas.io/knowledge-base/scanning-technology/#favicon-search)
 
 ### Search by Server Headers
 
-![Iot headers search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_headers.png)
-
-Sometimes it happens that there is no identifying dev information in the http title, but it may be in other headers. For example, in http.server.header:
-
-```
-http.headers.server:"i-Catcher Console"
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=http.headers.server%3A%22i-Catcher%20Console%22&page=1&indices=)
-
-Netlas supports searching across several dozen header types. Try different variants.
-
+Use [the Server header recipe](#search-by-server-http-header) with a header value checked against your inventory.
 
 ### Search by Cookies
 
-![Iot cookie search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_headers_cookie.png)
+Use a known cookie name as an application fingerprint. A match in `http.headers.set_cookie` represents indexed header text, so confirm the cookie name when reviewing results.
 
-Search Eco JS Parking lots:
-
+```text
+ip:"192.0.2.0/24" AND http.headers.set_cookie:"device_session"
 ```
-http.headers.set_cookie:(regist_carNo=)
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=http.headers.set_cookie%3Aregist_carNo%3D&page=1&indices=)
 
 ### Search by Tag
 
-![Iot tag search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/iot_tag.png)
+Use the **Search by Tag** picker to find cataloged technologies. This query uses one documented category. Results depend on which technologies Netlas recognized in the indexed response. [Netlas technology detection](https://docs.netlas.io/knowledge-base/software-and-vulnerabilities/#technology-detection)
 
-*This method may require a paid subscription.* [See the pricing](https://netlas.io/pricing/)
-
-You can also try searching for devices by tags (categories). 
-
+```text
+ip:"192.0.2.0/24" AND tag.category:"Operating systems"
 ```
-tag.category:"IoT"
-tag.category:"Web cameras"
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=tag.category%3A%22Web%20cameras%22&page=1&indices=)
-
-Just remember that tags are assigned automatically and some suitable devices may not be included in the corresponding category.
-
 
 ### Additional Search Filters
 
-It's can search for IoT devices located in specific geolocations:
+The `ip` field accepts CIDR notation and inclusive ranges. Combine a range with a filter such as `geo.country` to review an inventory subset. [Netlas CIDR syntax](https://docs.netlas.io/knowledge-base/query-language/#cidr-based-ip-filtering)
 
-- `geo.city`
-- `geo.country`
-- `geo.continent`
-
-Filter devices by IP address range:
-
+```text
+ip:[192.0.2.10 TO 192.0.2.25] AND geo.country:GB
 ```
-ip:[162.245.241.131 TO 162.245.241.133]
-```
-
-Or devices with "fresh" vulnerabilities:
-
-```
-cve.name:*2023*
-```
-
-More examples of queries to search for IoT devices can be found here:
-
-[Netlas Dorks](https://github.com/netlas-io/netlas-dorks)
-
 
 ## Using Netlas.io for Darknet Research
 
-One of the main advantages of Netlas is that you can use it to search for things that are not indexed by Google. This is what can be conventionally called DeepWeb. For example, FTP servers or Telnet servers:
-
-```
-ftp.banner:*
-```
-```
-telnet.banner:*
-```
-
-But unfortunately Netlas does not index the Darknet (.onion, .i2p etc) as it only scans global IP addresses. But it can still be used to explore alternative network infrastructure and find links to .onion sites.
-
+Netlas Responses Search indexes observations from public internet scans. It can find public web pages that mention an onion address or show responses from an IP that the Tor Project has observed as an exit. The onion service itself is reachable through Tor. [Netlas scanning coverage](https://docs.netlas.io/knowledge-base/scanning-technology/#ip-and-port-coverage) · [Tor onion services](https://community.torproject.org/onion-services/)
 
 ### Tor Exit Nodes Search
 
-Tor exit node is the point whrerer web traffic leaves the Tor network and is forwarded to destination. An up-to-date list of IP addresses of active Tor entry nodes is always available on the TorProject website:
-
-[Tor Project's list of exit nodes](https://check.torproject.org/torbulkexitlist?ip=1.1.1.1)
-
-
-Let's see how you can collect information about all active Tor exit nodes at once using Netlas. This example will be useful for all other tasks for which you need to collect information about a list of domains or IP addresses.
-
-Run scripts/darknet/tor_nodes.py:
+An exit relay forwards traffic from Tor to an internet destination. The [Tor Project bulk exit list](https://check.torproject.org/torbulkexitlist) contains IPs observed in recent exit measurements. An IP's presence in the list only establishes that it was observed as an exit. Check timestamps in the [Tor Project exit-addresses feed](https://check.torproject.org/exit-addresses) when investigating a past event. [Tor exit list operation](https://rhatto.pages.torproject.net/wikipelago/network-health/metrics/exit-list-check/)
 
 ```bash
-python scripts/darknet/tor_nodes.py
+python scripts/darknet/tor_nodes.py --limit 10
 ```
 
-![Tor exit nodes information gathering](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/tor_exit_nodes.png)
+The [script](scripts/darknet/tor_nodes.py) downloads the feed, looks up one page of indexed responses per IP, and prints the IP, observed URI, and geolocation country code where available. Netlas observations and the Tor feed are collected independently.
 
-Source code of scripts/darknet/tor_nodes.py:
+Source code.
 
 ```python
+import argparse
+import os
+from ipaddress import ip_address
+from itertools import islice
+from urllib.request import urlopen
+
 import netlas
-import urllib
-import time
 
-apikey = 'YOUR_API_KEY'
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+parser = argparse.ArgumentParser(description="Look up observed Tor exit IPs in Netlas.")
+parser.add_argument("--limit", type=int, default=10, help="maximum IPs to look up (default: 10)")
+args = parser.parse_args()
+if args.limit < 1:
+    parser.error("--limit must be positive")
 
-# read file with Tor Exit Nodes IPs line by line
-response = urllib.request.urlopen('https://check.torproject.org/torbulkexitlist?ip=1.1.1.1')
-ip_lines = response.readlines()
-
-# save each line to ip variable
-for ip in ip_lines:
-     # wait one second
-     time.sleep(1)
-     # conver byte string to text
-     ip=ip.decode("utf-8")
-     # retrieve data from responses by query `ip: + tor exit node ip`
-     netlas_query = netlas_connection.query(query="ip:"+ip)
-
-    # iterate over data and print: ip, geo data, banner text
-
-     for response in netlas_query['items']:
-         print(response['data']['ip'])
-         print(response['data']['geo'])
-         print(response['data']['ntp']['banner'])
-     pass
-pass
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+with urlopen("https://check.torproject.org/torbulkexitlist", timeout=15) as feed:
+    addresses = (ip_address(line.decode("ascii").strip()) for line in feed if line.strip())
+    for address in islice(addresses, args.limit):
+        result = client.search(query=f'ip:"{address}"', fields="uri,geo.country")
+        for item in result.get("items", []):
+            data = item["data"]
+            print(address, data.get("uri", ""), (data.get("geo") or {}).get("country", ""))
 ```
-
-Using time package and sleep method is good only for simple examples. Best solutions is using [rate limit package](https://github.com/netlas-io/netlas-cookbook#error-429---too-frequent-requests).
-
 
 ### Collecting Links to .onion Sites
 
-As mentioned above, Netlas only scans global domains, so it is not possible to search for .onion domains. But you can search for references to .onion domains in the text of web pages.  Here is an example of a simple python script (with regular expression) that does this:
+Use Responses Search to find candidate pages by searching the tokenized HTTP body. Then inspect the returned body for strings in the v3 onion address format. The hostname uses 56 base32 characters followed by `.onion`. [Netlas text fields](https://docs.netlas.io/knowledge-base/query-language/#text-fields) · [Tor address specification](https://spec.torproject.org/rend-spec/encoding-onion-addresses.html)
 
-Run scripts/darknet/onion_links.py:
+```text
+http.body:onion
+```
 
 ```bash
 python scripts/darknet/onion_links.py
 ```
 
-![Onion links collecting](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/onion_links.png)
+The [script](scripts/darknet/onion_links.py) prints unique matching hostnames per returned page. These are text matches. The script checks the shape of the hostname and leaves address validity and reachability unverified.
 
-Source code of scripts/darknet/onion_links.py:
+Source code.
 
 ```python
-import netlas
+import os
 import re
 
-apikey = "YOUR_API_KEY"
-
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `http.body:*.onion AND forum`
-netlas_query = netlas_connection.query(query="http.body:(*.onion AND forum)")
+import netlas
 
 
-# iterate over data and print: URL, .onion link from body
-for response in netlas_query['items']:
-    print(response['data']['uri'])
-    onion_links = re.findall("[a-z-1-9]*\.onion", response['data']['http']['body'])  
-    try:
-         print(onion_links)
-    except:
-         print("no onion links")
-pass
+onion_address = re.compile(
+    r"(?<![a-z0-9-])[a-z2-7]{56}\.onion(?![a-z0-9-]|\.[a-z0-9-])",
+    re.IGNORECASE | re.ASCII,
+)
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+result = client.search(query="http.body:onion", fields="uri,http.body")
+for item in result.get("items", []):
+    data = item["data"]
+    body = (data.get("http") or {}).get("body") or ""
+    for address in sorted({value.lower() for value in onion_address.findall(body)}):
+        print(data.get("uri", ""), address)
 ```
-
-You can collect links for other networks like I2Pin the same way:
-
-```
-http.body:*.i2p
-```
-
 
 ## Files, Backups and Logs Directories Search
 
-![Directory search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/directory_search.png)
+Use Responses Search to audit your own domains for pages with a directory listing title. Replace `example.com` with a domain you administer.
 
-There are a huge number of sites and servers that leave their file directories open due to a configuration error (and sometimes deliberately). Here are some examples of queries that will help you find them.
-
-Search for any files directories:
-
-```
-http.title:Index http.title:of
+```text
+host:(example.com OR *.example.com) AND http.title:"index of"
 ```
 
-Search for directories with log files:
-
-```
-http.title:Index http.title:of http.body:logs
-```
-
-Search for directories with database dumps:
-
-```
-http.title:Index http.title:of http.body:sql
-```
-
-Search for directories with archived backups:
-
-```
-http.title:Index http.title:of http.body:backup?zip
-```
-
-Search for directories with SSH access info:
-
-```
-http.title:Index http.title:of http.body:("ssh_config" OR "ssh_known_hosts" OR "authorized_keys" OR "id_rsa" OR "id_dsa")
-```
-
-Search for directories with files with other authorisation information:
-
-```
-http.title:Index http.title:of http.body:("pass" OR "logins" OR "config" OR "password")
-```
-
-Search for directories with files downloaded by users:
-
-```
-http.title:index http.title:of http.body:downloads
-```
-
-Search for directories with Docker configuration files:
-
-```
-http.title:index http.title:of http.body:docker-compose
-```
-
-You can think of hundreds of other such requests. Experiment with different file names and extensions.
-
+This title is a heuristic. A match can be an intentionally published directory or another page with the same title. Confirm whether directory indexing is enabled on the relevant server. [Netlas Responses field reference](https://docs.netlas.io/knowledge-base/field-reference/responses/)
 
 ## Using Netlas.io for Digital Forensics and Incident Response
 
@@ -2889,67 +1876,47 @@ This section is very difficult to separate from the Netlas for OSINT section, as
 
 In this section, we describe more "technical" queries that can help, for example, gather information about the technical infrastructure of networks or investigate phishing attacks.
 
-
 ### SMTP Servers Information Gathering
 
-SMTP (Simple Mail Transfer Protocol) is a communication protocol that enables to send and receive emails. In most email clients, when viewing emails, the "Show Original" function is available, which allows you to view the address of the SMTP server from which the email was sent.
+SMTP transfers mail between servers. Each receiving SMTP server adds a `Received` trace field when it accepts a message for delivery or processing. Use the trace entries added by systems you trust to identify a relay to investigate, then look up its IP in Netlas. An SMTP banner is a service observation and can contain a product or host name. [SMTP trace information](https://www.rfc-editor.org/rfc/rfc5321#section-4.4) · [Netlas Responses field reference](https://docs.netlas.io/knowledge-base/field-reference/responses/)
 
-Netlas allows you to get information about an SMTP server as well as about any other IP or domain, as well as to search the text of SMPT banners, which allows you to find servers associated with a particular domain, company or hosting provider.
+Responses Search example using Postfix as the banner term.
 
-**Search query example**  
-
-![SMTP banner search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/smtp_banner_search.png)
-
+```text
+smtp.banner:postfix
 ```
-smtp.banner:fornex.cloud
-```
-
-Netlas CLI Tools:
 
 ```bash
-netlas search "smtp.banner:fornex.cloud" -f json
+netlas search 'smtp.banner:postfix' -f json
 ```
-
-Curl:
 
 ```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=smtp.banner%3Afornex.cloud&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.smtp.banner
+curl --fail --silent --show-error --get 'https://app.netlas.io/api/responses/' \
+  --data-urlencode 'q=smtp.banner:postfix' \
+  --data-urlencode 'fields=uri,smtp.banner' \
+  -H "Authorization: Bearer $NETLAS_API_KEY" | jq -r '.items[].data.smtp.banner // empty'
 ```
 
-**Code example (Netlas Python Library)**
-
-![SMTP banner search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/smtp_banner_search_python.png)
-
-Run in command line:
+The [Python example](scripts/dfir/smtp_banner_search.py) prints the URI, ISP, and banner for the first page.
 
 ```bash
 python scripts/dfir/smtp_banner_search.py
 ```
 
-Source code of scripts/dfir/smtp_banner_search.py:
+Source code.
 
 ```python
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `smtp.banner:fornex.cloud`
-netlas_query = netlas_connection.query(query="smtp.banner:fornex.cloud")
-
-
-# iterate over data and print: SMTP banner, URL, ISP
-for response in netlas_query['items']:
-    print (response['data']['smtp']['banner'])
-    print (response['data']['uri'])
-    print (response['data']['isp'])
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+result = client.search(query="smtp.banner:postfix", fields="smtp.banner,uri,isp")
+for item in result.get("items", []):
+    data = item["data"]
+    print(data.get("uri", ""), data.get("isp", ""), (data.get("smtp") or {}).get("banner", ""))
 ```
-
 
 ### Search for Domains That Could Potentially Be Used for Phishing
 
@@ -2959,578 +1926,343 @@ You can find such domains for a certain company using Netlas and fuzzy search.
 
 ![Domain fuzzy search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/domain_fuzzy_search.png)
 
+In **Domain WHOIS Search**, run a fuzzy search on a domain you monitor. For example, `~1` requests results within one edit of the given spelling.
 
-Open Whois domain search and enter company domain name + ~. For example:
-
+```text
+domain:netlas.io~1
 ```
-domain:facebook.com~
-``` 
 
-[Try in Netlas](https://app.netlas.io/whois_domains/?q=domain%3Afacebook.com~&page=1&indices=)
+Spelling similarity alone is a lead. Review registration dates, status and other evidence before attributing a result to phishing. For a spreadsheet, export the `domain`, `expiration_date`, and `status` fields as CSV. [Fuzzy search](https://docs.netlas.io/knowledge-base/query-language/#fuzzy-search) · [Domain WHOIS field reference](https://docs.netlas.io/knowledge-base/field-reference/whois_domains/)
 
-![Domain fuzzy search import](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/domain_fuzzy_search_import.png)
-
-After that click on the left icon, select the export file type, file names and the fields you want to save to the file. Click "Download" and wait for a while.
-
-![Domain fuzzy search csv](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/domain_fuzzy_search_csv.png)
-
-For example, you can select the CSV file format and the domain, expiration_date, status fields. Such a table can be conveniently viewed in Excel, Numbers or Google Docs.
-
+You can open the exported CSV in Excel, Numbers, or Google Sheets.
 
 ### Favicon Search
 
 ![Favicon search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/favicon_search.png)
 
-Searching for favicon.ico has three main uses. 
+In **Responses Search**, use the favicon search control to upload a reference icon. Netlas supports SHA-256 to match identical bytes and a 64-bit perceptual hash to identify visually similar icons. For example, the second query allows one perceptual hash symbol to differ.
 
-First, it allows you to find potentially related sites and subdomains. Try to find IP associated with Lidl shops:
-
-```
-http.favicon.perceptual_hash:003c7e72207e3c00
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=http.favicon.perceptual_hash%3A003c7e72207e3c00&page=1&indices=)
-
-And also to find phishing sites that use the design of popular social networks, online stores, etc.
-
-Second, it is a search for various IoT devices. Try to find HP products:
-
-```
-http.favicon.perceptual_hash:0c5ec8c181f37e2c
+```text
+http.favicon.perceptual_hash:00763c383c3c6e00
+http.favicon.perceptual_hash:00763c383c3c6e00~1
 ```
 
-[Try in Netlas](https://app.netlas.io/responses/?q=http.favicon.perceptual_hash%3A0c5ec8c181f37e2c&page=1&indices=)
-
-Third, it searches for servers that have certain software launched on them. Try to find servers with PhpMyAdmin: 
-
-```
-http.favicon.perceptual_hash:00084e5e5fffff8d
-```
-
-[Try in Netlas](https://app.netlas.io/responses/?q=http.favicon.perceptual_hash%3A00084e5e5fffff8d&page=1&indices=)
-
-There are three main ways to search by favicon hash in Netlas:
-
-1. Click on the icon to the left of the search result.
-2. Click on the favicon search button to the right of the search bar and paste the favicon link into the pop-up window.
-3. Click on the favicon search button to the right of the search bar and upload the favicon file.
-
-You can also use the following filters to search by favicon:
-
-- `http.favicon.last_modified`
-- `http.favicon.last_updated`
-- `http.favicon.uri`
-- `http.favicon.path`
-
+A favicon match can identify related branding or shared software. Confirm relationships with independent evidence such as DNS history or certificate metadata. [Netlas favicon search](https://docs.netlas.io/knowledge-base/scanning-technology/#favicon-search)
 
 ### Search for Domains Associated with a Specific Subnet
 
 ![Subnet search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/subnet_search.png)
 
-Netlas domain search allows to get a complete list of domains associated with a specific IP address or range of addresses. Fox example:
+Search **DNS Search** for indexed IPv4 A records that fall within a CIDR block. This returns observations from the selected index and can miss uncollected domains. Use `aaaa` for IPv6 DNS records. [DNS field reference](https://docs.netlas.io/knowledge-base/field-reference/domains/) · [CIDR-based filtering](https://docs.netlas.io/knowledge-base/query-language/#cidr-based-ip-filtering)
 
-```
+```text
 a:"163.114.132.0/24"
 ```
 
-[Try in Netlas](https://app.netlas.io/domains/?q=a%3A%22163.114.132.0%2F24%22&page=1&indices=)
-
-API request example
-
-Netlas CLI Tools:
-
 ```bash
-netlas search -d domain a:\"163.114.132.0/24\"
+netlas search -d domain 'a:"163.114.132.0/24"' -f json
 ```
 
-Curl:
-
 ```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/domains/?q=a%3A%22163.114.132.0%2F24%22&source_type=include&start=0&fields=*' \
-   -H 'accept: application/json' \
-   -H 'X-API-Key: 'YOUR_API_KEY' | jq .items[].data.domain
- ```
-
-**Code example (Netlas Python Library)**
-
-![Subnet search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/subnet_search_python.png)
-
-Run in command line:
-
-```bash
-python scripts/dfir/subnet_search.py
+curl --fail --silent --show-error --get 'https://app.netlas.io/api/domains/' \
+  --data-urlencode 'q=a:"163.114.132.0/24"' \
+  --data-urlencode 'fields=domain' \
+  -H "Authorization: Bearer $NETLAS_API_KEY" | jq -r '.items[].data.domain'
 ```
 
-Source code of scripts/dfir/subnet_search.py:
+The [Python example](scripts/dfir/subnet_search.py) takes a network in CIDR notation and prints domain names from the first page.
+
+```bash
+python scripts/dfir/subnet_search.py 163.114.132.0/24
+```
+
+Source code.
 
 ```python
+import argparse
+import os
+from ipaddress import IPv4Network
+
 import netlas
 
-apikey = "YOUR_API_KEY"
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+parser = argparse.ArgumentParser(description="Find indexed DNS A records in a subnet.")
+parser.add_argument("subnet", type=IPv4Network, help="IPv4 subnet in CIDR notation")
+args = parser.parse_args()
 
-# retrieve data from responses by query `a:"163.114.132.0/24"`
-netlas_query = netlas_connection.query(query='a:"163.114.132.0/24"',datatype="domain")
-
-# iterate over data and print: domain
-for response in netlas_query['items']: 
-    print (response['data']['domain'])
-
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+result = client.search(query=f'a:"{args.subnet}"', datatype="domain", fields="domain")
+for item in result.get("items", []):
+    print(item["data"]["domain"])
 ```
 
+<a id="search-for-servers-with-malicious-software"></a>
 
-### Search for Servers with Malicious Software
+### Check an Incident Host for a Title Indicator
 
-![Malware search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/malware_search.png)
+A page title can help corroborate an indicator on a host already identified in an incident. For example, a title containing `gophish` may indicate the GoPhish phishing simulation platform. The title can be changed or copied, and GoPhish also has legitimate uses. [GoPhish project](https://getgophish.com/) · [Netlas Responses field reference](https://docs.netlas.io/knowledge-base/field-reference/responses/)
 
-
-Netlas allows you to find servers that have various malware installed on them. You can find it by the presence of certain words in http.title or http.body, favicon hash, ssl and other parameters.
-
-Here is an example of a query that will find servers that have GoFish (Open Source Phishing Framework) installed:
-
-```
-http.title:Gophish http.title:Login
+```text
+host:"example.com" AND http.title:gophish
 ```
 
-Note that the technique of using the same operator twice (instead of an asterisk between two words) is used here. Sometimes this helps you get more search results.
-
-Here are some more examples of similar requests:
-
-```
-http.title:CALDERA http.title:login
-http.title:Deimos  http.title:C2  
-```
-
-**API request example**
-
-Netlas CLI Tools:
+Replace the example host with the exact hostname from your incident. The [Python example](scripts/dfir/malware_search.py) prints URI, title, and available country code.
 
 ```bash
-netlas search "http.title:Gophish http.title:Login" -f json
+python scripts/dfir/malware_search.py example.com
 ```
 
-Curl:
-
-```bash
-curl -X 'GET' \
-  'https://app.netlas.io/api/responses/?q=http.title%3AGophish%20http.title%3ALogin&source_type=include&start=0&fields=*' \
-  -H 'accept: application/json' \
-  -H 'X-API-Key: YOUR_API_KEY' jq .items[].data.uri
-```
-
-**Code example (Netlas Python Library)**
-
-![Malware search Python](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/malware_search_python.png)
-
-Run in command line:
-
-```bash
-python scripts/dfif/malware_search.py
-```
-
-Source code of scripts/dfir/malware_search.py:
+Source code.
 
 ```python
+import argparse
+import os
+import re
+
 import netlas
 
-apikey = "YOUR_API_KEY"
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+parser = argparse.ArgumentParser(description="Check an incident host for an indexed title indicator.")
+parser.add_argument("host", help="exact ASCII hostname from an incident")
+args = parser.parse_args()
+host = args.host.lower().rstrip(".")
+if not re.fullmatch(r"[a-z0-9-]+(?:\.[a-z0-9-]+)+", host):
+    parser.error("host must be a hostname such as example.com")
 
-# retrieve data from whois for "http.title:Gophish http.title:Login"
-netlas_query = netlas_connection.query(query="http.title:Gophish http.title:Login")
-
-
-# iterate over data and print: uri, title, country
-for response in netlas_query['items']:
-    print (response['data']['uri'])  
-    print (response['data']['http']['title'])  
-    print (response['data']['geo']['country'])
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+result = client.search(
+    query=f'host:"{host}" AND http.title:gophish', fields="uri,http.title,geo.country"
+)
+for item in result.get("items", []):
+    data = item["data"]
+    print(data.get("uri", ""), (data.get("http") or {}).get("title", ""),
+          (data.get("geo") or {}).get("country", ""))
 ```
-
 
 ## Search for Technologies and Code Examples
 
 ![Netlas for web designers](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/search_for_technologies_and_code_examples.png)
 
-Netlas, unlike conventional search engines, allows you to search the entire HTML code rather than the text of the page. This allows you to find sites that use certain JavaScript libraries. This can help you find code samples suitable for your tasks and save your time.
+Responses Search can find terms from captured HTML using the tokenized `http.body` field. For example, search for Bootstrap references on pages that mention travel in their titles.
 
-For example, looking for sites that use an old obscure library to draw graphics:
-
-```
-http.body:kinetic.js
+```text
+http.body:bootstrap AND http.title:travel
 ```
 
-You can also see how different CSS frameworks are used on sites of certain themes and borrow good design ideas:
+When Netlas detects a known technology, use `tag.name` to search for its detection label. Check your plan's tag access if the query is restricted.
 
-```
-http.body:bootstrap.css http.title:travel
-```
-
-You can also filter sites that use specific frameworks and technologies by using tags:
-
-```
-tag.bootstrap:*
-```
-```
-tag.angularjs:*
-```
-```
-tag.wordpress:*
-```
-```
-tag.nextjs:*
+```text
+tag.name:wordpress
 ```
 
-
-## Using Netlas.io for Fun or Netstalking
-
-Netlas, like many other search engines, can be used without any specific purpose, and just explore with its help unexplored corners of the Internet, hoping to find something interesting there.
-
-Here are some examples of search queries that will help you find what Google can't.
-
-Search by text of Telnet servers banners (yes, they're still alive!):
-
-```
-telnet.banner:library
-```
-
-![Telnet banner](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/telnet_banner.png)
-
-Search by text of FTP servers banners:
-
-```
-ftp.banner:*library*
-```
-
-Search for links to books and documents:
-
-```
-http.body:*rowling*pdf
-```
-
-Search for links to music and video:
-
-```
-http.body:*cats*mp4
-```
-
-Search for links to torrents file:
-
-```
-http.body:*cats*mp4
-```
-
-Keep in mind that Netlas does not censor the content it stores in its database in any way. If you find something illegal or immoral, you should complain to the hosting provider whose contacts are listed in the domain information.
-
+A body match shows that a term appeared in a stored response. A detected technology tag is a separate signal from Netlas's detection rules. [Text fields](https://docs.netlas.io/knowledge-base/query-language/#text-fields) · [Technology detection](https://docs.netlas.io/knowledge-base/software-and-vulnerabilities/#technology-detection)
 
 ## Common Problems
 
 ### Error 429 - Too Frequent Requests
 
-![Request limit](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/request_limit.png)
+Netlas documents a limit of 60 requests per minute for ordinary search and count operations and 3 per minute for certificate search and count. For short-term throttling, Netlas returns `429 Too Many Requests` with a `Retry-After` delay. The SDK and CLI retry throttled requests by default. In raw HTTP clients, wait for `Retry-After` and cap the number of attempts. A `daily_request_limit_exceeded` response means the account or anonymous daily quota is exhausted. Wait for it to reset before sending more requests. [Netlas API rate limits](https://docs.netlas.io/api-reference/#section/Rate-Limits)
 
-If your application includes multiple requests to the Netlas API, you may encounter this error:
-
-```json
-{'detail': 'Request was throttled. Expected available in 1 second.'}
-```
-
-One way to solve this problem is to use special Python libraries to configure time limits on query execution, such as [Limiter Package](https://pypi.org/project/ratelimit/). 
-
-Here is an example of its use in code (limit of no more than 60 requests per minute). First, install package:
-
-```
-pip install ratelimit
-```
-
-And run rate_limit.py:
+The [Python example](scripts/common_problems/rate_limit.py) sets the SDK retry count to two and handles `ThrottlingError` if those retries are exhausted.
 
 ```bash
 python scripts/common_problems/rate_limit.py
 ```
 
+Source code.
+
 ```python
+import os
+
 import netlas
-from ratelimit import limits
 
-# One second - one call
-@limits(calls=1, period=1)
-def netlas_query():
-     apikey = "YOUR_API_KEY"
 
-     # create new connection to Netlas
-     netlas_connection = netlas.Netlas(api_key=apikey)
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+try:
+    result = client.search(query="host:example.com", fields="uri", retry=2)
+except netlas.ThrottlingError as error:
+    raise SystemExit(f"Netlas is still throttling requests. Retry in {error.retry_after} seconds.")
 
-     # retrieve data from responses by query `cve.description:weblogic AND cve.has_exploit:true`
-     netlas_query = netlas_connection.query(query="cve.description:weblogic AND cve.has_exploit:true")
-
-     # iterate over data and print:  url, first CVE name first CVE description
-     for response in netlas_query['items']:
-        print (response['data']['uri'])
-        print (response['data']['cve'][0]['name'])
-        print (response['data']['cve'][0]['description'])
-
-netlas_query()
+for item in result.get("items", []):
+    print(item["data"]["uri"])
 ```
-
-Similar packages exist for other popular programming languages, as exceeding the request limit is a very common problem when working with almost most APIs. 
-
-If you really need to make more than one enquiry per second, you can write to the [sales team](https://netlas.io/sales/).
-
 
 ### KeyError
 
 ![Key error](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/key_error.png)
 
-Another common problem is the lack of a specific key in response for some servers. For example, ['data']['http']['title'] is quite often missing.
-
-If the key is missing, the script stops executing. Standard error handling will help to avoid this. For example:
+Another common problem is the lack of a specific key in response for some servers. For example, `['data']['http']['title']` is quite often missing.
 
 ```python
-try:
-       print (response['data']['http']['title'])
-    except:
-        print ("no title")
+for item in result.get("items", []):
+    http = item["data"].get("http") or {}
+    print(http.get("title") or "No title")
 ```
-
 
 ### Automation of Work with the List of Requests
 
-The main advantage of working with Netlas Python or the Netlas API versus just typing queries in the web version of Netlas.io is that you can save a tremendous amount of time typing one-size-fits-all queries. For example, you can quickly gather information about a long list of domains using very simple Python code.
-
-Run in command line:
+The [domain list example](scripts/common_problems/domain_list_search.py) reads [domains.txt](scripts/common_problems/domains.txt) from beside the script. Use one ASCII hostname or Punycode A-label hostname per line. The script runs exact **Domain WHOIS Search** queries and prints the domain and available registrar name. The example list uses [IANA example domains](https://www.iana.org/help/example-domains), so a lookup can return no records.
 
 ```bash
 python scripts/common_problems/domain_list_search.py
 ```
 
-Source code of domain_list_search.py:
+For a file downloaded from a URL, see [Tor Exit Nodes Search](#tor-exit-nodes-search).
+
+Source code.
 
 ```python
+import os
+import re
+from pathlib import Path
+
 import netlas
 
-apikey = "YOUR_API_KEY"
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-
-# read file domains.txt line by line
-with open("scripts/common_problems/domains.txt") as f:
-    # save each line to domain variable
-    for domain in f:
-         # retrieve data from responses by query `domain:domainname`
-        netlas_query = netlas_connection.query(
-            query=f"domain:{domain}", datatype="domain-whois"
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+with Path(__file__).with_name("domains.txt").open(encoding="utf-8") as domain_file:
+    for line_number, line in enumerate(domain_file, start=1):
+        domain = line.strip().lower().rstrip(".")
+        if not domain or domain.startswith("#"):
+            continue
+        if not re.fullmatch(r"[a-z0-9-]+(?:\.[a-z0-9-]+)+", domain):
+            raise SystemExit(f"Invalid hostname in domains.txt on line {line_number}: {line.strip()}")
+        result = client.search(
+            query=f'domain:"{domain}"', datatype="whois-domain", fields="domain,registrar.name"
         )
-
-
-        # iterate over data and print:  ip, isp
-        for response in netlas_query['items']:
-            print (response['data']['ip'])
-            print (response['data']['isp'])
+        for item in result.get("items", []):
+            data = item["data"]
+            print(data["domain"], (data.get("registrar") or {}).get("name", ""))
 ```
-
-Similarly, you can work with a list of certificates, IP addresses, emails and whatever else you want.
-
-
-An example of searching IP addresses from a URL-loaded list can be found in [Tor exit nodes search](#tor-exit-nodes-search).
-
 
 ### Saving Data in CSV Format
 
 ![Save data in CSV](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/save_data_in_csv.png)
 
-
-By default, the Netlas Python Library returns data of type Dictionary (which is very similar to JSON). If you want to export the data to MS Excel or Google Sheets, one easy way to do it is to save it in CSV format.
-
-Here's an example using the [CSV](https://docs.python.org/3/library/csv.html) package. Run csv_export.py:
+The [CSV example](scripts/common_problems/csv_export.py) writes IP, URI, and title to `netlas_results.csv` in the current directory. The [`csv` module](https://docs.python.org/3/library/csv.html) handles commas, newlines, and quoting in fields. The example prefixes formula-like cells with an apostrophe for spreadsheet display. When spreadsheet software offers an import dialog, import untrusted response columns as text. [OWASP CSV Injection](https://owasp.org/www-community/attacks/CSV_Injection)
 
 ```bash
 python scripts/common_problems/csv_export.py
 ```
 
+Source code.
+
 ```python
-import netlas
 import csv
+import os
 
-apikey = "YOUR_API_KEY"
-
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `http.meta:nazar`
-netlas_query = netlas_connection.query(query="http.meta:nazar")
-
-with open('netlas_results.csv', 'w') as csv_file:
-     # Create CSV writer object
-     writer = csv.writer(csv_file, delimiter =';')
+import netlas
 
 
-     # Create a list with data headers:
-     header = ['IP', 'URL', 'Title']
+def spreadsheet_text(value):
+    text = "" if value is None else str(value)
+    if text.startswith(("\t", "\r", "\n")) or text.lstrip().startswith(("=", "+", "-", "@", "＝", "＋", "－", "＠")):
+        return "'" + text
+    return text
 
-     # Write headers to CSV file
-     writer.writerow(header)
 
-     # iterate over data and print: ip and url to CSV file
-     for response in netlas_query['items']:
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+result = client.search(query="host:example.com", fields="ip,uri,http.title")
 
-    # Create a list with one line of data:
-          data = [response['data']['ip'], response['data']['uri']]
-    # Write line to file
-          writer.writerow(data)
-     pass
+with open("netlas_results.csv", "w", encoding="utf-8", newline="") as output:
+    writer = csv.writer(output)
+    writer.writerow(["IP", "URL", "Title"])
+    for item in result.get("items", []):
+        data = item["data"]
+        row = (data.get("ip"), data.get("uri"), (data.get("http") or {}).get("title"))
+        writer.writerow([spreadsheet_text(value) for value in row])
 ```
-
-You can open netlas_results.csv in Excel or any text editor.
-
-
 
 ### Saving Data in Other Formats
 
-Using Python, you can generate a wide variety of documents based on data from Netlas, inserting images, data visualizations, and customizing the layout. Here are some examples of useful packages.
+Using Python, you can generate a wide variety of documents based on data from Netlas, inserting images, data visualizations, and customizing the layout.
 
-[XLSXWriter](https://xlsxwriter.readthedocs.io/) - generate Microsoft Excel files.
-
-[PyPDF](https://pypdf.readthedocs.io/en/stable/) - generate PDF files.
-
-[PythonPPTX](https://python-pptx.readthedocs.io/en/latest/) - generate Microsoft Power Point Presentations.
-
-[PythonDOCX](https://python-docx.readthedocs.io/en/latest/) - generate Microsoft Word files.
-
+Use [XlsxWriter](https://xlsxwriter.readthedocs.io/) for Excel workbooks, [ReportLab](https://pypi.org/project/reportlab/) to generate PDFs, [python-pptx](https://python-pptx.readthedocs.io/) for PowerPoint presentations, or [python-docx](https://python-docx.readthedocs.io/) for Word documents.
 
 ### Decoding Punycode Domains
 
 ![ Decoding Punycode domains](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/punycode.png)
 
-As mentioned above, Netlas does not store non-Latin domain names in their original encoding, but encodes them in Punycode. This is necessary for technical reasons, but it is completely inconvenient for human perception. 
+DNS Search uses the ASCII form of an internationalized domain name. The [Python example](scripts/common_problems/punycode.py) encodes `.中国` as `xn--fiqs8s` for the query, then displays each returned domain in Unicode using the [idna package](https://pypi.org/project/idna/).
 
-But this problem is easily solved with a couple of lines of Python code.
-
-
-Install [IDNA Python package](https://pypi.org/project/idna/):
-
-```bash
-pip install idna
+```text
+domain:*.xn--fiqs8s
 ```
 
-
-And run punycode.py in command line:
-
 ```bash
+python -m pip install idna
 python scripts/common_problems/punycode.py
 ```
 
+Source code.
+
 ```python
-import netlas
+import os
+
 import idna
-
-apikey = "YOUR_API_KEY"
-
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `domain:*.中国  OR host:*.中国 `
-netlas_query = netlas_connection.query(query="domain:*.xn--fiqs8s OR host:*.xn--fiqs8s")
+import netlas
 
 
-# iterate over data and print: ip, domain (decoded from punycode)
-for response in netlas_query['items']:
-    print (response['data']['ip'])
-    decoded_domain = idna.decode(str(response['data']['domain'][0]))
-    print (decoded_domain)
+suffix = idna.encode("中国").decode("ascii")
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+result = client.search(query=f"domain:*.{suffix}", datatype="domain", fields="domain")
+for item in result.get("items", []):
+    domain = item["data"]["domain"]
+    try:
+        print(idna.decode(domain))
+    except idna.IDNAError:
+        print(domain)
 ```
-
 
 ### What to Do If Search Queries Don't Return Results?
 
-Sometimes you may encounter a situation where no or very few results are found on query, although you are sure there should be many more. In this case we recommend you to experiment and try to change the queries a bit. 
-
-
-1. Try adding two asterisks to your keyword. For example, domain:*github.com* returns 1,592,846 results. domain:githib.com - only 7911 results.
-2. Try using different search filters to achieve the same goal. For example, compare results for uri:*github.com*, host:*github.com* and domain:*github.com*.
-3. Do not use spaces in keywords. If you need to find the phrase "Hello world" in http.body, use the following query:
-   ```
-   http.body:hello http.body:world
-   ```
-
-   or
-
-   ```
-   http.body:(hello AND world)
-   ```
-4. Refine your search filters as much as possible. For example, the query cve:*2023* will not return results. But the query cve.name:*2023* will return more than 28 million.
-5. Try different tabs when working with the web app or different data types when working with the API. For example, when searching for domains, sometimes Host or Domain Whois (rather than response) works better.
-
+1. Confirm the collection and field. Use `host` for the hostname in **Responses Search** and `domain` for the name in **DNS Search** or **Domain WHOIS Search**.
+2. Verify field type and query syntax in the [search query language reference](https://docs.netlas.io/knowledge-base/query-language/). A phrase query such as `http.body:"hello world"` seeks the terms in order, while `http.body:(hello AND world)` allows any order.
+3. Test one filter at a time before combining them. Review the scan or index you selected and whether your plan includes the field.
+4. Treat zero hits as a statement about the selected dataset and filters. For known domains, check DNS and IP/Domain Info as additional sources.
 
 ### Removing HTML Tags from HTTP Body
 
-![Certificates search](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/htmltotext.png)
+The response body may include HTML tags, which can make it difficult to read in a terminal.
 
-Key ['data']['http']['body'] by default returns the full body text of the web page, including all html tags. This format is not very easy to read. But you can easily remove them with the Python package [Html2text](https://pypi.org/project/html2text/).
-
-Run in command line:
+Responses can include captured HTML in `http.body`. The [Python example](scripts/common_problems/htmltotext.py) converts that content to readable Markdown with [html2text](https://pypi.org/project/html2text/) and skips items with no body.
 
 ```bash
+python -m pip install html2text
 python scripts/common_problems/htmltotext.py
 ```
 
-Source code of htmltotext.py:
+Source code.
 
 ```python
-import netlas
+import os
+
 import html2text
-
-apikey = "YOUR_API_KEY"
-
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `http.body:*phpMyAdmin*`
-netlas_query = netlas_connection.query(query="http.body:*phpMyAdmin*")
+import netlas
 
 
-# iterate over data and print: ip, web page text
-for response in netlas_query['items']:
-    print (response['data']['ip'])
-    print (html2text.html2text(str(response['data']['http']['body'])))
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+result = client.search(query="host:example.com AND http.body:*", fields="uri,http.body")
+for item in result.get("items", []):
+    data = item["data"]
+    body = (data.get("http") or {}).get("body")
+    if body:
+        print(data.get("uri", ""))
+        print(html2text.html2text(body))
 ```
 
 ## Attack Surface Management
 
-The Netlas platform includes tools for attack surface management, but this topic is beyond the scope of this guide. If you are interested in attack surface management in general and using Netlas specifically, we recommend starting with these articles:
-
-- [Complete Guide on Attack Surface Discovery](https://netlas.io/blog/attack_surface_discovery_guide/).
-- [Best Attack Surface Visualization Tools](https://netlas.io/blog/best_attack_surface_visualization_tools/).
-
+Netlas's Attack Surface Discovery tool lets you start from a known asset and map its relationships using scan, DNS, WHOIS, and certificate observations. See the [Netlas Discovery guide](https://docs.netlas.io/quick-start/discovery/) for the workflow and plan availability.
 
 ## Working with Very Large Amounts of Data
 
 ![Datastore](https://raw.githubusercontent.com/netlas-io/netlas-cookbook/main/images/datastore.png)
 
-If you have a really big challenge ahead of you. For example, you need to collect data on hundreds of thousands of domains, then perhaps a more rational solution in terms of time and financial costs will be to buy a dataset (csv/json) and work with it on your own server.
+If you need to collect data on hundreds of thousands of domains, you can download a dataset and work with it on your own server.
 
-
-In [Netlas Datastore](https://app.netlas.io/datastore/) you can find:
-
-* Known domain names dataset (more than 2 billion items)
-* Forward DNS dataset (more than 2 billion items)
-* Known PTR records (more than 1 billion items) - FREE
-* Top 1,000,000 most common subdomains
-
-and more.
+For offline work, the [Netlas Datastore](https://app.netlas.io/datastore/) lists current datasets, sample files, formats, and access terms. The catalog includes DNS observations, scan data, and subdomain dictionaries. Dataset sizes and availability change with releases. A purchase covers one version. See the [Datastore guide](https://docs.netlas.io/quick-start/datastore/) for ongoing access options.
 
 ## Acknowledgments
 
 Many thanks [@cyb_detective](https://twitter.com/cyb_detective) for help (https://cybdetective.com)
-
-
-
-
-

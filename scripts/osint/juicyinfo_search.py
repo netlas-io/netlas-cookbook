@@ -1,15 +1,11 @@
+import os
+
 import netlas
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('host:(example.com OR *.example.com) AND http.body:pdf')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `uri:*lidl.* AND http.body:pdf`
-netlas_query = netlas_connection.query(query='uri:*lidl.* AND http.body:pdf')
-
-
-# iterate over data and print: uri, body
-for response in netlas_query['items']: 
-    print (response['data']['uri'])
-    print (response['data']['http']['body'])
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["uri"])
+    print((data.get("http") or {}).get("body", ""))

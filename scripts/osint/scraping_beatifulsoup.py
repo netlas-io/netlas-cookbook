@@ -1,21 +1,15 @@
+import os
+
 import netlas
 from bs4 import BeautifulSoup
 
-apikey = "YOUR_API_KEY"
+netlas_connection = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+results = netlas_connection.search('host:example.com AND http.body:*')
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `http.body:shop`
-netlas_query = netlas_connection.query(query="http.body:shop")
-
-
-# iterate over data and print: URL, h1 tags from body
-for response in netlas_query['items']:
-    print (response['data']['uri'])
-    soup = BeautifulSoup(response['data']['http']['body'], "html.parser")
-    try:
-        print(soup.find("h1").get_text())
-    except Exception:
-        print("no h1 tags")
-pass
+for item in results.get("items", []):
+    data = item["data"]
+    print(data["uri"])
+    body = (data.get("http") or {}).get("body") or ""
+    soup = BeautifulSoup(body, "html.parser")
+    for heading in soup.find_all("h1"):
+        print(heading.get_text(" ", strip=True))

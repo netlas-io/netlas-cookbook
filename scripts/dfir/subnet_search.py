@@ -1,14 +1,15 @@
+import argparse
+import os
+from ipaddress import IPv4Network
+
 import netlas
 
-apikey = "YOUR_API_KEY"
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+parser = argparse.ArgumentParser(description="Find indexed DNS A records in a subnet.")
+parser.add_argument("subnet", type=IPv4Network, help="IPv4 subnet in CIDR notation")
+args = parser.parse_args()
 
-# retrieve data from responses by query `a:"163.114.132.0/24"`
-netlas_query = netlas_connection.query(query='a:"163.114.132.0/24"',datatype="domain")
-
-
-# iterate over data and print: domain
-for response in netlas_query['items']: 
-    print (response['data']['domain'])
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+result = client.search(query=f'a:"{args.subnet}"', datatype="domain", fields="domain")
+for item in result.get("items", []):
+    print(item["data"]["domain"])

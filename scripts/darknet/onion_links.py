@@ -1,21 +1,17 @@
-import netlas
+import os
 import re
 
-apikey = "YOUR_API_KEY"
-
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-# retrieve data from responses by query `http.body:*.onion AND forum`
-netlas_query = netlas_connection.query(query="http.body:(*.onion AND forum)")
+import netlas
 
 
-# iterate over data and print: URL, .onion link from body
-for response in netlas_query['items']:
-    print(response['data']['uri'])
-    onion_links = re.findall("[a-z-1-9]*\.onion", response['data']['http']['body'])  
-    try:
-         print(onion_links)
-    except:
-         print("no onion links")
-pass
+onion_address = re.compile(
+    r"(?<![a-z0-9-])[a-z2-7]{56}\.onion(?![a-z0-9-]|\.[a-z0-9-])",
+    re.IGNORECASE | re.ASCII,
+)
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+result = client.search(query="http.body:onion", fields="uri,http.body")
+for item in result.get("items", []):
+    data = item["data"]
+    body = (data.get("http") or {}).get("body") or ""
+    for address in sorted({value.lower() for value in onion_address.findall(body)}):
+        print(data.get("uri", ""), address)

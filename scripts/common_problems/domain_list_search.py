@@ -1,22 +1,21 @@
+import os
+import re
+from pathlib import Path
+
 import netlas
 
-apikey = "YOUR_API_KEY"
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
-
-
-# read file domains.txt line by line
-with open("scripts/common_problems/domains.txt") as f:
-    # save each line to domain variable
-    for domain in f:
-         # retrieve data from responses by query `domain:domainname`
-        netlas_query = netlas_connection.query(
-            query=f"domain:{domain}", datatype="domain-whois"
+client = netlas.Netlas(api_key=os.environ["NETLAS_API_KEY"])
+with Path(__file__).with_name("domains.txt").open(encoding="utf-8") as domain_file:
+    for line_number, line in enumerate(domain_file, start=1):
+        domain = line.strip().lower().rstrip(".")
+        if not domain or domain.startswith("#"):
+            continue
+        if not re.fullmatch(r"[a-z0-9-]+(?:\.[a-z0-9-]+)+", domain):
+            raise SystemExit(f"Invalid hostname in domains.txt on line {line_number}: {line.strip()}")
+        result = client.search(
+            query=f'domain:"{domain}"', datatype="whois-domain", fields="domain,registrar.name"
         )
-
-
-        # iterate over data and print:  ip, isp
-        for response in netlas_query['items']:
-            print (response['data']['ip'])
-            print (response['data']['isp'])
+        for item in result.get("items", []):
+            data = item["data"]
+            print(data["domain"], (data.get("registrar") or {}).get("name", ""))

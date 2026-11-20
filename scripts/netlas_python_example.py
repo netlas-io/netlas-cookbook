@@ -1,13 +1,15 @@
+import os
+
 import netlas
 
-apikey = "YOUR API KEY"
+api_key = os.environ.get("NETLAS_API_KEY")
+if not api_key:
+    raise SystemExit("Set NETLAS_API_KEY to your Netlas API key.")
 
-# create new connection to Netlas
-netlas_connection = netlas.Netlas(api_key=apikey)
+connection = netlas.Netlas(api_key=api_key)
+results = connection.search(query="host:netlas.io")
 
-# retrieve data from responses by query `port:7001`
-netlas_query = netlas_connection.query(query="port:7001")
-
-# iterate over data and print: IP address, port, path and protocol
-for response in netlas_query['items']:
-    print(f"{response['data']['ip']}:{response['data']['port']}{response['data']['path']} [{response['data']['protocol']}]")
+for item in results["items"]:
+    uri = item.get("data", {}).get("uri")
+    if uri:
+        print(uri)
